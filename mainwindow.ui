@@ -62,7 +62,7 @@
             <string>Adaugă sunet nou</string>
            </property>
            <property name="text">
-            <string/>
+            <string>Nou</string>
            </property>
            <property name="icon">
             <iconset theme="add">
@@ -72,33 +72,26 @@
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="showInactiveCheckBox">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="toolTip">
-            <string>Ascunde sunetele inactive</string>
-           </property>
+          <widget class="QPushButton" name="pushButton_2">
            <property name="text">
             <string/>
            </property>
            <property name="icon">
-            <iconset theme="find">
-             <normaloff/>
-            </iconset>
+            <iconset theme="preferences-desktop"/>
            </property>
-           <property name="tristate">
-            <bool>true</bool>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pushButton">
            <property name="text">
-            <string>Edit profile</string>
+            <string>Editează profilul</string>
            </property>
            <property name="icon">
             <iconset theme="document-properties"/>
@@ -458,10 +451,12 @@
      <string>Sunete</string>
     </property>
     <addaction name="actionAdd"/>
+    <addaction name="actionEditeaz_lista"/>
+    <addaction name="actionAscunde_sunetele_inactive"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="sizePolicy">
      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -489,8 +484,16 @@
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
+   <widget class="QMenu" name="menuProfile">
+    <property name="title">
+     <string>Profile</string>
+    </property>
+    <addaction name="actionNou"/>
+    <addaction name="actionEditeaz_profilul_curent"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSounds"/>
+   <addaction name="menuProfile"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -502,6 +505,9 @@
    </property>
    <property name="text">
     <string>Adaugă</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionRemove">
@@ -526,6 +532,9 @@
    <property name="text">
     <string>About</string>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionExit">
    <property name="icon">
@@ -536,6 +545,9 @@
    <property name="text">
     <string>Ieșire</string>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionSave_profile">
    <property name="icon">
@@ -544,6 +556,9 @@
    <property name="text">
     <string>Salvează profil...</string>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionLoad_profile">
    <property name="icon">
@@ -551,6 +566,68 @@
    </property>
    <property name="text">
     <string>Încarcă profil...</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionEditeaz_lista">
+   <property name="icon">
+    <iconset theme="preferences-desktop"/>
+   </property>
+   <property name="text">
+    <string>Editează lista</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionNou">
+   <property name="text">
+    <string>Nou</string>
+   </property>
+  </action>
+  <action name="action_xml_version_1_0_encoding_UTF_8_ui_version_4_0_widget_name_qt_fake_top_level_widget_class_QPushButton_name_pushButton_property_name_geometry_rect_x_192_x_y_1_y_width_143_width_height_30_height_rect_property_property_name_text_string_Editeaz_profilul_string_property_property_name_icon_iconset_theme_document_properties_property_widget_widget_resources_ui">
+   <property name="text">
+    <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;ui version=&quot;4.0&quot;&gt;
+ &lt;widget name=&quot;__qt_fake_top_level&quot;&gt;
+  &lt;widget class=&quot;QPushButton&quot; name=&quot;pushButton&quot;&gt;
+   &lt;property name=&quot;geometry&quot;&gt;
+    &lt;rect&gt;
+     &lt;x&gt;192&lt;/x&gt;
+     &lt;y&gt;1&lt;/y&gt;
+     &lt;width&gt;143&lt;/width&gt;
+     &lt;height&gt;30&lt;/height&gt;
+    &lt;/rect&gt;
+   &lt;/property&gt;
+   &lt;property name=&quot;text&quot;&gt;
+    &lt;string&gt;Editează profilul&lt;/string&gt;
+   &lt;/property&gt;
+   &lt;property name=&quot;icon&quot;&gt;
+    &lt;iconset theme=&quot;document-properties&quot;/&gt;
+   &lt;/property&gt;
+  &lt;/widget&gt;
+ &lt;/widget&gt;
+ &lt;resources/&gt;
+&lt;/ui&gt;
+</string>
+   </property>
+  </action>
+  <action name="actionEditeaz_profilul_curent">
+   <property name="icon">
+    <iconset theme="document-properties"/>
+   </property>
+   <property name="text">
+    <string>Editează profilul curent</string>
+   </property>
+  </action>
+  <action name="actionAscunde_sunetele_inactive">
+   <property name="text">
+    <string>Ascunde sunetele inactive</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
    </property>
   </action>
  </widget>
