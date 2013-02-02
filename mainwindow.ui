@@ -100,6 +100,9 @@
            <property name="text">
             <string>Edit profile</string>
            </property>
+           <property name="icon">
+            <iconset theme="search"/>
+           </property>
           </widget>
          </item>
          <item>
