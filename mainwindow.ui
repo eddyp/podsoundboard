@@ -65,7 +65,9 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset theme="add"/>
+            <iconset theme="add">
+             <normaloff/>
+            </iconset>
            </property>
           </widget>
          </item>
@@ -84,7 +86,9 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset theme="find"/>
+            <iconset theme="find">
+             <normaloff/>
+            </iconset>
            </property>
            <property name="tristate">
             <bool>true</bool>
@@ -184,7 +188,7 @@
             <property name="movable">
              <bool>true</bool>
             </property>
-            <widget class="QWidget" name="tabWidget_profilePage1" native="true">
+            <widget class="QWidget" name="tabWidget_profilePage1">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -198,10 +202,12 @@
               </size>
              </property>
              <attribute name="icon">
-              <iconset theme="sound"/>
+              <iconset theme="sound">
+               <normaloff/>
+              </iconset>
              </attribute>
              <attribute name="title">
-              <string/>
+              <string>Profile1</string>
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_4">
               <property name="spacing">
@@ -481,7 +487,9 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAdd">
    <property name="icon">
-    <iconset theme="add"/>
+    <iconset theme="add">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Adaugă</string>
@@ -504,7 +512,9 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset theme="help"/>
+    <iconset theme="help">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>About</string>
@@ -512,7 +522,9 @@
   </action>
   <action name="actionExit">
    <property name="icon">
-    <iconset theme="exit"/>
+    <iconset theme="exit">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Ieșire</string>
@@ -520,7 +532,9 @@
   </action>
   <action name="actionSave_profile">
    <property name="icon">
-    <iconset theme="filesave"/>
+    <iconset theme="filesave">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Salvează profil...</string>
@@ -528,7 +542,9 @@
   </action>
   <action name="actionLoad_profile">
    <property name="icon">
-    <iconset theme="fileopen"/>
+    <iconset theme="fileopen">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Încarcă profil...</string>
