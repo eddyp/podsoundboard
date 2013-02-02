@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>287</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -51,7 +51,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_add">
          <item>
-          <widget class="QPushButton" name="addButton">
+          <widget class="QToolButton" name="addButton">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -62,7 +62,7 @@
             <string>Adaugă sunet nou</string>
            </property>
            <property name="text">
-            <string>Nou</string>
+            <string/>
            </property>
            <property name="icon">
             <iconset theme="add">
@@ -72,7 +72,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QToolButton" name="toolButton_2">
            <property name="text">
             <string/>
            </property>
@@ -89,12 +89,22 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QToolButton" name="toolButton">
            <property name="text">
-            <string>Editează profilul</string>
+            <string/>
            </property>
            <property name="icon">
             <iconset theme="document-properties"/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="toolButton">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset theme="document-save"/>
            </property>
           </widget>
          </item>
@@ -238,173 +248,43 @@
                    <x>0</x>
                    <y>0</y>
                    <width>372</width>
-                   <height>156</height>
+                   <height>143</height>
                   </rect>
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout_2">
                   <item>
                    <layout class="QVBoxLayout" name="verticalLayout_2">
                     <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_1">
-                      <item>
-                       <widget class="QCheckBox" name="checkBox_1">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string/>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="soundButton_1">
-                        <property name="enabled">
-                         <bool>false</bool>
-                        </property>
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="contextMenuPolicy">
-                         <enum>Qt::NoContextMenu</enum>
-                        </property>
-                        <property name="text">
-                         <string>Sunet1</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QToolButton" name="toolButton">
-                        <property name="cursor">
-                         <cursorShape>PointingHandCursor</cursorShape>
-                        </property>
-                        <property name="text">
-                         <string>...</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="horizontalSpacer_1">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeType">
-                         <enum>QSizePolicy::Minimum</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="delButton_1">
-                        <property name="enabled">
-                         <bool>false</bool>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <weight>75</weight>
-                          <bold>true</bold>
-                         </font>
-                        </property>
-                        <property name="text">
-                         <string>X</string>
-                        </property>
-                        <property name="icon">
-                         <iconset theme="media-eject"/>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
+                     <widget class="QSoundControl" name="soundControl_1" native="true">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>32</height>
+                       </size>
+                      </property>
+                     </widget>
                     </item>
                     <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_3">
-                      <item>
-                       <widget class="QCheckBox" name="checkBox_2">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string/>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="soundButton_2">
-                        <property name="enabled">
-                         <bool>false</bool>
-                        </property>
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Sunet2</string>
-                        </property>
-                        <property name="flat">
-                         <bool>false</bool>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QToolButton" name="toolButton_2">
-                        <property name="cursor">
-                         <cursorShape>PointingHandCursor</cursorShape>
-                        </property>
-                        <property name="text">
-                         <string>...</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="horizontalSpacer_2">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeType">
-                         <enum>QSizePolicy::Minimum</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="delButton_2">
-                        <property name="enabled">
-                         <bool>false</bool>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <weight>75</weight>
-                          <bold>true</bold>
-                         </font>
-                        </property>
-                        <property name="text">
-                         <string>X</string>
-                        </property>
-                        <property name="icon">
-                         <iconset theme="window-close"/>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
+                     <widget class="QSoundControl" name="soundControl_2" native="true">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>32</height>
+                       </size>
+                      </property>
+                     </widget>
                     </item>
                     <item>
                      <spacer name="verticalSpacer">
@@ -477,31 +357,25 @@
    </widget>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>Profil</string>
     </property>
+    <addaction name="actionNou"/>
     <addaction name="actionLoad_profile"/>
     <addaction name="actionSave_profile"/>
     <addaction name="separator"/>
-    <addaction name="actionExit"/>
-   </widget>
-   <widget class="QMenu" name="menuProfile">
-    <property name="title">
-     <string>Profile</string>
-    </property>
-    <addaction name="actionNou"/>
     <addaction name="actionEditeaz_profilul_curent"/>
+    <addaction name="action_terge_profilul_curent"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSounds"/>
-   <addaction name="menuProfile"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAdd">
    <property name="icon">
-    <iconset theme="add">
-     <normaloff/>
-    </iconset>
+    <iconset theme="list-add"/>
    </property>
    <property name="text">
     <string>Adaugă</string>
@@ -583,8 +457,14 @@
    </property>
   </action>
   <action name="actionNou">
+   <property name="icon">
+    <iconset theme="document-new"/>
+   </property>
    <property name="text">
     <string>Nou</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
    </property>
   </action>
   <action name="action_xml_version_1_0_encoding_UTF_8_ui_version_4_0_widget_name_qt_fake_top_level_widget_class_QPushButton_name_pushButton_property_name_geometry_rect_x_192_x_y_1_y_width_143_width_height_30_height_rect_property_property_name_text_string_Editeaz_profilul_string_property_property_name_icon_iconset_theme_document_properties_property_widget_widget_resources_ui">
@@ -621,8 +501,14 @@
    <property name="text">
     <string>Editează profilul curent</string>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionAscunde_sunetele_inactive">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Ascunde sunetele inactive</string>
    </property>
@@ -630,8 +516,27 @@
     <bool>true</bool>
    </property>
   </action>
+  <action name="action_terge_profilul_curent">
+   <property name="icon">
+    <iconset theme="edit-delete"/>
+   </property>
+   <property name="text">
+    <string>Șterge profilul curent</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QSoundControl</class>
+   <extends>QWidget</extends>
+   <header>qsoundcontrol.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
