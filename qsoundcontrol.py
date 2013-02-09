@@ -20,7 +20,11 @@ class QSoundControl(QtGui.QWidget):
 
     def __del__(self):
         if self.parent:
-            self.parent.unregister(self, self.name)
+            try:
+                self.parent.unregister(self, self.name)
+            except AttributeError:
+                #TODO: warn about the inconsistency
+                pass
 
     #TODO: add actual code for QSoundControl
 
