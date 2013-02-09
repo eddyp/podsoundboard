@@ -29,3 +29,9 @@ class QSoundControl(QtGui.QWidget):
 
     #TODO: add actual code for QSoundControl
 
+if __name__ == "__main__":
+    import sys
+    app = QtGui.QApplication(sys.argv)
+    myapp = QSoundControl()
+    myapp.show()
+    sys.exit(app.exec_())
