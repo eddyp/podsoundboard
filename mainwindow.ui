@@ -77,7 +77,9 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset theme="preferences-desktop"/>
+            <iconset theme="preferences-desktop">
+             <normaloff/>
+            </iconset>
            </property>
           </widget>
          </item>
@@ -94,7 +96,9 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset theme="document-properties"/>
+            <iconset theme="document-properties">
+             <normaloff/>
+            </iconset>
            </property>
           </widget>
          </item>
@@ -104,7 +108,9 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset theme="document-save"/>
+            <iconset theme="document-save">
+             <normaloff/>
+            </iconset>
            </property>
           </widget>
          </item>
@@ -375,7 +381,9 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAdd">
    <property name="icon">
-    <iconset theme="list-add"/>
+    <iconset theme="list-add">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Adaugă</string>
@@ -401,7 +409,9 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset theme="help-about"/>
+    <iconset theme="help-about">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>About</string>
@@ -425,7 +435,9 @@
   </action>
   <action name="actionSave_profile">
    <property name="icon">
-    <iconset theme="document-save"/>
+    <iconset theme="document-save">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Salvează profil...</string>
@@ -436,7 +448,9 @@
   </action>
   <action name="actionLoad_profile">
    <property name="icon">
-    <iconset theme="document-open"/>
+    <iconset theme="document-open">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Încarcă profil...</string>
@@ -447,7 +461,9 @@
   </action>
   <action name="actionEditeaz_lista">
    <property name="icon">
-    <iconset theme="preferences-desktop"/>
+    <iconset theme="preferences-desktop">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Editează lista</string>
@@ -458,7 +474,9 @@
   </action>
   <action name="actionNou">
    <property name="icon">
-    <iconset theme="document-new"/>
+    <iconset theme="document-new">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Nou</string>
@@ -496,7 +514,9 @@
   </action>
   <action name="actionEditeaz_profilul_curent">
    <property name="icon">
-    <iconset theme="document-properties"/>
+    <iconset theme="document-properties">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Editează profilul curent</string>
@@ -518,7 +538,9 @@
   </action>
   <action name="action_terge_profilul_curent">
    <property name="icon">
-    <iconset theme="edit-delete"/>
+    <iconset theme="edit-delete">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Șterge profilul curent</string>
