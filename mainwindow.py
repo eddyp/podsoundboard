@@ -28,11 +28,19 @@ class myMainWindow(QtGui.QMainWindow):
         return 'name%d' % (len(sounds)+1)
 
     def register(self, qsndctl, name):
-        if not hasSound(name):
+        if not self.hasSound(name):
             self.sounds.append(name)
             self.qsndctls.append( {'name': name, 'ctl': qsndctl} )
         else:
             raise AttributeError("Name %s already exists" % name)
+
+    def unregister(self, soundctl, name):
+        if self.hasSound(name):
+            self.sounds.remove(name)
+            self.qsndctls.remove( {'name': name, 'ctl': soundctl} )
+        else:
+            #TODO: warning about inconsistency
+            pass
 
 
 if __name__ == "__main__":
