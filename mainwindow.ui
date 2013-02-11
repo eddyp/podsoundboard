@@ -248,7 +248,7 @@
                 <property name="widgetResizable">
                  <bool>true</bool>
                 </property>
-                <widget class="QWidget" name="scrollAreaWidgetContents">
+                <widget class="QWidget" name="soundsScrollArea">
                  <property name="geometry">
                   <rect>
                    <x>0</x>
@@ -259,39 +259,7 @@
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout_2">
                   <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_2">
-                    <item>
-                     <widget class="QSoundControl" name="soundControl_1" native="true">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>32</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSoundControl" name="soundControl_2" native="true">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>32</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
+                   <layout class="QVBoxLayout" name="verticalLayout_profile">
                     <item>
                      <spacer name="verticalSpacer">
                       <property name="orientation">
@@ -551,14 +519,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>QSoundControl</class>
-   <extends>QWidget</extends>
-   <header>qsoundcontrol.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections>
   <connection>
