@@ -34,7 +34,7 @@ class myMainWindow(QtGui.QMainWindow):
         return ip
 
 
-    def addSound2Profile(self, profileIndex=None, soundName="Sound"):
+    def addSound2Profile(self, soundName="Sound", profileIndex=None):
 
         if profileIndex is None:
             profileIndex = self._currentProfile
