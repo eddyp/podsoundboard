@@ -41,7 +41,7 @@ class myMainWindow(QtGui.QMainWindow):
 
         # if there are no profiles, create one
         if profileIndex == -1:
-            profileIndex = addProfile()
+            profileIndex = self.addProfile()
 
         try:
             p = self.profiles[profileIndex]
