@@ -9,6 +9,6 @@ ui_%.py: %.ui
 	pyside-uic $^ -o $@
 
 clean:
-	rm -f $(GENBINS)
+	rm -f $(GENBINS) *.pyc
 
 .PHONY: all clean
