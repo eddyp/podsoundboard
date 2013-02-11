@@ -2,16 +2,16 @@ from PySide import QtCore, QtGui
 
 from ui_soundcontrol import Ui_QSoundControl
 
-class QSoundControl(QtGui.QWidget):
+class QSoundControl(QtGui.QWidget, Ui_QSoundControl):
 
-    def __init__(self, myparent=None, name='sound', mp3=None, flac=None):
+    def __init__(self, parent, parentform=None, name='sound', mp3=None, flac=None):
         self._name = name
-        self.myparent = myparent
+        self.myparent = parentform
         self.text = name
 
-        QtGui.QWidget.__init__(self, myparent)
+        QtGui.QWidget.__init__(self, parentform)
 
-        if myparent:
+        if parentform:
             if myparent.hasSound(self.name):
                 self.name = myparent.getNewSoundName(self.name)
             myparent.register(self, self.name)
