@@ -51,7 +51,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_add">
          <item>
-          <widget class="QToolButton" name="addButton">
+          <widget class="QToolButton" name="soundAddButton">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -72,7 +72,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="toolButton_2">
+          <widget class="QToolButton" name="soundPrefButton">
            <property name="text">
             <string/>
            </property>
@@ -91,7 +91,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="toolButton">
+          <widget class="QToolButton" name="profilePrefButton">
            <property name="text">
             <string/>
            </property>
@@ -103,7 +103,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="toolButton">
+          <widget class="QToolButton" name="profileSaveButton">
            <property name="text">
             <string/>
            </property>
