@@ -12,6 +12,7 @@ class myMainWindow(QtGui.QMainWindow):
 
         self._sounds = []
         self.qsndctls = []
+        self._currentProfile = -1
         self.profiles = []
         self.profileNames = []
 
@@ -33,12 +34,17 @@ class myMainWindow(QtGui.QMainWindow):
         return ip
 
 
-    def addSound2Profile(self, profileIndex, soundName="Sound"):
+    def addSound2Profile(self, profileIndex=self._currentProfile, soundName="Sound"):
+
+        # if there are no profiles, create one
+        if profileIndex == -1:
+            profileIndex = addProfile()
+
         try:
             p = self.profiles[profileIndex]
         except IndexError:
             # TODO: debug statement
-            raise IndexError, "Internal error: inexistent profile index selected"        
+            raise IndexError, "Internal error: inexistent profile index selected"
 
         # new sound's index
         sp = len(p)
