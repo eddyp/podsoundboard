@@ -31,6 +31,7 @@ class myMainWindow(QtGui.QMainWindow):
         ip = len(self.profiles)
         self.profiles.append([])
         self.profileNames.append(profileName)
+        self._currentProfile = ip
         return ip
 
 
