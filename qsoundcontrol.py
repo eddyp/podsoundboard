@@ -4,25 +4,25 @@ from ui_soundcontrol import Ui_QSoundControl
 
 class QSoundControl(QtGui.QWidget):
 
-    def __init__(self, parent=None, name='sound', mp3=None, flac=None):
+    def __init__(self, myparent=None, name='sound', mp3=None, flac=None):
         self._name = name
-        self.parent = parent
+        self.myparent = myparent
         self.text = name
 
-        QtGui.QWidget.__init__(self, parent)
+        QtGui.QWidget.__init__(self, myparent)
 
-        if parent:
-            if parent.hasSound(self.name):
-                self.name = parent.getNewSoundName(self.name)
-            parent.register(self, self.name)
+        if myparent:
+            if myparent.hasSound(self.name):
+                self.name = myparent.getNewSoundName(self.name)
+            myparent.register(self, self.name)
 
         self.ui = Ui_QSoundControl()
         self.ui.setupUi(self)
 
     def __del__(self):
-        if self.parent:
+        if self.myparent:
             try:
-                self.parent.unregister(self, self.name)
+                self.myparent.unregister(self, self.name)
             except AttributeError:
                 #TODO: warn about the inconsistency
                 pass
