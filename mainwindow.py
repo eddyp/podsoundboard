@@ -13,6 +13,7 @@ class myMainWindow(QtGui.QMainWindow):
         self._sounds = []
         self.qsndctls = []
         self.profiles = []
+        self.profileNames = []
 
         #TODO: add profiles
         self.ui = Ui_MainWindow()
@@ -20,12 +21,31 @@ class myMainWindow(QtGui.QMainWindow):
         self.ui.setupUi(self)
 
         #TODO: init from app config files
+        ip = self.addProfile('Profil')
+        sp = self.addSound2Profile(ip, "S1")
+
+
+    def addProfile(self, profileName='Profile'):
         ip = len(self.profiles)
         self.profiles.append([])
-        sp = len(self.profiles[ip])
-        self.profiles[ip].append(QSoundControl(self.ui.soundsScrollArea, self, "S1"))
-        self.profiles[ip][sp].setObjectName("S1")
-        self.ui.verticalLayout_profile.addWidget(self.profiles[ip][sp])
+        self.profileNames.append(profileName)
+        return ip
+
+
+    def addSound2Profile(self, profileIndex, soundName="Sound"):
+        try:
+            p = self.profiles[profileIndex]
+        except IndexError:
+            # TODO: debug statement
+            raise IndexError, "Internal error: inexistent profile index selected"        
+
+        # new sound's index
+        sp = len(p)
+        p.append(QSoundControl(self.ui.soundsScrollArea, self, soundName))
+        #TODO: detect duplicate names
+        p[sp].setObjectName(soundName)
+        self.ui.verticalLayout_profile.addWidget(p[sp])
+        return sp
 
 
     def hasSound(self, name):
