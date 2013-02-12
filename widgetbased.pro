@@ -20,3 +20,7 @@ HEADERS  += mainwindow.h
 FORMS    += mainwindow.ui \
     soundcontrol.ui \
     confsound.ui
+
+OTHER_FILES += \
+    qsoundcontrol.py \
+    mainwindow.py
