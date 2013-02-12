@@ -10,7 +10,7 @@ The app doesn't do any mixing of its own, it is assumed the default sound card's
 
 Licensing
 ---------
-Copyright: Eddy Petrișor, 2013
+Copyright: Eddy Petrișor \<eddy.petrisor+podsoundboard@gmail.com\>, 2013
 
 License is GPLv3 or later. For the text of the GNU GPL version 3, see the Freesoftware Foundation site.
 
@@ -18,7 +18,8 @@ License is GPLv3 or later. For the text of the GNU GPL version 3, see the Freeso
 Features
 --------
 
- * Define/save/reuse sound set profiles (think one profile/podcast)
+ * Define/save/reuse sound set profiles
+   * Application can have multiple profile, one profile/podcast
  * Import existing audio files as named sounds into the application
  * Enable/disable unused sounds in profile
  * Hide/show unused sounds
@@ -31,19 +32,19 @@ Extra features might include:
  * Configurable Stopwatch/timer for the entire broadcast and for each segment
     - think: show with timed segments of arbitrary durations;
     - e.g.: 30 min show with 4 segments of: 5, 10, 10 and 5 minutes
- * optional custom icon/image for each of the sounds
+ * optionally, a custom icon/image for each of the sounds can be set
  * portable to Windows
  * accessible via a web interface
 
 Typical layout of a studio using PodSoundBoard
 ----------------------------------------------
 
-                          
-    +-----------------+
-    | computer running|       +-------+
-    |                 +------>|       |
-    |  PodSoundBoard  |       |       |
-    +-----------------+       |       |
+
+    +------------------+
+    | computer running |      +-------+
+    |                  +----->|       |
+    |  PodSoundBoard   |      |       |
+    +------------------+      |       |
                               | mixer +------->(recorder/broadcast)
            (microphone)------>|       |
            (microphone)------>|       |
@@ -56,15 +57,23 @@ Installation
 ------------
 
 PodSoundBoard is:
-* written in Python (tested on 2.7)
+* written in Python
 * uses PySide bindings for Qt4 as a portable GUI library
-* going to use Phonon of gstreamer for playback (and sound extraction)
+* going to use Phonon or gstreamer for playback (and sound extraction)
 * Although PodSoundBoard uses Qt4, is **NOT** a KDE application!
-
 
 Installation is not yet necessary, just 'make' to generate the ui_*.py code.
 
 Run with 'python mainwindow.py'.
+
+
+Dependencies
+- - - - - - 
+Application was developed on Debian GNU/Linux using:
+* Python 2.7
+* Pyside 1.1.1
+* Qt 4.8.2
+
 
 
 Known issues
@@ -74,7 +83,7 @@ Known issues
 * Icons, although visible in QtDesigner, do not load; all icons are empty
 * Menus and tooltips are in Romanian
   * I am writing this to be used on the podcast 'Sceptici în România'
-    * http://podcast.sceptici.ro
+     * http://podcast.sceptici.ro
   * there will be an English translation when the app is at least useful
 
 
