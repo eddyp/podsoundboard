@@ -22,9 +22,11 @@ class myMainWindow(QtGui.QMainWindow):
         self.ui.setupUi(self)
 
         #TODO: init from app config files
-        ip = self.addProfile('Profil')
-        sp = self.addSound2Profile(ip, "S1")
-        sp = self.addSound2Profile(ip, "S1")
+##        ip = self.addProfile('Profil')
+##        sp = self.addSound2Profile("S1", ip)
+##        sp = self.addSound2Profile("S1", ip)
+        self.addSound2Profile("S1")
+        self.addSound2Profile("S1")
 
 
     def addProfile(self, profileName='Profile'):
