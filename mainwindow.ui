@@ -73,6 +73,9 @@
          </item>
          <item>
           <widget class="QToolButton" name="soundPrefButton">
+           <property name="toolTip">
+            <string>Configurează sunetele...</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -92,6 +95,9 @@
          </item>
          <item>
           <widget class="QToolButton" name="profilePrefButton">
+           <property name="toolTip">
+            <string>Configurează profilul...</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -104,6 +110,9 @@
          </item>
          <item>
           <widget class="QToolButton" name="profileSaveButton">
+           <property name="toolTip">
+            <string>Salvează profilul</string>
+           </property>
            <property name="text">
             <string/>
            </property>
