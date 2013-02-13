@@ -1,4 +1,4 @@
-WIDGETS := mainwindow soundcontrol
+WIDGETS := $(subst .ui,,$(wildcard *.ui))
 GENBINS := $(foreach W, $(WIDGETS), ui_$(W).py)
 PROG    := mainwindow.py
 
