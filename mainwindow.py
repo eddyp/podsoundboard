@@ -28,6 +28,8 @@ class myMainWindow(QtGui.QMainWindow):
         self.addSound2Profile("S1")
         self.addSound2Profile("S1")
 
+        self.initSlots()
+
 
     def addProfile(self, profileName='Profile'):
         ip = len(self.profiles)
@@ -60,6 +62,9 @@ class myMainWindow(QtGui.QMainWindow):
         self.ui.verticalLayout_profile.addWidget(p[sp])
         return sp
 
+
+    def initSlots(self):
+        QtCore.QObject.connect(self.ui.soundAddButton, QtCore.SIGNAL("clicked()"), self.addSound2Profile)
 
     def hasSound(self, name):
         return (name in self._sounds)
