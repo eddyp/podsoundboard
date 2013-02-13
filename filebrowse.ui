@@ -17,7 +17,7 @@
    <item row="0" column="0" colspan="2">
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Chose audio file:</string>
+      <string>Alege fișierul audio:</string>
      </property>
     </widget>
    </item>
