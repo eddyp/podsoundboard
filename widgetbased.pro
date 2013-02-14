@@ -23,5 +23,7 @@ FORMS    += mainwindow.ui \
     filebrowse.ui
 
 OTHER_FILES += \
-    qsoundcontrol.py \
-    mainwindow.py
+    mainwindow.py \
+    soundcontrol.py \
+    filebrowse.py \
+    confsound.py
