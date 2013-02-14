@@ -5,7 +5,7 @@ import sys
 from PySide import QtCore, QtGui
 
 from ui_mainwindow import Ui_MainWindow
-from qsoundcontrol import QSoundControl
+from soundcontrol import soundControl
 
 class myMainWindow(QtGui.QMainWindow):
     def __init__(self, parent=None):
@@ -59,7 +59,7 @@ class myMainWindow(QtGui.QMainWindow):
 
         # new sound's index
         sp = len(p)
-        p.append(QSoundControl(self.ui.soundsScrollArea, self, soundName))
+        p.append(soundControl(self.ui.soundsScrollArea, self, soundName))
         #TODO: detect duplicate names
         p[sp].setObjectName(soundName)
         self.ui.verticalLayout_profile.addWidget(p[sp])

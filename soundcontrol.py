@@ -3,9 +3,9 @@
 
 from PySide import QtCore, QtGui
 
-from ui_soundcontrol import Ui_QSoundControl
+from ui_soundcontrol import Ui_soundControl
 
-class QSoundControl(QtGui.QWidget, Ui_QSoundControl):
+class soundControl(QtGui.QWidget, Ui_soundControl):
 
     def __init__(self, parent, parentform=None, name='sound', mp3=None, flac=None):
         self._name = name
@@ -19,7 +19,7 @@ class QSoundControl(QtGui.QWidget, Ui_QSoundControl):
                 self._name = self.parentform.getNewSoundName(self._name)
             self.parentform.register(self, self._name)
 
-        self.ui = Ui_QSoundControl()
+        self.ui = Ui_soundControl()
         self.ui.setupUi(self)
 
     def __del__(self):
@@ -30,11 +30,11 @@ class QSoundControl(QtGui.QWidget, Ui_QSoundControl):
                 #TODO: warn about the inconsistency
                 pass
 
-    #TODO: add actual code for QSoundControl
+    #TODO: add actual code for soundControl
 
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
-    myapp = QSoundControl()
+    myapp = soundControl()
     myapp.show()
     sys.exit(app.exec_())

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>302</height>
+    <height>337</height>
    </rect>
   </property>
   <property name="cursor">
@@ -150,7 +150,7 @@
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
    <receiver>confSoundDialog</receiver>
-   <slot>close()</slot>
+   <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>199</x>

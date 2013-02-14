@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>QSoundControl</class>
- <widget class="QWidget" name="QSoundControl">
+ <class>soundControl</class>
+ <widget class="QWidget" name="soundControl">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -186,7 +186,7 @@
   <connection>
    <sender>delButton</sender>
    <signal>clicked()</signal>
-   <receiver>QSoundControl</receiver>
+   <receiver>soundControl</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
