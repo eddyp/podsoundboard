@@ -28,6 +28,8 @@ class myMainWindow(QtGui.QMainWindow):
 ##        sp = self.addSound2Profile("S1", ip)
         self.addSound2Profile("S1")
         self.addSound2Profile("S1")
+        self.addSound2Profile("S1")
+        self.addSound2Profile("S1")
 
         self.initSlots()
 
