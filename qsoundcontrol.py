@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from PySide import QtCore, QtGui
 
 from ui_soundcontrol import Ui_QSoundControl

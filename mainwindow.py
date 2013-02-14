@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import sys
 from PySide import QtCore, QtGui
@@ -70,7 +71,7 @@ class myMainWindow(QtGui.QMainWindow):
         return (name in self._sounds)
 
     def getNewSoundName(self, name):
-        #TODO: find a smart way to compute a new unique name        
+        #TODO: find a smart way to compute a new unique name
 
         #TODO: this might fail to provide a good name when
         #      other than the last sound is removed
