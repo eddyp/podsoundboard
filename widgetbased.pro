@@ -12,10 +12,9 @@ TARGET = widgetbased
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp
+SOURCES +=
 
-HEADERS  += mainwindow.h
+HEADERS  +=
 
 FORMS    += mainwindow.ui \
     soundcontrol.ui \
