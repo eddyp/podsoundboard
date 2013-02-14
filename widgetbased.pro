@@ -25,4 +25,4 @@ OTHER_FILES += \
     mainwindow.py \
     soundcontrol.py \
     filebrowse.py \
-    confsound.py
+    confsounddialog.py
