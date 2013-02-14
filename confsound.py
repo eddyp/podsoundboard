@@ -1,0 +1,40 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import sys
+import string
+from os import sep, path
+from PySide import QtCore, QtGui
+
+from ui_confsound import Ui_confSoundDialog
+
+class confSoundDialog(QtGui.QDialog):
+    _file = None
+    _name = None
+    def __init__(self, parent=None):
+        QtGui.QDialog.__init__(self, parent)
+        self.ui = Ui_confSoundDialog()
+        self.ui.setupUi(self)
+        # connect the Choose button to the QFile Dialog
+        self.ui.chooseFileButton.clicked.connect(self.getFileName)
+        
+
+    def getFileName(self):
+        filename = QtGui.QFileDialog.getOpenFileName(self, u'Alege fișierul', \
+                QtCore.QDir().homePath(), \
+                'Audio files (*.mp3 *.flac *.wav)')
+        #for some reason the filter is retuned, too
+        fn, dummy = filename
+        if fn:
+            self._file = fn
+            self._name = path.basename(fn.rstrip(sep + string.whitespace))
+
+            self.ui.fileNameEdit.setText(self._file)
+            self.ui.soundNameEdit.setText(self._name)
+        return filename
+
+if __name__ == "__main__":
+    app = QtGui.QApplication(sys.argv)
+    myapp = confSoundDialog()
+    myapp.show()
+    sys.exit(app.exec_())
