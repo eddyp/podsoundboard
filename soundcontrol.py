@@ -25,6 +25,7 @@ class soundControl(QtGui.QWidget):
         self.ui.setupUi(self)
         self.ui.soundButton.setText(self._name)
         self.ui.configButton.clicked.connect(self.openConfDialog)
+        self.ui.delButton.clicked.connect(self.confirmClose)
 
     def __del__(self):
         if self.parentform:
@@ -33,6 +34,14 @@ class soundControl(QtGui.QWidget):
             except AttributeError:
                 #TODO: warn about the inconsistency
                 pass
+
+    def confirmClose(self):
+        confirm = QtGui.QMessageBox.warning(self, "Confirmare", \
+                            u"Sigur vrei să închizi " + self._name + "?", \
+                            QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel, \
+                            QtGui.QMessageBox.Cancel)
+        if confirm is QtGui.QMessageBox.StandardButton.FirstButton:
+            self.close()
 
     def openConfDialog(self):
         confdialog = confSoundDialog(self)
