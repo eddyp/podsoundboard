@@ -13,11 +13,16 @@ class confSoundDialog(QtGui.QDialog):
     _name = None
     def __init__(self, parent=None):
         QtGui.QDialog.__init__(self, parent)
+        self._parent = parent
         self.ui = Ui_confSoundDialog()
         self.ui.setupUi(self)
         # connect the Choose button to the QFile Dialog
         self.ui.chooseFileButton.clicked.connect(self.getFileName)
-        
+        self.ui.buttonBox.accepted.connect(self.sendInfo2Parent)
+
+    def sendInfo2Parent(self):
+        if self._parent:
+            self._parent.setNameAndFile(self._name, self._file)
 
     def getFileName(self):
         filename = QtGui.QFileDialog.getOpenFileName(self, u'Alege fișierul', \
