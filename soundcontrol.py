@@ -6,7 +6,7 @@ from PySide import QtCore, QtGui
 from ui_soundcontrol import Ui_soundControl
 from confsounddialog import confSoundDialog
 
-class soundControl(QtGui.QWidget, Ui_soundControl):
+class soundControl(QtGui.QWidget):
 
     _file = None
     def __init__(self, parent, parentform=None, name=u'sound'):
