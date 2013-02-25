@@ -11,32 +11,29 @@ from PySide import QtCore, QtGui
 from ui_mainwindow import Ui_MainWindow
 from soundcontrol import soundControl
 
+from appconfig import appconfig
+
 class myMainWindow(QtGui.QMainWindow):
     def __init__(self, parent=None):
         QtGui.QMainWindow.__init__(self, parent)
 
+        # TODO: keep everything together in dictionaries
         self._sounds = []
         self.qsndctls = []
         self._currentProfile = -1
         self.profiles = []
         self.profileNames = []
+        self._conf = {}
 
-        #TODO: add profiles
+        # TODO: add profiles
         self.ui = Ui_MainWindow()
 
         self.ui.setupUi(self)
 
-        #TODO: init from app config files
-##        ip = self.addProfile('Profil')
-##        sp = self.addSound2Profile("S1", ip)
-##        sp = self.addSound2Profile("S1", ip)
-        self.addSound2Profile("S1")
-        self.addSound2Profile("S1")
-        self.addSound2Profile("S1")
-        self.addSound2Profile("S1")
+        self._conf = appconfig(appname, appver, self._sounds, self._profiles, self._currentProfile)
+        # TODO: create objects for current profile
 
         self.initSlots()
-
 
     def addProfile(self, profileName='Profile'):
         ip = len(self.profiles)
