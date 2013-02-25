@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+appname = 'PodSoundBoard'
+appver = '0.1'
+appauthor = 'eddyp'
+
 import sys
 from PySide import QtCore, QtGui
 
