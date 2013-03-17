@@ -26,10 +26,18 @@ import os
 # ...
 #===========================
 
+# TODO: use appdirs from Pypi
 class appdirs:
 
     def user_config_dir(appname=None):
         path = os.getenv('XDG_CONFIG_HOME', os.path.expanduser('~/.config'))
+        if appname:
+            path = os.path.join(path, appname)
+        return path
+
+
+    def user_data_dir(appname=None):
+        path = os.getenv('XDG_DATA_HOME', os.path.expanduser('~/.local/share'))
         if appname:
             path = os.path.join(path, appname)
         return path
@@ -57,7 +65,6 @@ class appconfig():
         if len(self._configparser.read(self._configfile)):
             self.readconfig(appver)
 
-        # TODO: copy self._conf subfields to params
         return self._conf
 
 
@@ -135,5 +142,4 @@ class appconfig():
             return profiles, active_profile
 
         else:
-            return {},  None
-
+            return {}, None
