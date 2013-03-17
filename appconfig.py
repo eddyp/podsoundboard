@@ -126,6 +126,9 @@ class appconfig():
             profiles = {}
             profilenames = [ self._configparser.get('Profiles', x) for x in profiles_list ]
 
+            if len(profilenames) == 0:
+                return {},  None
+
             # get active profile
             active_profile = None
             try:
