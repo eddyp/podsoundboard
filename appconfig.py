@@ -56,17 +56,21 @@ class appconfig():
         if self._conf and cfgfile and cfgfile<>self._configfile:
             return self._conf
 
-        if not cfgfile:
-            dir = appdirs.user_config_dir(appname)
-            self._configfile = os.path.join(dir + 'cfg.ini')
-        else:
-            self._configfile = cfgfile
+        self._appname = appname
+        self.setCfgFilename(cfgfile)
+
         self._configparser = scp()
         if len(self._configparser.read(self._configfile)):
             self.readconfig(appver)
 
         return self._conf
 
+    def setCfgFilename(self, cfgfile=None):
+        if not cfgfile:
+            dir = appdirs.user_config_dir(self._appname)
+            self._configfile = os.path.join(dir + 'cfg.ini')
+        else:
+            self._configfile = cfgfile
 
     def readconfig(self, appver):
         cfgversion = self._configparser.get('General', 'cfgversion')
