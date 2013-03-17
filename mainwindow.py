@@ -31,8 +31,21 @@ class myMainWindow(QtGui.QMainWindow):
         self.ui.setupUi(self)
 
         config = appconfig(appname, appver)
+        self._sounds = config['sounds'].keys().sorted()
+        self._initProfilesFromConfig(config)
 
         self.initSlots()
+
+
+    def _initProfilesFromConfig(self, config):
+        for p in config['profiles'].keys().sorted():
+            idx = self.addProfile(p)
+            for a in True, False:
+                for s in config[p][a]:
+                    self.addSound2Profile(soundName=s, profileIndex=idx, active=a)
+        self._currentProfileIndex = self.profileNames.index(config['active_profile'])
+        # TODO: refresh GUI interface
+
 
     def addProfile(self, profileName='Profile'):
         ip = len(self.profiles)
@@ -42,7 +55,7 @@ class myMainWindow(QtGui.QMainWindow):
         return ip
 
 
-    def addSound2Profile(self, soundName="Sound", profileIndex=None):
+    def addSound2Profile(self, soundName="Sound", profileIndex=None, soundfile=None, active=False):
 
         if profileIndex is None:
             profileIndex = self._currentProfileIndex
@@ -59,6 +72,7 @@ class myMainWindow(QtGui.QMainWindow):
 
         # new sound's index
         sp = len(p)
+        # TODO: take into account 'soundfile' and 'active'
         p.append(soundControl(self.ui.soundsScrollArea, self, soundName))
         #TODO: detect duplicate names
         p[sp].setObjectName(soundName)
