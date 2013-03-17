@@ -100,13 +100,18 @@ class appconfig():
             soundnames = self._configparser.options('Sounds')
             datadir = appdirs.user_data_dir(self._appname)
             for s in soundnames:
-                v = self._configparser.get('Sounds', s)
-                if os.path.isabs():
-                    fn = v
+                if not s in sounds.keys():
+                    v = os.path.normpath(self._configparser.get('Sounds', s))
+                    if os.path.isabs():
+                        fn = v
+                    else:
+                        fn = os.path.join(datadir, v)
+                    # TODO: validate is a true sound file
+                    if os.path.isfile(fn):
+                        sounds[s] = fn
                 else:
-                    fn = os.path.join(datadir, v)
-                sounds[s] = fn
-                # TODO: validate sound file; check no duplicates
+                    # XXX: report duplicate sound name
+                    pass
         return sounds
 
 
