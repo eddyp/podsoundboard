@@ -27,20 +27,17 @@ import os
 #===========================
 
 # TODO: use appdirs from Pypi
-class appdirs:
+def user_config_dir(self, appname=None):
+    path = os.getenv('XDG_CONFIG_HOME', os.path.expanduser('~/.config'))
+    if appname:
+        path = os.path.join(path, appname)
+    return path
 
-    def user_config_dir(appname=None):
-        path = os.getenv('XDG_CONFIG_HOME', os.path.expanduser('~/.config'))
-        if appname:
-            path = os.path.join(path, appname)
-        return path
-
-
-    def user_data_dir(appname=None):
-        path = os.getenv('XDG_DATA_HOME', os.path.expanduser('~/.local/share'))
-        if appname:
-            path = os.path.join(path, appname)
-        return path
+def user_data_dir(self, appname=None):
+    path = os.getenv('XDG_DATA_HOME', os.path.expanduser('~/.local/share'))
+    if appname:
+        path = os.path.join(path, appname)
+    return path
 
 
 class appconfig():
@@ -52,7 +49,8 @@ class appconfig():
     _configfile = None
     _configparser = None
 
-    def appconfig(self, appname, appver, cfgfile=None):
+
+    def __init__(self, appname, appver, cfgfile=None):
         if self._conf and cfgfile and cfgfile<>self._configfile:
             return self._conf
 
@@ -63,11 +61,12 @@ class appconfig():
         if len(self._configparser.read(self._configfile)):
             self.readconfig(appver)
 
+    def getConfig(self):
         return self._conf
 
     def setCfgFilename(self, cfgfile=None):
         if not cfgfile:
-            dir = appdirs.user_config_dir(self._appname)
+            dir = user_config_dir(self._appname)
             self._configfile = os.path.join(dir + 'cfg.ini')
         else:
             self._configfile = cfgfile
@@ -98,7 +97,7 @@ class appconfig():
         sounds = {}
         if self._configparser.has_section('Sounds'):
             soundnames = self._configparser.options('Sounds')
-            datadir = appdirs.user_data_dir(self._appname)
+            datadir = user_data_dir(self._appname)
             for s in soundnames:
                 if not s in sounds.keys():
                     v = os.path.normpath(self._configparser.get('Sounds', s))
