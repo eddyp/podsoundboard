@@ -27,6 +27,7 @@ class soundControl(QtGui.QWidget):
         self.ui.soundButton.setText(self._name)
         self.ui.configButton.clicked.connect(self.openConfDialog)
         self.ui.delButton.clicked.connect(self.confirmClose)
+        self.ui.soundButton.clicked.connect(self.playSound)
         self.setActive(active)
 
     def __del__(self):
@@ -59,7 +60,15 @@ class soundControl(QtGui.QWidget):
         self.ui.soundButton.setText(self._text)
         #m = QtGui.QMessageBox.information(self, 'info',name)
 
-    #TODO: add actual code for soundControl
+    #TODO: use a library for playing the media file
+    def playSound(self):
+        if self._file:
+            import os
+            if os.path.isfile(self._file):
+                import subprocess
+                subprocess.call(["mplayer", self._file])
+            else:
+                self.setActive(False)
 
 if __name__ == "__main__":
     import sys
