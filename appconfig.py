@@ -98,9 +98,14 @@ class appconfig():
         sounds = {}
         if self._configparser.has_section('Sounds'):
             soundnames = self._configparser.options('Sounds')
+            datadir = appdirs.user_data_dir(self._appname)
             for s in soundnames:
                 v = self._configparser.get('Sounds', s)
-                sounds[s] = v
+                if os.path.isabs():
+                    fn = v
+                else:
+                    fn = os.path.join(datadir, v)
+                sounds[s] = fn
                 # TODO: validate sound file; check no duplicates
         return sounds
 
