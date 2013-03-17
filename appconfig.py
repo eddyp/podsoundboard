@@ -53,7 +53,7 @@ class appconfig():
     _configparser = None
 
     def appconfig(self, appname, appver, cfgfile=None):
-        if self._conf:
+        if self._conf and cfgfile and cfgfile<>self._configfile:
             return self._conf
 
         if not cfgfile:
