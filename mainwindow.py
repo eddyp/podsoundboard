@@ -18,12 +18,12 @@ class myMainWindow(QtGui.QMainWindow):
         QtGui.QMainWindow.__init__(self, parent)
 
         # TODO: keep everything together in dictionaries
-        self._sounds = []
-        self.qsndctls = []
-        self._currentProfile = -1
-        self.profiles = []
-        self.profileNames = []
-        self._conf = {}
+        self._sounds = []              # all sound names
+        self.qsndctls = []             # list of dicts with 'name' and 'ctl' keys
+        self._currentProfileIndex = -1 # active profile
+        self.profiles = []             # will contain a list of sound controls
+        self.profileNames = []         # all profile names
+        #self._conf = {}
 
         # TODO: add profiles
         self.ui = Ui_MainWindow()
@@ -38,14 +38,14 @@ class myMainWindow(QtGui.QMainWindow):
         ip = len(self.profiles)
         self.profiles.append([])
         self.profileNames.append(profileName)
-        self._currentProfile = ip
+        self._currentProfileIndex = ip
         return ip
 
 
     def addSound2Profile(self, soundName="Sound", profileIndex=None):
 
         if profileIndex is None:
-            profileIndex = self._currentProfile
+            profileIndex = self._currentProfileIndex
 
         # if there are no profiles, create one
         if profileIndex == -1:
