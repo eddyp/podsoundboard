@@ -17,6 +17,7 @@ class myMainWindow(QtGui.QMainWindow):
     def __init__(self, parent=None):
         QtGui.QMainWindow.__init__(self, parent)
 
+        self.initSounds()
         self.initProfiles()
 
         # TODO: add profiles
@@ -30,11 +31,12 @@ class myMainWindow(QtGui.QMainWindow):
 
         self.initSlots()
 
-
-    def initProfiles(self):
-        # TODO: keep everything together in dictionaries
+    # TODO: keep everything together in dictionaries
+    def initSounds(self):
         self._sounds = []              # all sound names
         self.qsndctls = []             # list of dicts with 'name' and 'ctl' keys
+
+    def initProfiles(self):
         self._currentProfileIndex = -1 # active profile
         self.profiles = []             # a list of lists containing sound controls
         self.profileNames = []         # all profile names
