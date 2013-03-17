@@ -9,10 +9,11 @@ from confsounddialog import confSoundDialog
 class soundControl(QtGui.QWidget):
 
     _file = None
-    def __init__(self, parent, parentform=None, name=u'sound'):
-        self._name = name
+    def __init__(self, parent, parentform=None, name=u'sound', file=None, active=False):
         self.parentform = parentform
+        self._name = name
         self._text = name
+        self._file = file
 
         QtGui.QWidget.__init__(self, parentform)
 
@@ -26,6 +27,7 @@ class soundControl(QtGui.QWidget):
         self.ui.soundButton.setText(self._name)
         self.ui.configButton.clicked.connect(self.openConfDialog)
         self.ui.delButton.clicked.connect(self.confirmClose)
+        self.setActive(active)
 
     def __del__(self):
         if self.parentform:
@@ -47,12 +49,14 @@ class soundControl(QtGui.QWidget):
         confdialog = confSoundDialog(self)
         confdialog.show()
 
+    def setActive(self, state):
+        self.ui.checkBox.setChecked(state)
+
     def setNameAndFile(self, name, file):
         self._name = name
         self._file = file
         self._text = name
         self.ui.soundButton.setText(self._text)
-        self.ui.checkBox.setChecked(True)
         #m = QtGui.QMessageBox.information(self, 'info',name)
 
     #TODO: add actual code for soundControl

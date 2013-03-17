@@ -23,6 +23,7 @@ class confSoundDialog(QtGui.QDialog):
     def sendInfo2Parent(self):
         if self._parent:
             self._parent.setNameAndFile(self._name, self._file)
+            self._parent.setActive(True)
 
     def getFileName(self):
         filename = QtGui.QFileDialog.getOpenFileName(self, u'Alege fișierul', \

@@ -17,13 +17,7 @@ class myMainWindow(QtGui.QMainWindow):
     def __init__(self, parent=None):
         QtGui.QMainWindow.__init__(self, parent)
 
-        # TODO: keep everything together in dictionaries
-        self._sounds = []              # all sound names
-        self.qsndctls = []             # list of dicts with 'name' and 'ctl' keys
-        self._currentProfileIndex = -1 # active profile
-        self.profiles = []             # will contain a list of sound controls
-        self.profileNames = []         # all profile names
-        #self._conf = {}
+        self.initProfiles()
 
         # TODO: add profiles
         self.ui = Ui_MainWindow()
@@ -37,7 +31,18 @@ class myMainWindow(QtGui.QMainWindow):
         self.initSlots()
 
 
+    def initProfiles(self):
+        # TODO: keep everything together in dictionaries
+        self._sounds = []              # all sound names
+        self.qsndctls = []             # list of dicts with 'name' and 'ctl' keys
+        self._currentProfileIndex = -1 # active profile
+        self.profiles = []             # a list of lists containing sound controls
+        self.profileNames = []         # all profile names
+        #self._conf = {}
+
+
     def _initProfilesFromConfig(self, config):
+        self.initProfiles()
         for p in config['profiles'].keys().sorted():
             idx = self.addProfile(p)
             for a in True, False:
@@ -72,8 +77,7 @@ class myMainWindow(QtGui.QMainWindow):
 
         # new sound's index
         sp = len(p)
-        # TODO: take into account 'soundfile' and 'active'
-        p.append(soundControl(self.ui.soundsScrollArea, self, soundName))
+        p.append(soundControl(self.ui.soundsScrollArea, self, soundName, soundfile, active))
         #TODO: detect duplicate names
         p[sp].setObjectName(soundName)
         self.ui.verticalLayout_profile.addWidget(p[sp])
