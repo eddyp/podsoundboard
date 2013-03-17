@@ -23,6 +23,15 @@ import os
 # ...
 #===========================
 
+class appdirs:
+
+    def user_config_dir(appname=None):
+        path = os.getenv('XDG_CONFIG_HOME', os.path.expanduser('~/.config'))
+        if appname:
+            path = os.path.join(path, appname)
+        return path
+
+
 class appconfig():
     _conf = {
              'sounds': {},
@@ -32,12 +41,15 @@ class appconfig():
     _configfile = None
     _configparser = None
 
-    def appconfig(self, appname, appver):
+    def appconfig(self, appname, appver, cfgfile=None):
         if self._conf:
             return self._conf
 
-        # TODO: use xdg-based config
-        self._configfile = os.path.expanduser('~/.config/' + appname + 'cfg.ini')
+        if not cfgfile:
+            dir = appdirs.user_config_dir(appname)
+            self._configfile = os.path.join(dir + 'cfg.ini')
+        else:
+            self._configfile = cfgfile
         self._configparser = scp()
         if len(self._configparser.read(self._configfile)):
             self.readconfig(appver)
