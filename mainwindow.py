@@ -26,7 +26,7 @@ class myMainWindow(QtGui.QMainWindow):
         self.ui.setupUi(self)
 
         config = appconfig(appname, appver)
-        self._sounds = config['sounds'].keys().sorted()
+        self._initSoundsFromConfig(config)
         self._initProfilesFromConfig(config)
 
         self.initSlots()
@@ -42,9 +42,14 @@ class myMainWindow(QtGui.QMainWindow):
         self.profileNames = []         # all profile names
         #self._conf = {}
 
+    def _initSoundsFromConfig(self, config):
+        self.initSounds()
+        self._sounds = config['sounds'].keys().sorted()
 
     def _initProfilesFromConfig(self, config):
         self.initProfiles()
+        # TODO: correctly delete all existent sound controls
+
         for p in config['profiles'].keys().sorted():
             idx = self.addProfile(p)
             for a in True, False:
