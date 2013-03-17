@@ -4,7 +4,7 @@ import os
 # configuration file format:
 #===========================
 # [General]
-# version = 1.0
+# cfgversion = 1
 # active_profile = <ActiveProfileName>
 # [Sounds]
 # <soundname> = <sound_filename>
@@ -32,8 +32,7 @@ class appconfig():
     _configfile = None
     _configparser = None
 
-
-    def appconfig(self, appname, appver, sounds, profiles, cprofile):
+    def appconfig(self, appname, appver):
         if self._conf:
             return self._conf
 
@@ -41,15 +40,17 @@ class appconfig():
         self._configfile = os.path.expanduser('~/.config/' + appname + 'cfg.ini')
         self._configparser = scp()
         if len(self._configparser.read(self._configfile)):
-            self.readconfig()
+            self.readconfig(appver)
 
         # TODO: copy self._conf subfields to params
         return self._conf
 
 
-    def readconfig(self):
-        cfgversion = self._configparser.get('General', 'version')
-        if cfgversion <> '1.0':
+    def readconfig(self, appver):
+        cfgversion = self._configparser.get('General', 'cfgversion')
+        # XXX: when more versions appear, the correct handling is to
+        #      import the old version and ask the user if the migration is done
+        if cfgversion <> self._getdefaultcfgver(appver):
             raise ValueError, "Unknown file format configuration version %s" % (cfgversion)
 
         self._conf['sounds'] = self._getsounds()
@@ -58,6 +59,13 @@ class appconfig():
         self._conf['profiles'] = profiles
         self._conf['active_profile'] = cprofile
 
+
+    def _getdefaultcfgver(self, appver):
+        expectver = {'0.1': 1}
+        # XXX: there should be an association between all
+        #      appver-s and a cfgversion, without a huge dictionary
+        ecv = expectver.get(appver, 1)
+        return ecv
 
     def _getsounds(self):
 

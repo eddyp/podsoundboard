@@ -30,8 +30,7 @@ class myMainWindow(QtGui.QMainWindow):
 
         self.ui.setupUi(self)
 
-        self._conf = appconfig(appname, appver, self._sounds, self._profiles, self._currentProfile)
-        # TODO: create objects for current profile
+        config = appconfig(appname, appver)
 
         self.initSlots()
 
