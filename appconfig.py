@@ -27,13 +27,13 @@ import os
 #===========================
 
 # TODO: use appdirs from Pypi
-def user_config_dir(self, appname=None):
+def user_config_dir(appname=None):
     path = os.getenv('XDG_CONFIG_HOME', os.path.expanduser('~/.config'))
     if appname:
         path = os.path.join(path, appname)
     return path
 
-def user_data_dir(self, appname=None):
+def user_data_dir(appname=None):
     path = os.getenv('XDG_DATA_HOME', os.path.expanduser('~/.local/share'))
     if appname:
         path = os.path.join(path, appname)
