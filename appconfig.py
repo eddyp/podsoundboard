@@ -39,6 +39,7 @@ def user_data_dir(appname=None):
         path = os.path.join(path, appname)
     return path
 
+import logging
 
 class appconfig():
     _conf = {
@@ -113,7 +114,11 @@ class appconfig():
                     # TODO: validate is a true sound file
                     if os.path.isfile(fn):
                         sounds[s] = fn
+                        logging.info("Sound %s: Found file %s", s, fn)
+                    else:
+                        logging.warning("Sound %s: Inexistent file %s", s, fn)
                 else:
+                    logging.warning("Duplicate sound detected %s", s)
                     # XXX: report duplicate sound name
                     pass
         return sounds
@@ -122,15 +127,21 @@ class appconfig():
     def _getprofiles(self):
 
         if self._configparser.has_section('Profiles'):
-            try:
-                profiles_list = self._configparser.options('Profiles')
-            except NoSectionError:
-                # TODO: no active_profile, no profiles
+            # note that options in Profiles section are meaningless
+            # only the values contain the actual profile names
+
+            # TODO: make the options be the names, and values be boolean
+            #       representing their visibility (which are open)
+
+            profiles_list = self._configparser.options('Profiles')
+            if len(profiles_list) == 0:
+                logging.warning("'Profiles' section is empty")
                 return {}, None
             profiles = {}
             profilenames = [ self._configparser.get('Profiles', x) for x in profiles_list ]
 
             if len(profilenames) == 0:
+                logging.warning("The list of values in the 'Profiles' section is empty")
                 return {},  None
 
             # get active profile
@@ -154,13 +165,16 @@ class appconfig():
                                 pd_sounds[state].append(s)
                             except KeyError:
                                 # XXX: referred sound does not exist. what next?
+                                logging.warning("Found unknown sound %s in profile %s", s, p)
                                 pass
                     profiles[p] = pd_sounds
                 else:
                     # XXX: what should be the right thing to do?
                     # create an empty section? remove the profile? ask the user?
+                    logging.warning("No section found for profile %s", p)
                     pass
             return profiles, active_profile
 
         else:
+            logging.error("Mandatory configuration section 'Profiles' not found")
             return {}, None
