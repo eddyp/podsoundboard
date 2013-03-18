@@ -6,7 +6,7 @@ import string
 from os import sep, path
 from PySide import QtCore, QtGui
 
-from ui_confsound import Ui_confSoundDialog
+from ui_confsounddialog import Ui_confSoundDialog
 
 class confSoundDialog(QtGui.QDialog):
     _file = None

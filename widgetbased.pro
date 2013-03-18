@@ -18,8 +18,8 @@ HEADERS  +=
 
 FORMS    += mainwindow.ui \
     soundcontrol.ui \
-    confsound.ui \
-    filebrowse.ui
+    filebrowse.ui \
+    confsounddialog.ui
 
 OTHER_FILES += \
     mainwindow.py \
