@@ -25,5 +25,5 @@ OTHER_FILES += \
     mainwindow.py \
     soundcontrol.py \
     filebrowse.py \
-    appconfig.py \
-    confsound.py
+    confsounddialog.py \
+    appconfig.py
