@@ -145,13 +145,7 @@ class appconfig():
                 return {},  None
 
             # get active profile
-            active_profile = None
-            try:
-                active_profile = self._configparser.get('General', 'active_profile')
-            except NoOptionError:
-                active_profile = profilenames[0]
-            if not active_profile in profilenames:
-                active_profile = profilenames[0]
+            active_profile = self._readActiveProfile(profilenames)
 
             for p in profilenames:
                 if self._configparser.has_section(p):
@@ -178,3 +172,15 @@ class appconfig():
         else:
             logging.error("Mandatory configuration section 'Profiles' not found")
             return {}, None
+
+    def _readActiveProfile(self, profilenames):
+        active_profile = None
+        try:
+            active_profile = self._configparser.get('General', 'active_profile')
+        except NoOptionError:
+            logging.warning("No active profile specified in config, using first")
+            active_profile = profilenames[0]
+        if not active_profile in profilenames:
+            logging.warning("The active profile specified in config doesn't exist, using first")
+            active_profile = profilenames[0]
+        return active_profile
