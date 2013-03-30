@@ -29,19 +29,29 @@ class confSoundDialog(QtGui.QDialog):
             self._parent.setNameAndFile(self._name, self._file)
             self._parent.setActive(True)
 
-    def getFileName(self):
-        filename = QtGui.QFileDialog.getOpenFileName(self, u'Alege fișierul', \
+    def getFileName(self, soundName=None, fileName=None):
+        if soundName:
+            self.setName(soundName)
+        if fileName:
+            self.setFileName(fileName)
+        #for some reason the filter is retuned, too
+        fn, dummy = QtGui.QFileDialog.getOpenFileName(self, u'Alege fișierul', \
                 QtCore.QDir().homePath(), \
                 'Audio files (*.mp3 *.flac *.wav)')
-        #for some reason the filter is retuned, too
-        fn, dummy = filename
         if fn:
-            self._file = fn
-            self._name = path.basename(fn.rstrip(sep + string.whitespace))
+            # TODO: check fn is a known sound for the parent
+            self.setFileName(fn)
+            self.setName(path.basename(fn.rstrip(sep + string.whitespace)))
 
-            self.ui.fileNameEdit.setText(self._file)
-            self.ui.soundNameEdit.setText(self._name)
         return filename
+
+    def setFileName(self, fileName):
+        self._file = fileName
+        self.ui.fileNameEdit.setText(self._file)
+
+    def setName(self, soundName):
+        self._name = soundName
+        self.ui.soundNameEdit.setText(soundName)
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
