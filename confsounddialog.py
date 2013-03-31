@@ -19,9 +19,9 @@ class confSoundDialog(QtGui.QDialog):
         # connect the Choose button to the QFile Dialog
         self.ui.chooseFileButton.clicked.connect(self.getFileName)
         self.ui.buttonBox.accepted.connect(self.sendInfo2Parent)
-        self.ui.soundNameEdit.textChanged.connect(self.setNameFromUi)
+        self.ui.soundNameEdit.textChanged.connect(self.uiNameChanged)
 
-    def setNameFromUi(self, editString):
+    def uiNameChanged(self, editString):
         self._name = editString
 
     def sendInfo2Parent(self):
