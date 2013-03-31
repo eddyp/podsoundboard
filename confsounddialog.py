@@ -46,8 +46,8 @@ class confSoundDialog(QtGui.QDialog):
         return filename
 
     def setFileName(self, fileName):
-        self._file = fileName
-        self.ui.fileNameEdit.setText(self._file)
+        self.ui.fileNameEdit.setText(fileName)
+        self.uiNameChanged(fileName)
 
     def setName(self, soundName):
         self._name = soundName
