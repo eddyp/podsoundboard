@@ -47,7 +47,7 @@ class confSoundDialog(QtGui.QDialog):
             self.setFileName(fn)
             self.setName(path.basename(fn.rstrip(sep + string.whitespace)))
 
-        return filename
+        return fn
 
     def setFileName(self, fileName):
         self._file = fileName
