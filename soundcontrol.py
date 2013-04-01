@@ -46,7 +46,7 @@ class soundControl(QtGui.QWidget):
             self.close()
 
     def openConfDialog(self):
-        confdialog = confSoundDialog(self)
+        confdialog = confSoundDialog(self, self._name, self._file)
         confdialog.show()
 
     def setActive(self, state):
