@@ -12,7 +12,6 @@ class soundControl(QtGui.QWidget):
     def __init__(self, parent, parentform=None, name=u'sound', file=None, active=False):
         self.parentform = parentform
         self._name = name
-        self._text = name
         self._file = file
 
         QtGui.QWidget.__init__(self, parentform)
@@ -56,8 +55,7 @@ class soundControl(QtGui.QWidget):
     def setNameAndFile(self, name, file):
         self._name = name
         self._file = file
-        self._text = name
-        self.ui.soundButton.setText(self._text)
+        self.ui.soundButton.setText(self._name)
         #m = QtGui.QMessageBox.information(self, 'info',name)
 
     #TODO: use a library for playing the media file
