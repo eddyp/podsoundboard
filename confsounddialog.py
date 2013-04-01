@@ -11,11 +11,15 @@ from ui_confsounddialog import Ui_confSoundDialog
 class confSoundDialog(QtGui.QDialog):
     _file = None
     _name = None
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, name=None, file=None):
         QtGui.QDialog.__init__(self, parent)
         self._parent = parent
         self.ui = Ui_confSoundDialog()
         self.ui.setupUi(self)
+        if name:
+            self.setName(name)
+        if file:
+            self.setFileName(file)
         # connect the Choose button to the QFile Dialog
         self.ui.chooseFileButton.clicked.connect(self.getFileName)
         self.ui.buttonBox.accepted.connect(self.sendInfo2Parent)
