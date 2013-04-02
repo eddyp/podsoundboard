@@ -44,7 +44,7 @@ class confSoundDialog(QtGui.QDialog):
                     self._parent.setActive(True)
                 self.accept()
             else:
-                QtGui.QMessageBox.information(self, u"Sunetul există deja",
+                QtGui.QMessageBox.warning(self, u"Sunetul există deja",
                     textwrap.dedent(
                     u"""
                     Fișierul există deja sub numele '%s'.
