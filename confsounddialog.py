@@ -31,25 +31,27 @@ class confSoundDialog(QtGui.QDialog):
 
     def sendInfo2Parent(self):
         if self._parent:
-            psn = self._parent.getSoundName(self._file)
-            if psn == None:
+            allowchange = (self._file == None)
+            if not allowchange:
+                psn = self._parent.getSoundName(self._file)
+                if psn == None:
+                    allowchange = True
+                if psn:
+                   allowchange = self._parent._name == psn
+            if allowchange:
                 self._parent.setNameAndFile(self._name, self._file)
-                self._parent.setActive(True)
+                if self._file:
+                    self._parent.setActive(True)
                 self.accept()
             else:
-                if self._parent._name != psn:
-                    QtGui.QMessageBox.information(self, u"Sunetul există deja",
-                        textwrap.dedent(
-                        u"""
-                        Fișierul există deja sub numele '%s'.
-                        Alegeți alt fișier.
-                        """ % (psn))
-                        )
-                    self.setName(psn)
-                else:
-                    self._parent.setNameAndFile(self._name, self._file)
-                    self._parent.setActive(True)
-                    self.accept()
+                QtGui.QMessageBox.information(self, u"Sunetul există deja",
+                    textwrap.dedent(
+                    u"""
+                    Fișierul există deja sub numele '%s'.
+                    Alegeți alt fișier.
+                    """ % (psn))
+                    )
+                self.setName(psn)
 
     def getFileName(self, soundName=None, fileName=None):
         if soundName:
