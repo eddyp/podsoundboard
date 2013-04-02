@@ -5,6 +5,7 @@ import sys
 import string
 from os import sep, path
 from PySide import QtCore, QtGui
+import textwrap
 
 from ui_confsounddialog import Ui_confSoundDialog
 
@@ -30,8 +31,25 @@ class confSoundDialog(QtGui.QDialog):
 
     def sendInfo2Parent(self):
         if self._parent:
-            self._parent.setNameAndFile(self._name, self._file)
-            self._parent.setActive(True)
+            psn = self._parent.getSoundName(self._file)
+            if psn == None:
+                self._parent.setNameAndFile(self._name, self._file)
+                self._parent.setActive(True)
+                self.accept()
+            else:
+                if self._parent._name != psn:
+                    QtGui.QMessageBox.information(self, u"Sunetul există deja",
+                        textwrap.dedent(
+                        u"""
+                        Fișierul există deja sub numele '%s'.
+                        Alegeți alt fișier.
+                        """ % (psn))
+                        )
+                    self.setName(psn)
+                else:
+                    self._parent.setNameAndFile(self._name, self._file)
+                    self._parent.setActive(True)
+                    self.accept()
 
     def getFileName(self, soundName=None, fileName=None):
         if soundName:

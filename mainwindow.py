@@ -101,6 +101,15 @@ class myMainWindow(QtGui.QMainWindow):
     def hasSound(self, name):
         return (name in self._sounds)
 
+    def getSoundName(self, file):
+        qscl = [ x['ctl']._name for x in self.qsndctls if x['ctl']._file == file ]
+        s = len(qscl)
+        if s>0:
+            assert s == 1
+            return qscl[0]
+        else:
+            return None
+
     def getNewSoundName(self, name):
         #TODO: find a smart way to compute a new unique name
 
