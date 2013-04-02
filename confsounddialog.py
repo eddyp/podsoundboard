@@ -31,14 +31,8 @@ class confSoundDialog(QtGui.QDialog):
 
     def sendInfo2Parent(self):
         if self._parent:
-            allowchange = (self._file == None)
-            if not allowchange:
-                psn = self._parent.getSoundName(self._file)
-                if psn == None:
-                    allowchange = True
-                if psn:
-                   allowchange = self._parent._name == psn
-            if allowchange:
+            psn = self._parent.getSoundNameOfFile(self._file)
+            if psn == None or self._parent._name == psn:
                 self._parent.setNameAndFile(self._name, self._file)
                 if self._file:
                     self._parent.setActive(True)

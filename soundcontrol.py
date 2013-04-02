@@ -68,9 +68,9 @@ class soundControl(QtGui.QWidget):
             else:
                 self.setActive(False)
 
-    def getSoundName(self, file):
-        if self.parentform:
-            return self.parentform.getSoundName(file)
+    def getSoundNameOfFile(self, file):
+        if self.parentform and file:
+            return self.parentform.getSoundNameOfFile(file)
         else:
             return None
 

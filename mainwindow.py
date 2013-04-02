@@ -101,7 +101,9 @@ class myMainWindow(QtGui.QMainWindow):
     def hasSound(self, name):
         return (name in self._sounds)
 
-    def getSoundName(self, file):
+    def getSoundNameOfFile(self, file):
+        if file == None:
+            return None
         qscl = [ x['ctl']._name for x in self.qsndctls if x['ctl']._file == file ]
         s = len(qscl)
         if s>0:
