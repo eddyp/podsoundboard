@@ -14,6 +14,29 @@ from soundcontrol import soundControl
 from appconfig import appconfig
 
 class myMainWindow(QtGui.QMainWindow):
+
+    _dictsounds = {}
+    """
+    _dictsounds: a dictionary of all the sounds in the application.
+    Entry format: u'soundname': u'/path/to/sound/file'.
+    """
+
+    _currentprofilename = u'Profil'
+    _dictprofiles = {
+                    u'Profil': {}
+                    }
+    """
+    _dictprofiles: a dictionary of profiles.
+    Entry format:
+        u'profilename': {
+                        u'soundname1': { 'state':<st>, 'ctl': <ctl> }
+                        u'soundname2': { 'state':<st>, 'ctl': <ctl> }
+                        }
+        <st>  - True/False - determines if the sound is enabled in the profile;
+        <ctl> - None/soundControl - sound control of the sound
+                                    value is None when profile has no UI
+    """
+
     def __init__(self, parent=None):
         QtGui.QMainWindow.__init__(self, parent)
 
