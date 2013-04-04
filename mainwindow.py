@@ -5,6 +5,8 @@ appname = 'PodSoundBoard'
 appver = '0.1'
 appauthor = 'eddyp'
 
+osencoding = 'utf8'
+
 import sys
 from PySide import QtCore, QtGui
 
@@ -65,8 +67,8 @@ class myMainWindow(QtGui.QMainWindow):
     def dict_loadSounds(self, cfgsounds):
         files = {}
         for k, v in cfgsounds:
-            uv = v.decode('utf8')
-            uk = k.decode('utf8')
+            uv = v.decode(osencoding)
+            uk = k.decode(osencoding)
             if uv in files:
                 # TODO: warn about dup; files[uv] returns the name of the sound
                 continue
@@ -77,6 +79,22 @@ class myMainWindow(QtGui.QMainWindow):
                 # TODO: warn about non-existent file
                 pass
 
+    def dict_loadCfgProfile(self, profile, cfgprofile):
+        up = profile.decode(osencoding)
+        if up in self._dictprofiles:
+            # TODO: warn
+            return
+        self._dictprofiles[up] = {}
+        for enabled in [ False, True ]:
+            for s in cfgprofile[enabled]:
+                us = s.decode(osencoding)
+                if us in self._dictsounds:
+                    self._dictprofiles[up][us] = {'state': enabled, 'ctl': None}
+
+    def dict_loadProfiles(self, cfgprofiles):
+        for p in keys(cfgprofiles):
+            dict_loadCfgProfile(p, cfgprofiles[p])
+
     def dict_loadConfig(self, config):
         """
         Loads into the interface the configuration defined by 'config'.
@@ -86,6 +104,7 @@ class myMainWindow(QtGui.QMainWindow):
         self.dict_unloadConfig()
 
         self.dict_loadSounds(config['sounds'])
+        self.dict_loadProfiles(config['profiles'])
 
     # TODO: keep everything together in dictionaries
     def initSounds(self):
