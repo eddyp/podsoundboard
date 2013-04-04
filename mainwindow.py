@@ -13,6 +13,8 @@ from soundcontrol import soundControl
 
 from appconfig import appconfig
 
+from os import path
+
 class myMainWindow(QtGui.QMainWindow):
 
     _dictsounds = {}
@@ -54,6 +56,36 @@ class myMainWindow(QtGui.QMainWindow):
         self._initProfilesFromConfig(config)
 
         self.initSlots()
+
+    def dict_unloadConfig(self):
+        """Cleanly destroys all existent sounds, profiles and sound controls"""
+        #TODO: implement
+        pass
+
+    def dict_loadSounds(self, cfgsounds):
+        files = {}
+        for k, v in cfgsounds:
+            uv = v.decode('utf8')
+            uk = k.decode('utf8')
+            if uv in files:
+                # TODO: warn about dup; files[uv] returns the name of the sound
+                continue
+            if path.isfile(uv):
+                files[uv] = uk
+                self._dictsounds[uk] = uv
+            else:
+                # TODO: warn about non-existent file
+                pass
+
+    def dict_loadConfig(self, config):
+        """
+        Loads into the interface the configuration defined by 'config'.
+        'config' must be a dictionary in the format provided by appconfig.
+        """
+
+        self.dict_unloadConfig()
+
+        self.dict_loadSounds(config['sounds'])
 
     # TODO: keep everything together in dictionaries
     def initSounds(self):
