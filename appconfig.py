@@ -19,7 +19,7 @@ import os
 # Profile.2 = NameProfile2
 # Profile.3 = NameProfile3
 # ...
-# [NameProfile1]
+# [Profile.NameProfile1]
 # <soundname> = on
 # <soundname> = on
 # <soundname> = off
@@ -148,12 +148,13 @@ class appconfig():
             active_profile = self._readActiveProfile(profilenames)
 
             for p in profilenames:
-                if self._configparser.has_section(p):
-                    p_sounds = self._configparser.options(p)
+                cfgp = 'Profile.' + p
+                if self._configparser.has_section(cfgp):
+                    p_sounds = self._configparser.options(cfgp)
                     pd_sounds = { True: [],  False: [] }
                     if len(p_sounds) > 0 :
                         for s in p_sounds:
-                            state = self._configparser.getboolean(p, s)
+                            state = self._configparser.getboolean(cfgp, s)
                             try:
                                 self._conf['sounds'][s]
                                 pd_sounds[state].append(s)
