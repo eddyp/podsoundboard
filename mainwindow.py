@@ -95,6 +95,18 @@ class myMainWindow(QtGui.QMainWindow):
         for p in keys(cfgprofiles):
             dict_loadCfgProfile(p, cfgprofiles[p])
 
+    def dict_loadActiveProfile(self, activeprofile):
+        uap = activeprofile.decode(osencoding)
+        if uap in self._dictprofiles:
+            self._currentprofilename = uap
+        else:
+            # TODO: warn about inconsistency
+            plist = self._dictprofiles.keys()
+            if len(plist)>0:
+                self._currentprofilename = plist[0]
+            else:
+                self._currentprofilename = None
+
     def dict_loadConfig(self, config):
         """
         Loads into the interface the configuration defined by 'config'.
@@ -105,6 +117,7 @@ class myMainWindow(QtGui.QMainWindow):
 
         self.dict_loadSounds(config['sounds'])
         self.dict_loadProfiles(config['profiles'])
+        self.dict_loadActiveProfile(config['active_profile'])
 
     # TODO: keep everything together in dictionaries
     def initSounds(self):
