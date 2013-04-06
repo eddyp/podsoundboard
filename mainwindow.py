@@ -58,10 +58,19 @@ class myMainWindow(QtGui.QMainWindow):
 
         self.initSlots()
 
-    def dict_unloadConfig(self):
+    def dict_wipeOutConfig(self):
         """Cleanly destroys all existent sounds, profiles and sound controls"""
-        #TODO: implement
-        pass
+        self._dictsounds = {}
+        self._currentprofilename = None
+        self.dict_wipeOutProfiles()
+
+    def dict_wipeOutProfiles(self):
+        for up in self._dictprofiles.keys():
+            for us in self._dictprofiles[up].keys():
+                soundctl = self._dictprofiles[up][us]['ctl']
+                if soundctl:
+                    del soundctl
+                del self._dictprofiles[up][us]
 
     def dict_loadSounds(self, cfgsounds):
         files = {}
@@ -112,11 +121,13 @@ class myMainWindow(QtGui.QMainWindow):
         'config' must be a dictionary in the format provided by appconfig.
         """
 
-        self.dict_unloadConfig()
+        self.dict_wipeOutConfig()
 
         self.dict_loadSounds(config['sounds'])
         self.dict_loadProfiles(config['profiles'])
         self.dict_loadActiveProfile(config['active_profile'])
+
+
 
     # TODO: keep everything together in dictionaries
     def initSounds(self):
