@@ -127,6 +127,12 @@ class myMainWindow(QtGui.QMainWindow):
     def dict_hasSound(self, name):
         return (name in self._dictsounds)
 
+    def dict_getSoundNameOfFile(self, file):
+        if file == None:
+            return None
+        fndict = dict([ [v, k] for k, v in self._dictsounds.items()])
+        # we don't delete fndict[None] since we'd never get here if file==None
+        return fndict.get(file, None)
 
 
 
