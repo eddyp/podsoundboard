@@ -52,6 +52,7 @@ class myMainWindow(QtGui.QMainWindow):
         appconf = appconfig(appname, appver)
         config = appconf.config
         self.dict_loadConfig(config)
+        #self.dict_updateActiveProfileUi()
 
         self.initSlots()
 
@@ -134,6 +135,8 @@ class myMainWindow(QtGui.QMainWindow):
         # we don't delete fndict[None] since we'd never get here if file==None
         return fndict.get(file, None)
 
+    def dict_updateActiveProfileUi(self):
+        raise NotImplementedError("updating the profile UI is not implemented")
 
 
     # TODO: keep everything together in dictionaries
