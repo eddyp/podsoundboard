@@ -72,7 +72,7 @@ class appconfig(object):
     def setCfgFilename(self, cfgfile=None):
         if not cfgfile:
             dir = user_config_dir(self._appname)
-            self._configfile = os.path.join(dir + 'cfg.ini')
+            self._configfile = os.path.join(dir + 'config.ini')
         else:
             self._configfile = cfgfile
 
