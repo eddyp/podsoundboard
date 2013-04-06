@@ -124,6 +124,8 @@ class myMainWindow(QtGui.QMainWindow):
         self.dict_loadProfiles(config['profiles'])
         self.dict_loadActiveProfile(config['active_profile'])
 
+    def dict_hasSound(self, name):
+        return (name in self._dictsounds)
 
 
 
