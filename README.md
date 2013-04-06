@@ -18,10 +18,17 @@ License is GPLv3 or later. For the text of the GNU GPL version 3, see the Freeso
 Features
 --------
 
- * Define/save/reuse sound set profiles
-   * Application can have multiple profile, one profile/podcast
+Implemented features
+____________________
+
  * Import existing audio files as named sounds into the application
  * Enable/disable unused sounds in profile
+
+Planned features
+________________
+
+ * Define/save/reuse sound set profiles
+   * Application can have multiple profiles, one profile/podcast
  * Hide/show unused sounds
  * Extract clips from existing sounds, import as new sounds
     * think 'THAT single line from the whole movie'
@@ -64,7 +71,7 @@ PodSoundBoard is:
 
 Installation is not yet necessary, just 'make' to generate the ui_*.py code.
 
-Run with 'python mainwindow.py'.
+Run with 'python mainwindow.py' or 'make run'.
 
 
 Dependencies
@@ -85,6 +92,8 @@ Known issues
   * I am writing this to be used on the podcast 'Sceptici în România'
      * http://podcast.sceptici.ro
   * there will be an English translation when the app is at least useful
+* PodSoundBoard uses mplayer to play sounds
+* Internal data structures are redundant/uncleanly separated and code is not pythonic enough
 
 
 Contact
