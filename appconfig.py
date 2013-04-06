@@ -41,7 +41,7 @@ def user_data_dir(appname=None):
 
 import logging
 
-class appconfig():
+class appconfig(object):
     _conf = {
              'sounds': {},
              'active_profile':None,
@@ -65,7 +65,8 @@ class appconfig():
         if len(self._configparser.read(self._configfile)):
             self.readconfig()
 
-    def getConfig(self):
+    @property
+    def config(self):
         return self._conf
 
     def setCfgFilename(self, cfgfile=None):

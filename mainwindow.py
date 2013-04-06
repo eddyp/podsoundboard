@@ -53,9 +53,8 @@ class myMainWindow(QtGui.QMainWindow):
         self.ui.setupUi(self)
 
         appconf = appconfig(appname, appver)
-        config = appconf.getConfig()
-        self._initSoundsFromConfig(config)
-        self._initProfilesFromConfig(config)
+        config = appconf.config
+        self.dict_loadConfig(config)
 
         self.initSlots()
 
