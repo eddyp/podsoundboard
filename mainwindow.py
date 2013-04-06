@@ -140,25 +140,6 @@ class myMainWindow(QtGui.QMainWindow):
         self.profileNames = []         # all profile names
         #self._conf = {}
 
-    def _initSoundsFromConfig(self, config):
-        self.initSounds()
-        if len(config['sounds'].keys()) > 0:
-            self._sounds = config['sounds'].keys().sort()
-
-    def _initProfilesFromConfig(self, config):
-        self.initProfiles()
-        # TODO: correctly delete all existent sound controls
-
-        profiles = config['profiles'].keys()
-        if len(profiles) > 0:
-            for p in config['profiles'].keys().sort():
-                idx = self.addProfile(p)
-                for a in True, False:
-                    for s in config[p][a]:
-                        self.addSound2Profile(soundName=s, profileIndex=idx, active=a)
-            self._currentProfileIndex = self.profileNames.index(config['active_profile'])
-        # TODO: refresh GUI interface
-
 
     def addProfile(self, profileName='Profile'):
         ip = len(self.profiles)
