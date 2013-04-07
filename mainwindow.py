@@ -188,7 +188,7 @@ class myMainWindow(QtGui.QMainWindow):
         sname = self.dict_addSound(name, file)
         if sname in self._dictprofiles[pn]:
             # TODO: warn about overwrite
-            raise Exception,  "Trying to add the same sound twice in profile"
+            raise Exception,  "Trying to add the same sound (%s) twice in profile" % sname
         self._dictprofiles[pn][sname] = { 'state': active, 'ctl': None }
         return sname
 
