@@ -40,6 +40,7 @@ class myMainWindow(QtGui.QMainWindow):
         <ctl> - None/soundControl - sound control of the sound
                                     value is None when profile has no UI
     """
+    _autosoundcount = 0
 
     def __init__(self, parent=None):
         QtGui.QMainWindow.__init__(self, parent)
@@ -134,6 +135,20 @@ class myMainWindow(QtGui.QMainWindow):
         fndict = dict([ [v, k] for k, v in self._dictsounds.items()])
         # we don't delete fndict[None] since we'd never get here if file==None
         return fndict.get(file, None)
+
+    def dict_addSound(self, name=None, file=None):
+        if name==None:
+            name = self.dict_getNewSoundName()
+        self._dictsounds[name] = file
+
+    def dict_getNewSoundName(self):
+        name = None
+        while True:
+            name = u'Sound' + str(self._autosoundcount)
+            self._autosoundcount += 1
+            if not self.dict_hasSound(name):
+                break
+        return name
 
     def dict_updateActiveProfileUi(self):
         raise NotImplementedError("updating the profile UI is not implemented")
