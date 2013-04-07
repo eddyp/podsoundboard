@@ -137,9 +137,24 @@ class myMainWindow(QtGui.QMainWindow):
         return fndict.get(file, None)
 
     def dict_addSound(self, name=None, file=None):
+        """
+        Adds a sound to the application and returns the name under which the
+        sound was really added.
+        If 'file' is already in the application under a different name, the
+        existent sound name is returned.
+        If 'name' is not given, then a unique name is chosen.
+
+        Returns: the name under which it was really added in the application.
+        """
+        if file:
+            # avoid duplicates
+            cname = self.dict_getSoundNameOfFile(file)
+            if cname:
+                return cname
         if name==None:
             name = self.dict_getNewSoundName()
         self._dictsounds[name] = file
+        return name
 
     def dict_getNewSoundName(self):
         name = None
