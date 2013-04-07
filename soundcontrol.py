@@ -16,10 +16,6 @@ class soundControl(QtGui.QWidget):
 
         QtGui.QWidget.__init__(self, parentform)
 
-        if parentform:
-            if self.parentform.hasSound(self._name):
-                self._name = self.parentform.getNewSoundName(self._name)
-            self.parentform.register(self, self._name)
 
         self.ui = Ui_soundControl()
         self.ui.setupUi(self)
