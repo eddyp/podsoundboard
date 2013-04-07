@@ -41,6 +41,7 @@ class myMainWindow(QtGui.QMainWindow):
                                     value is None when profile has no UI
     """
     _autosoundcount = 0
+    _autoprofcount = 0
 
     def __init__(self, parent=None):
         QtGui.QMainWindow.__init__(self, parent)
@@ -129,6 +130,9 @@ class myMainWindow(QtGui.QMainWindow):
     def dict_hasSound(self, name):
         return (name in self._dictsounds)
 
+    def dict_hasProfile(self, name):
+        return (name in self._dictprofiles)
+
     def dict_getSoundNameOfFile(self, file):
         if file == None:
             return None
@@ -165,6 +169,15 @@ class myMainWindow(QtGui.QMainWindow):
                 break
         return name
 
+    def dict_getNewProfileName(self):
+        name = None
+        while True:
+            name = u'Profile' + str(self._autoprofcount)
+            self._autoprofcount += 1
+            if not self.dict_hasProfile(name):
+                break
+        return name
+
     def dict_addSound2Profile(self, name=None, file=None, active=False, profile=None):
         pn = profile
         if profile == None:
@@ -182,6 +195,12 @@ class myMainWindow(QtGui.QMainWindow):
     def dict_updateActiveProfileUi(self):
         raise NotImplementedError("updating the profile UI is not implemented")
 
+    def dict_addProfile(self, profilename=None):
+        pn = profilename
+        if pn == None:
+            pn = self.dict_getNewProfileName()
+        if self.dict_hasProfile(pn):
+            raise Exception, u"Profile %s is already in the application" % pn
 
     # TODO: keep everything together in dictionaries
     def addProfile(self, profileName='Profile'):
