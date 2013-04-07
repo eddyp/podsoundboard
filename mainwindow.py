@@ -51,10 +51,10 @@ class myMainWindow(QtGui.QMainWindow):
 
         self.ui.setupUi(self)
 
-        appconf = appconfig(appname, appver)
-        config = appconf.config
-        self.dict_loadConfig(config)
-        #self.dict_updateActiveProfileUi()
+        #appconf = appconfig(appname, appver)
+        #config = appconf.config
+        #self.dict_loadConfig(config)
+        ##self.dict_updateActiveProfileUi()
 
         self.dict_initSlots()
 
