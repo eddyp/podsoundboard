@@ -165,6 +165,20 @@ class myMainWindow(QtGui.QMainWindow):
                 break
         return name
 
+    def dict_addSound2Profile(self, name=None, file=None, active=False, profile=None):
+        pn = profile
+        if profile == None:
+            pn = self._currentprofilename
+            if pn == None:
+                raise Exception, "No active profile exists to add sound to."
+        # get the real name of the sound
+        sname = self.dict_addSound(name, file)
+        if sname in self._dictprofiles[pn]:
+            # TODO: warn about overwrite
+            raise Exception,  "Trying to add the same sound twice in profile"
+        self._dictprofiles[pn][sname] = { 'state': active, 'ctl': None }
+        return sname
+
     def dict_updateActiveProfileUi(self):
         raise NotImplementedError("updating the profile UI is not implemented")
 
