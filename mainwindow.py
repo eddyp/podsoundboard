@@ -56,7 +56,7 @@ class myMainWindow(QtGui.QMainWindow):
         self.dict_loadConfig(config)
         #self.dict_updateActiveProfileUi()
 
-        self.initSlots()
+        self.dict_initSlots()
 
     def dict_wipeOutConfig(self):
         """Cleanly destroys all existent sounds, profiles and sound controls"""
@@ -202,77 +202,46 @@ class myMainWindow(QtGui.QMainWindow):
         if self.dict_hasProfile(pn):
             raise Exception, u"Profile %s is already in the application" % pn
 
-    # TODO: keep everything together in dictionaries
-    def addProfile(self, profileName='Profile'):
-        ip = len(self.profiles)
-        self.profiles.append([])
-        self.profileNames.append(profileName)
-        self._currentProfileIndex = ip
-        return ip
+    def dict_uiAddSound2profile(self, soundName=None, soundFile=None, active=False, profile=None):
+        if profile == None:
+            profile = self._currentprofilename
+        sname = self.dict_addSound2Profile(soundName, soundFile, active, profile)
 
+        uiProfileScrollArea = self.ui.soundsScrollArea
+        uiProfileVerticalLayout = self.ui.verticalLayout_profile
+        ctl = soundControl(uiProfileScrollArea, sname, self._dictsounds[sname], active)
+        self._dictprofiles[profile][sname]['ctl'] = ctl
+        # TODO: delete spacer add again later
+        uiProfileVerticalLayout.addWidget(ctl)
 
-    def addSound2Profile(self, soundName="Sound", profileIndex=None, soundfile=None, active=False):
+    def dict_initSlots(self):
+        QtCore.QObject.connect(self.ui.soundAddButton, \
+                               QtCore.SIGNAL("clicked()"), \
+                               self.dict_uiAddSound2profile
+                              )
 
-        if profileIndex is None:
-            profileIndex = self._currentProfileIndex
+    def register(self, qsndctl, name, profile=None):
+        print "Missing implementation of %s" % __name__
+        # TODO: implement profile based
+        return
 
-        # if there are no profiles, create one
-        if profileIndex == -1:
-            profileIndex = self.addProfile()
-
-        try:
-            p = self.profiles[profileIndex]
-        except IndexError:
-            # TODO: debug statement
-            raise IndexError, "Internal error: inexistent profile index selected"
-
-        # new sound's index
-        sp = len(p)
-        p.append(soundControl(self.ui.soundsScrollArea, self, soundName, soundfile, active))
-        #TODO: detect duplicate names
-        p[sp].setObjectName(soundName)
-        self.ui.verticalLayout_profile.addWidget(p[sp])
-        return sp
-
-
-    def initSlots(self):
-        QtCore.QObject.connect(self.ui.soundAddButton, QtCore.SIGNAL("clicked()"), self.addSound2Profile)
-
-    def hasSound(self, name):
-        return (name in self._sounds)
-
-    def getSoundNameOfFile(self, file):
-        if file == None:
-            return None
-        qscl = [ x['ctl']._name for x in self.qsndctls if x['ctl']._file == file ]
-        s = len(qscl)
-        if s>0:
-            assert s == 1
-            return qscl[0]
-        else:
-            return None
-
-    def getNewSoundName(self, name):
-        #TODO: find a smart way to compute a new unique name
-
-        #TODO: this might fail to provide a good name when
-        #      other than the last sound is removed
-        return 'name%d' % (len(self._sounds)+1)
-
-    def register(self, qsndctl, name):
-        if not self.hasSound(name):
-            self._sounds.append(name)
-            self.qsndctls.append( {'name': name, 'ctl': qsndctl} )
-        else:
-            raise AttributeError("Name %s already exists" % name)
+        #if not self.hasSound(name):
+            #self._sounds.append(name)
+            #self.qsndctls.append( {'name': name, 'ctl': qsndctl} )
+        #else:
+            #raise AttributeError("Name %s already exists" % name)
 
     def unregister(self, soundctl, name):
-        if self.hasSound(name):
-            self._sounds.remove(name)
-            self.qsndctls.remove( {'name': name, 'ctl': soundctl} )
-        else:
-            #TODO: warning about inconsistency
-            pass
+        print "Missing implementation of %s" % __name__
+        # TODO: implement profile-based
+        return
+
+        if self.dict_hasSound(name):
+            del self._dictsounds[name]
+            #self.qsndctls.remove( {'name': name, 'ctl': soundctl} )
+        #else:
+            ##TODO: warning about inconsistency
+            #pass
 
 
 if __name__ == "__main__":
