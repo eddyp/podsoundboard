@@ -100,7 +100,7 @@ class myMainWindow(QtGui.QMainWindow):
                     self._dictprofiles[up][us] = {'state': enabled, 'ctl': None}
 
     def dict_loadProfiles(self, cfgprofiles):
-        for p in keys(cfgprofiles):
+        for p in cfgprofiles.keys():
             dict_loadCfgProfile(p, cfgprofiles[p])
 
     def dict_loadActiveProfile(self, activeprofile):
@@ -127,13 +127,13 @@ class myMainWindow(QtGui.QMainWindow):
         self.dict_loadProfiles(config['profiles'])
         self.dict_loadActiveProfile(config['active_profile'])
 
-    def dict_hasSound(self, name):
+    def hasSound(self, name):
         return (name in self._dictsounds)
 
     def dict_hasProfile(self, name):
         return (name in self._dictprofiles)
 
-    def dict_getSoundNameOfFile(self, file):
+    def getSoundNameOfFile(self, file):
         if file == None:
             return None
         fndict = dict([ [v, k] for k, v in self._dictsounds.items()])
@@ -152,20 +152,20 @@ class myMainWindow(QtGui.QMainWindow):
         """
         if file:
             # avoid duplicates
-            cname = self.dict_getSoundNameOfFile(file)
+            cname = self.getSoundNameOfFile(file)
             if cname:
                 return cname
         if name==None:
-            name = self.dict_getNewSoundName()
+            name = self.getNewSoundName()
         self._dictsounds[name] = file
         return name
 
-    def dict_getNewSoundName(self):
+    def getNewSoundName(self):
         name = None
         while True:
             name = u'Sound' + str(self._autosoundcount)
             self._autosoundcount += 1
-            if not self.dict_hasSound(name):
+            if not self.hasSound(name):
                 break
         return name
 
@@ -178,7 +178,7 @@ class myMainWindow(QtGui.QMainWindow):
                 break
         return name
 
-    def dict_addSound2Profile(self, name=None, file=None, active=False, profile=None):
+    def addSound2Profile(self, name=None, file=None, active=False, profile=None):
         pn = profile
         if profile == None:
             pn = self._currentprofilename
@@ -195,21 +195,21 @@ class myMainWindow(QtGui.QMainWindow):
     def dict_updateActiveProfileUi(self):
         raise NotImplementedError("updating the profile UI is not implemented")
 
-    def dict_addProfile(self, profilename=None):
+    def addProfile(self, profilename=None):
         pn = profilename
         if pn == None:
             pn = self.dict_getNewProfileName()
         if self.dict_hasProfile(pn):
             raise Exception, u"Profile %s is already in the application" % pn
 
-    def dict_uiAddSound2profile(self, soundName=None, soundFile=None, active=False, profile=None):
+    def uiAddSound2profile(self, soundName=None, soundFile=None, active=False, profile=None):
         if profile == None:
             profile = self._currentprofilename
-        sname = self.dict_addSound2Profile(soundName, soundFile, active, profile)
+        sname = self.addSound2Profile(soundName, soundFile, active, profile)
 
         uiProfileScrollArea = self.ui.soundsScrollArea
         uiProfileVerticalLayout = self.ui.verticalLayout_profile
-        ctl = soundControl(uiProfileScrollArea, sname, self._dictsounds[sname], active)
+        ctl = soundControl(uiProfileScrollArea, self, sname, self._dictsounds[sname], active)
         self._dictprofiles[profile][sname]['ctl'] = ctl
         # TODO: delete spacer add again later
         uiProfileVerticalLayout.addWidget(ctl)
@@ -217,7 +217,7 @@ class myMainWindow(QtGui.QMainWindow):
     def dict_initSlots(self):
         QtCore.QObject.connect(self.ui.soundAddButton, \
                                QtCore.SIGNAL("clicked()"), \
-                               self.dict_uiAddSound2profile
+                               self.uiAddSound2profile
                               )
 
     def register(self, qsndctl, name, profile=None):
@@ -236,7 +236,7 @@ class myMainWindow(QtGui.QMainWindow):
         # TODO: implement profile-based
         return
 
-        if self.dict_hasSound(name):
+        if self.hasSound(name):
             del self._dictsounds[name]
             #self.qsndctls.remove( {'name': name, 'ctl': soundctl} )
         #else:
