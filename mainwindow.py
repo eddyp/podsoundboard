@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 appname = 'PodSoundBoard'
-appver = '0.1'
+appver = '0.2'
 appauthor = 'eddyp'
 
 import sys
