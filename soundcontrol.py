@@ -49,10 +49,21 @@ class soundControl(QtGui.QWidget):
         self.ui.checkBox.setChecked(state)
 
     def setNameAndFile(self, name, file):
-        self._name = name
-        self._file = file
+        oname = self._name
+        ofile = self._file
+        #if self.parentform.hasSound(name)
+        # TODO: update sound in parent
+        if self.parentform.updateSound(oname, ofile, name, file):
+            self._name = name
+            self._file = file
+            self.ui.soundButton.setText(self._name)
+            return True
+        else:
+            return False
+
+    def rename(self, newname):
+        self._name = newname
         self.ui.soundButton.setText(self._name)
-        #m = QtGui.QMessageBox.information(self, 'info',name)
 
     #TODO: use a library for playing the media file
     def playSound(self):

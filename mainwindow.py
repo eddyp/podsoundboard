@@ -223,6 +223,30 @@ class myMainWindow(QtGui.QMainWindow):
                                self.uiAddSound2profile
                               )
 
+    def updateSound(self, oldname, oldfile, newname, newfile):
+        """
+        Updates sound oldname:oldfile to be newname:newfile.
+        If successfull, returns True; False otherwise.
+        """
+        if not self.hasSound(oldname):
+            return False
+        if self._dictsounds[oldname] != oldfile:
+            return False
+        self._dictsounds[newname] = newfile
+        if oldname != newname:
+            self.updateSoundInProfiles(oldname, newname)
+            del self._dictsounds[oldname]
+            return True
+
+    def updateSoundInProfiles(self, oldsound, newsound):
+        if oldsound == newsound:
+            return
+        for p in self._dictprofiles:
+            if oldsound in p:
+                p[newsound] = p[oldsound]
+                p[newsound]['ctl'].rename(newsound)
+                del p[oldsound]
+
     def register(self, qsndctl, name, profile=None):
         print "Missing implementation of %s" % __name__
         # TODO: implement profile based
