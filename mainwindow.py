@@ -136,9 +136,12 @@ class myMainWindow(QtGui.QMainWindow):
     def getSoundNameOfFile(self, file):
         if file == None:
             return None
+        fn = file
+        if type(file) != unicode:
+            fn = file.decode(osencoding)
         fndict = dict([ [v, k] for k, v in self._dictsounds.items()])
         # we don't delete fndict[None] since we'd never get here if file==None
-        return fndict.get(file, None)
+        return fndict.get(fn, None)
 
     def dict_addSound(self, name=None, file=None):
         """
