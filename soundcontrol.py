@@ -3,6 +3,10 @@
 
 from PySide import QtCore, QtGui
 
+information = QtGui.QMessageBox.information
+warning = QtGui.QMessageBox.warning
+critical = QtGui.QMessageBox.critical
+
 from ui_soundcontrol import Ui_soundControl
 from confsounddialog import confSoundDialog
 
@@ -50,7 +54,7 @@ class soundControl(QtGui.QWidget):
             self._file = file
 
     def confirmClose(self):
-        confirm = QtGui.QMessageBox.warning(self, "Confirmare", \
+        confirm = warning(self, "Confirmare", \
                             u"Sigur vrei să închizi " + self._name + "?", \
                             QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel, \
                             QtGui.QMessageBox.Cancel)

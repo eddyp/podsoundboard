@@ -7,6 +7,10 @@ from os import sep, path
 from PySide import QtCore, QtGui
 import textwrap
 
+information = QtGui.QMessageBox.information
+warning = QtGui.QMessageBox.warning
+critical = QtGui.QMessageBox.critical
+
 from ui_confsounddialog import Ui_confSoundDialog
 
 class confSoundDialog(QtGui.QDialog):
@@ -38,7 +42,7 @@ class confSoundDialog(QtGui.QDialog):
                     self._parent.setActive(True)
                 self.accept()
             else:
-                QtGui.QMessageBox.warning(self, u"Sunetul există deja",
+                warning(self, u"Sunetul există deja",
                     textwrap.dedent(
                     u"""
                     Fișierul există deja sub numele '%s'.
