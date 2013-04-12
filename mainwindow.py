@@ -232,6 +232,8 @@ class myMainWindow(QtGui.QMainWindow):
             return False
         if self._dictsounds[oldname] != oldfile:
             return False
+        if (oldname == newname) and (oldfile == newfile):
+            return True
         self._dictsounds[newname] = newfile
         if oldname != newname:
             self.updateSoundInProfiles(oldname, newname)
