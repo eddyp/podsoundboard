@@ -240,6 +240,9 @@ class myMainWindow(QtGui.QMainWindow):
             del self._dictsounds[oldname]
             return True
 
+    def fileOfSound(self, sound):
+        return self._dictsounds.get(sound, None)
+
     def updateSoundInProfiles(self, oldsound, newsound):
         if oldsound == newsound:
             return
