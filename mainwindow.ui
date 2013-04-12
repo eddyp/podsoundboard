@@ -342,12 +342,12 @@
     <property name="title">
      <string>Profil</string>
     </property>
-    <addaction name="actionNou"/>
+    <addaction name="actionNew_profile"/>
     <addaction name="actionLoad_profile"/>
     <addaction name="actionSave_profile"/>
     <addaction name="separator"/>
-    <addaction name="actionEditeaz_profilul_curent"/>
-    <addaction name="action_terge_profilul_curent"/>
+    <addaction name="actionEdit_this_profile"/>
+    <addaction name="actionDel_this_profile"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -449,7 +449,7 @@
     <bool>true</bool>
    </property>
   </action>
-  <action name="actionNou">
+  <action name="actionNew_profile">
    <property name="icon">
     <iconset theme="document-new">
      <normaloff/>
@@ -489,7 +489,7 @@
 </string>
    </property>
   </action>
-  <action name="actionEditeaz_profilul_curent">
+  <action name="actionEdit_this_profile">
    <property name="icon">
     <iconset theme="document-properties">
      <normaloff/>
@@ -513,7 +513,7 @@
     <bool>true</bool>
    </property>
   </action>
-  <action name="action_terge_profilul_curent">
+  <action name="actionDel_this_profile">
    <property name="icon">
     <iconset theme="edit-delete">
      <normaloff/>
