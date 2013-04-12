@@ -37,7 +37,16 @@ class confSoundDialog(QtGui.QDialog):
         if self._parent:
             psn = self._parent.getSoundNameOfFile(self._file)
             if psn == None or self._parent._name == psn:
-                self._parent.setNameAndFile(self._name, self._file)
+                if not self._parent.setNameAndFile(self._name, self._file):
+                    warning(self, u'Eroare',
+                            textwrap.dedent(
+                            u"""
+                            Proprietățile sunetului nu au putut fi schimbate.
+                            Probabil că numele există deja.
+                            """
+                            )
+                            )
+                    return
                 if self._file:
                     self._parent.setActive(True)
                 self.accept()
