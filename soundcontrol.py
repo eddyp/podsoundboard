@@ -12,7 +12,8 @@ class soundControl(QtGui.QWidget):
     def __init__(self, parent, parentform=None, name=u'sound', file=None, active=False):
         self.parentform = parentform
         self._name = name
-        self._file = file
+        if not self.parentform:
+            self._file = file
 
         QtGui.QWidget.__init__(self, parentform)
 
@@ -33,6 +34,21 @@ class soundControl(QtGui.QWidget):
                 #TODO: warn about the inconsistency
                 pass
 
+    @property
+    def file(self):
+        if self.parentform:
+            return self.parentform.fileOfSound(self._name)
+        else:
+            return self._file
+
+    @file.setter
+    def file(self, file):
+        p = self.parentform
+        if p:
+            return p.updateSound(self._name, self.file, self._name, file)
+        else:
+            self._file = file
+
     def confirmClose(self):
         confirm = QtGui.QMessageBox.warning(self, "Confirmare", \
                             u"Sigur vrei să închizi " + self._name + "?", \
@@ -42,7 +58,11 @@ class soundControl(QtGui.QWidget):
             self.close()
 
     def openConfDialog(self):
-        confdialog = confSoundDialog(self, self._name, self._file)
+        information(self, "Info", \
+                u"_name: '%s'\nfile: '%s'\ntype(_name): %s\ntype(file):%s\n" \
+                % (self._name, self.file, type(self._name), type(self.file))
+                )
+        confdialog = confSoundDialog(self, self._name, self.file)
         confdialog.show()
 
     def setActive(self, state):
@@ -50,16 +70,19 @@ class soundControl(QtGui.QWidget):
 
     def setNameAndFile(self, name, file):
         oname = self._name
-        ofile = self._file
         #if self.parentform.hasSound(name)
         # TODO: update sound in parent
-        if self.parentform.updateSound(oname, ofile, name, file):
-            self._name = name
-            self._file = file
-            self.ui.soundButton.setText(self._name)
-            return True
+        if self.parentform:
+            if self.parentform.updateSound(oname, self.file, name, file):
+                self._name = name
+                self.file = file
+                self.ui.soundButton.setText(self._name)
+                return True
+            else:
+                return False
         else:
-            return False
+            self._name = name
+            self.file = file
 
     def rename(self, newname):
         self._name = newname
@@ -71,7 +94,7 @@ class soundControl(QtGui.QWidget):
             import os
             if os.path.isfile(self._file):
                 import subprocess
-                subprocess.call(["mplayer", self._file])
+                subprocess.call(["mplayer", self.file])
             else:
                 self.setActive(False)
 
