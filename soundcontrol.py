@@ -13,17 +13,17 @@ from soundcountainer import soundContainer
 
 class soundControl(QtGui.QWidget):
 
-    _file = None
-    def __init__(self, parent, parentform=None, name=u'sound', file=None, active=False):
+    def __init__(self, parent, soundcontainer, handler, parentform=None, active=False):
+        self._soundcontainer = soundcontainer
+        self._handler = handler
         self.parentform = parentform
-        self._name = name
 
         QtGui.QWidget.__init__(self, parentform)
 
 
         self.ui = Ui_soundControl()
         self.ui.setupUi(self)
-        self.ui.soundButton.setText(self._name)
+        self.ui.soundButton.setText(self._soundcontainer.soundName(self._handler))
         self.ui.configButton.clicked.connect(self.openConfDialog)
         self.ui.delButton.clicked.connect(self.confirmClose)
         self.ui.soundButton.clicked.connect(self.playSound)
@@ -32,7 +32,7 @@ class soundControl(QtGui.QWidget):
     def __del__(self):
         if self.parentform:
             try:
-                self.parentform.unregister(self, self._name)
+                self.parentform.unregister(self, self._handler)
             except AttributeError:
                 #TODO: warn about the inconsistency
                 pass
@@ -47,18 +47,14 @@ class soundControl(QtGui.QWidget):
 
     def confirmClose(self):
         confirm = warning(self, "Confirmare", \
-                            u"Sigur vrei să închizi " + self._name + "?", \
+                            u"Sigur vrei să închizi " + self._soundcontainer.soundName(self._handler) + "?", \
                             QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel, \
                             QtGui.QMessageBox.Cancel)
         if confirm is QtGui.QMessageBox.StandardButton.FirstButton:
             self.close()
 
     def openConfDialog(self):
-        information(self, "Info", \
-                u"_name: '%s'\nfile: '%s'\ntype(_name): %s\ntype(file):%s\n" \
-                % (self._name, self.file, type(self._name), type(self.file))
-                )
-        confdialog = confSoundDialog(self, self._name, self.file)
+        confdialog = confSoundDialog(self, self._soundcontainer, self._handler)
         confdialog.show()
 
     @property
@@ -69,40 +65,19 @@ class soundControl(QtGui.QWidget):
     def active(self, state):
         self.ui.checkBox.setChecked(state)
 
-    def setNameAndFile(self, name, file):
-        oname = self._name
-        #if self.parentform.hasSound(name)
-        # TODO: update sound in parent
-        if self.parentform:
-            if self.parentform.updateSound(oname, self.file, name, file):
-                self._name = name
-                self.file = file
-                self.ui.soundButton.setText(self._name)
-                return True
-            else:
-                return False
-        else:
-            self._name = name
-            self.file = file
-
     def renamedCB(self):
         self.ui.soundButton.setText(self._soundcontainer.soundName(self._handler))
 
     #TODO: use a library for playing the media file
     def playSound(self):
-        if self._file:
+        sfile = self.file
+        if sfile:
             import os
-            if os.path.isfile(self._file):
+            if os.path.isfile(sfile):
                 import subprocess
-                subprocess.call(["mplayer", self.file])
+                subprocess.call(["mplayer", sfile])
             else:
                 self.active = False
-
-    def getSoundNameOfFile(self, file):
-        if self.parentform and file:
-            return self.parentform.getSoundNameOfFile(file)
-        else:
-            return None
 
 if __name__ == "__main__":
     import sys
