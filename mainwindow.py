@@ -19,11 +19,7 @@ from os import path
 
 class myMainWindow(QtGui.QMainWindow):
 
-    _dictsounds = {}
-    """
-    _dictsounds: a dictionary of all the sounds in the application.
-    Entry format: u'soundname': u'/path/to/sound/file'.
-    """
+    _soundcontainer = None
 
     _currentprofilename = u'Profil'
     _dictprofiles = {
@@ -40,7 +36,6 @@ class myMainWindow(QtGui.QMainWindow):
         <ctl> - None/soundControl - sound control of the sound
                                     value is None when profile has no UI
     """
-    _autosoundcount = 0
     _autoprofcount = 0
 
     def __init__(self, parent=None):
@@ -48,6 +43,8 @@ class myMainWindow(QtGui.QMainWindow):
 
         # TODO: add profiles
         self.ui = Ui_MainWindow()
+
+        raise NotImplementedError, "Get a _soundcontainer!"
 
         self.ui.setupUi(self)
 
@@ -60,7 +57,7 @@ class myMainWindow(QtGui.QMainWindow):
 
     def dict_wipeOutConfig(self):
         """Cleanly destroys all existent sounds, profiles and sound controls"""
-        self._dictsounds = {}
+        raise NotImplementedError, "Call dict_wipeOutSounds of sound container"
         self._currentprofilename = None
         self.dict_wipeOutProfiles()
 
@@ -71,21 +68,6 @@ class myMainWindow(QtGui.QMainWindow):
                 if soundctl:
                     del soundctl
                 del self._dictprofiles[up][us]
-
-    def dict_loadSounds(self, cfgsounds):
-        files = {}
-        for k, v in cfgsounds:
-            uv = v.decode(osencoding)
-            uk = k.decode(osencoding)
-            if uv in files:
-                # TODO: warn about dup; files[uv] returns the name of the sound
-                continue
-            if path.isfile(uv):
-                files[uv] = uk
-                self._dictsounds[uk] = uv
-            else:
-                # TODO: warn about non-existent file
-                pass
 
     def dict_loadCfgProfile(self, profile, cfgprofile):
         up = profile.decode(osencoding)
@@ -124,54 +106,12 @@ class myMainWindow(QtGui.QMainWindow):
 
         self.dict_wipeOutConfig()
 
-        self.dict_loadSounds(config['sounds'])
+        self._soundcontainer.loadSounds(config['sounds'])
         self.dict_loadProfiles(config['profiles'])
         self.dict_loadActiveProfile(config['active_profile'])
 
-    def hasSound(self, name):
-        return (name in self._dictsounds)
-
     def dict_hasProfile(self, name):
         return (name in self._dictprofiles)
-
-    def getSoundNameOfFile(self, file):
-        if file == None:
-            return None
-        fn = file
-        if type(file) != unicode:
-            fn = file.decode(osencoding)
-        fndict = dict([ [v, k] for k, v in self._dictsounds.items()])
-        # we don't delete fndict[None] since we'd never get here if file==None
-        return fndict.get(fn, None)
-
-    def dict_addSound(self, name=None, file=None):
-        """
-        Adds a sound to the application and returns the name under which the
-        sound was really added.
-        If 'file' is already in the application under a different name, the
-        existent sound name is returned.
-        If 'name' is not given, then a unique name is chosen.
-
-        Returns: the name under which it was really added in the application.
-        """
-        if file:
-            # avoid duplicates
-            cname = self.getSoundNameOfFile(file)
-            if cname:
-                return cname
-        if name==None:
-            name = self.getNewSoundName()
-        self._dictsounds[name] = file
-        return name
-
-    def getNewSoundName(self):
-        name = None
-        while True:
-            name = u'Sound' + str(self._autosoundcount)
-            self._autosoundcount += 1
-            if not self.hasSound(name):
-                break
-        return name
 
     def dict_getNewProfileName(self):
         name = None
@@ -189,7 +129,7 @@ class myMainWindow(QtGui.QMainWindow):
             if pn == None:
                 raise Exception, "No active profile exists to add sound to."
         # get the real name of the sound
-        sname = self.dict_addSound(name, file)
+        sname = self._soundcontainer.addSound(name, file)
         if sname in self._dictprofiles[pn]:
             # TODO: warn about overwrite
             raise Exception,  "Trying to add the same sound (%s) twice in profile" % sname
@@ -224,37 +164,8 @@ class myMainWindow(QtGui.QMainWindow):
                                self.uiAddSound2profile
                               )
 
-    def updateSound(self, oldname, oldfile, newname, newfile):
-        """
-        Updates sound oldname:oldfile to be newname:newfile.
-        If successfull, returns True; False otherwise.
-        """
-        if not self.hasSound(oldname):
-            return False
-        if self._dictsounds[oldname] != oldfile:
-            return False
-        if (oldname == newname) and (oldfile == newfile):
-            return True
-        self._dictsounds[newname] = newfile
-        if oldname != newname:
-            self.updateSoundInProfiles(oldname, newname)
-            del self._dictsounds[oldname]
-            return True
-
-    def fileOfSound(self, sound):
-        return self._dictsounds.get(sound, None)
-
-    def updateSoundInProfiles(self, oldsound, newsound):
-        if oldsound == newsound:
-            return
-        for p in self._dictprofiles:
-            if oldsound in p:
-                p[newsound] = p[oldsound]
-                p[newsound]['ctl'].rename(newsound)
-                del p[oldsound]
-
     def register(self, qsndctl, name, profile=None):
-        print "Missing implementation of %s" % __name__
+        raise NotImplementedError,  "Missing implementation of %s" % __name__
         # TODO: implement profile based
         return
 
@@ -265,7 +176,7 @@ class myMainWindow(QtGui.QMainWindow):
             #raise AttributeError("Name %s already exists" % name)
 
     def unregister(self, soundctl, name):
-        print "Missing implementation of %s" % __name__
+        raise NotImplementedError,  "Missing implementation of %s" % __name__
         # TODO: implement profile-based
         return
 
