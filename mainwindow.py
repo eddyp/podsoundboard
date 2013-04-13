@@ -79,7 +79,7 @@ class myMainWindow(QtGui.QMainWindow):
         for enabled in [ False, True ]:
             for s in cfgprofile[enabled]:
                 us = s.decode(osencoding)
-                if us in self._dictsounds:
+                if self._soundcontainer.hasSound(us):
                     self._dictprofiles[up][us] = {'state': enabled, 'ctl': None}
 
     def dict_loadProfiles(self, cfgprofiles):
