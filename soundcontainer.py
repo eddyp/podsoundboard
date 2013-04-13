@@ -92,6 +92,26 @@ class soundContainer(object):
         # we don't delete fndict[None] since we'd never get here if file==None
         return fndict.get(fn, None)
 
+    def soundName(self, handler):
+        return self.__handlers.get(handler, None)
+
+    def renameSound(self, handler, newname):
+        oname = self.__handlers[handler]
+        if type(newname) != unicode:
+            newname = newname.decode(osencoding)
+        if oname == newname:
+            return handler
+        if self.hasSound(newname):
+            return None
+
+        for k, v in self.__handlers:
+            if v == oname:
+                self.__handlers[k] = newname
+        self.__users[newname] = self.__users[oname]
+        del self.__users[oname]
+        for u in self.__users[newname]:
+            u.renamed()
+
     def updateSound(self, oldname, oldfile, newname, newfile):
         """
         Updates sound oldname:oldfile to be newname:newfile.
