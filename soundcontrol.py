@@ -13,8 +13,11 @@ from soundcontainer import soundContainer
 
 class soundControl(QtGui.QWidget):
 
-    def __init__(self, parent, soundcontainer, handler, parentform=None, active=False):
+    parentform=None
+    def __init__(self, soundcontainer, handler=None, parentform=None, active=False):
         self._soundcontainer = soundcontainer
+        if handler == None:
+            handler = self._soundcontainer.addSound()
         self._handler = handler
         self.parentform = parentform
 
@@ -82,6 +85,7 @@ class soundControl(QtGui.QWidget):
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
-    myapp = soundControl(u'sunet')
+    sndcont = soundContainer()
+    myapp = soundControl(soundcontainer=sndcont)
     myapp.show()
     sys.exit(app.exec_())
