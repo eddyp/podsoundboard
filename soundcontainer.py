@@ -110,4 +110,6 @@ class soundContainer(object):
             return True
 
     def fileOfSound(self, sound):
+        if sound in self.__handlers:
+            sound = self.__handlers[sound]
         return self.__sounds.get(sound, None)
