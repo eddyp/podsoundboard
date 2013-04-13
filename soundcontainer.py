@@ -21,14 +21,14 @@ class soundContainer(object):
     __handlers = {}
 
     def init(dictsound = {}):
-        self.dict_loadSounds(dictsound)
+        self.loadSounds(dictsound)
 
-    def dict_wipeOutSounds(self):
+    def wipeOutSounds(self):
         self.__sounds = {}
         self.__handlers = {}
         self.__idcnt = 0
 
-    def dict_loadSounds(self, cfgsounds):
+    def loadSounds(self, cfgsounds):
         files = {}
         for k, v in cfgsounds:
             uv = v.decode(osencoding)
