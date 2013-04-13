@@ -9,6 +9,7 @@ critical = QtGui.QMessageBox.critical
 
 from ui_soundcontrol import Ui_soundControl
 from confsounddialog import confSoundDialog
+from soundcountainer import soundContainer
 
 class soundControl(QtGui.QWidget):
 
@@ -16,8 +17,6 @@ class soundControl(QtGui.QWidget):
     def __init__(self, parent, parentform=None, name=u'sound', file=None, active=False):
         self.parentform = parentform
         self._name = name
-        if not self.parentform:
-            self._file = file
 
         QtGui.QWidget.__init__(self, parentform)
 
@@ -28,7 +27,7 @@ class soundControl(QtGui.QWidget):
         self.ui.configButton.clicked.connect(self.openConfDialog)
         self.ui.delButton.clicked.connect(self.confirmClose)
         self.ui.soundButton.clicked.connect(self.playSound)
-        self.setActive(active)
+        self.active = active
 
     def __del__(self):
         if self.parentform:
@@ -40,18 +39,11 @@ class soundControl(QtGui.QWidget):
 
     @property
     def file(self):
-        if self.parentform:
-            return self.parentform.fileOfSound(self._name)
-        else:
-            return self._file
+        return self._soundcontainer.fileOfSound(self._handler)
 
     @file.setter
     def file(self, file):
-        p = self.parentform
-        if p:
-            return p.updateSound(self._name, self.file, self._name, file)
-        else:
-            self._file = file
+        return self._soundcontainer.updateFile(self._handler, file)
 
     def confirmClose(self):
         confirm = warning(self, "Confirmare", \
@@ -69,7 +61,12 @@ class soundControl(QtGui.QWidget):
         confdialog = confSoundDialog(self, self._name, self.file)
         confdialog.show()
 
-    def setActive(self, state):
+    @property
+    def active(self):
+        self.ui.checkBox.isChecked()
+
+    @active.setter
+    def active(self, state):
         self.ui.checkBox.setChecked(state)
 
     def setNameAndFile(self, name, file):
@@ -100,7 +97,7 @@ class soundControl(QtGui.QWidget):
                 import subprocess
                 subprocess.call(["mplayer", self.file])
             else:
-                self.setActive(False)
+                self.active = False
 
     def getSoundNameOfFile(self, file):
         if self.parentform and file:

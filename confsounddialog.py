@@ -48,7 +48,7 @@ class confSoundDialog(QtGui.QDialog):
                             )
                     return
                 if self._file:
-                    self._parent.setActive(True)
+                    self._parent.active = True
                 self.accept()
             else:
                 warning(self, u"Sunetul există deja",
