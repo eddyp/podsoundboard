@@ -11,18 +11,22 @@ class soundContainer(object):
     __sounds: a dictionary of all the sounds in the application.
     Entry format: u'soundname': u'/path/to/sound/file'.
     """
-    _autosoundcount = 0
-    _soundids = {}
+    __users = {}
+    """
+    lists all the registered UI elements of any sound
+    Entry format:
+        u'soundname': [ list, of, ui, objs, that, use, it ]
+    """
+    __idcnt = 0
+    __handlers = {}
 
     def init(dictsound = {}):
-        self._soundids = dict(zip(range(len(dictsound)), dictsound.keys()))
-        self._autosoundcount = len(dictsound)
-        self.__sounds = dictsound
+        self.dict_loadSounds(dictsound)
 
     def dict_wipeOutSounds(self):
         self.__sounds = {}
-        self._soundids = {}
-        self._autosoundcount = 0
+        self.__handlers = {}
+        self.__idcnt = 0
 
     def dict_loadSounds(self, cfgsounds):
         files = {}
@@ -35,6 +39,7 @@ class soundContainer(object):
             if path.isfile(uv):
                 files[uv] = uk
                 self.__sounds[uk] = uv
+                self.__users[uk] = []
             else:
                 # TODO: warn about non-existent file
                 pass
@@ -44,23 +49,28 @@ class soundContainer(object):
 
     def dict_addSound(self, name=None, file=None):
         """
-        Adds a sound to the application and returns the name under which the
-        sound was really added.
-        If 'file' is already in the application under a different name, the
-        existent sound name is returned.
+        Adds a sound to the application and returns the a handler for the sound.
+        If 'file' is already in the application under a different name, a
+        handler to the existent sound is returned.
         If 'name' is not given, then a unique name is chosen.
+        If the 'name' already exists, a new unique name is chosen instead.
 
-        Returns: the name under which it was really added in the application.
+        Returns: a handler of the sound
         """
         if file:
             # avoid duplicates
             cname = self.getSoundNameOfFile(file)
             if cname:
-                return cname
-        if name==None:
+                self.__handlers[self.__idcnt] = cname
+                self.__idcnt += 1
+                return self.__idcnt - 1
+        if name==None or self.hasSound(name):
             name = self.getNewSoundName()
         self.__sounds[name] = file
-        return name
+        self.__users[name] = []
+        self.__handlers[self.__idcnt] = name
+        self.__idcnt += 1
+        return self.__idcnt - 1
 
     def getNewSoundName(self):
         name = None
