@@ -74,9 +74,10 @@ class soundContainer(object):
 
     def getNewSoundName(self):
         name = None
+        autocount = 0
         while True:
-            name = u'Sound' + str(self._autosoundcount)
-            self._autosoundcount += 1
+            name = u'Sound' + str(autocount)
+            autocount += 1
             if not self.hasSound(name):
                 break
         return name
