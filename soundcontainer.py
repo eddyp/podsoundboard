@@ -47,7 +47,7 @@ class soundContainer(object):
     def hasSound(self, name):
         return (name in self.__sounds)
 
-    def dict_addSound(self, name=None, file=None):
+    def addSound(self, name=None, file=None):
         """
         Adds a sound to the application and returns the a handler for the sound.
         If 'file' is already in the application under a different name, a
