@@ -88,16 +88,18 @@ class myMainWindow(QtGui.QMainWindow):
 
     def dict_loadActiveProfile(self, activeprofile):
         #print "Active profile: >%s< type: %s\n" % (activeprofile, type(activeprofile))
-        uap = activeprofile.decode(osencoding)
-        if uap in self._dictprofiles:
-            self._currentprofilename = uap
-        else:
-            # TODO: warn about inconsistency
-            plist = self._dictprofiles.keys()
-            if len(plist)>0:
-                self._currentprofilename = plist[0]
+        if activeprofile != None:
+            uap = activeprofile.decode(osencoding)
+            if uap in self._dictprofiles:
+                self._currentprofilename = uap
+                return
             else:
-                self._currentprofilename = None
+                # TODO: warn about inconsistency
+                pass
+        if len(self._dictprofiles)>0:
+            self._currentprofilename = self._dictprofiles.keys()[0]
+        else:
+            self._currentprofilename = None
 
     def dict_loadConfig(self, config):
         """
