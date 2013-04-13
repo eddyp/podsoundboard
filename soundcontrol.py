@@ -85,9 +85,8 @@ class soundControl(QtGui.QWidget):
             self._name = name
             self.file = file
 
-    def rename(self, newname):
-        self._name = newname
-        self.ui.soundButton.setText(self._name)
+    def renamedCB(self):
+        self.ui.soundButton.setText(self._soundcontainer.soundName(self._handler))
 
     #TODO: use a library for playing the media file
     def playSound(self):

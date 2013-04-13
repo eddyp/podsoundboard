@@ -110,7 +110,7 @@ class soundContainer(object):
         self.__users[newname] = self.__users[oname]
         del self.__users[oname]
         for u in self.__users[newname]:
-            u.renamed()
+            u.renamedCB()
 
     def updateSound(self, oldname, oldfile, newname, newfile):
         """
