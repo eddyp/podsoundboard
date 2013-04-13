@@ -104,6 +104,7 @@ class myMainWindow(QtGui.QMainWindow):
             dict_loadCfgProfile(p, cfgprofiles[p])
 
     def dict_loadActiveProfile(self, activeprofile):
+        #print "Active profile: >%s< type: %s\n" % (activeprofile, type(activeprofile))
         uap = activeprofile.decode(osencoding)
         if uap in self._dictprofiles:
             self._currentprofilename = uap
