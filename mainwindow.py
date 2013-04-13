@@ -14,6 +14,7 @@ from ui_mainwindow import Ui_MainWindow
 from soundcontrol import soundControl
 
 from appconfig import appconfig
+from soundcontainer import soundContainer
 
 from os import path
 
@@ -44,7 +45,7 @@ class myMainWindow(QtGui.QMainWindow):
         # TODO: add profiles
         self.ui = Ui_MainWindow()
 
-        raise NotImplementedError, "Get a _soundcontainer!"
+        self._soundcontainer = soundContainer()
 
         self.ui.setupUi(self)
 
@@ -57,7 +58,7 @@ class myMainWindow(QtGui.QMainWindow):
 
     def dict_wipeOutConfig(self):
         """Cleanly destroys all existent sounds, profiles and sound controls"""
-        raise NotImplementedError, "Call dict_wipeOutSounds of sound container"
+        self._soundcontainer.wipeOutSounds()
         self._currentprofilename = None
         self.dict_wipeOutProfiles()
 
