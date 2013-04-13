@@ -9,7 +9,7 @@ critical = QtGui.QMessageBox.critical
 
 from ui_soundcontrol import Ui_soundControl
 from confsounddialog import confSoundDialog
-from soundcountainer import soundContainer
+from soundcontainer import soundContainer
 
 class soundControl(QtGui.QWidget):
 
