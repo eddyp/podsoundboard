@@ -182,4 +182,8 @@ class soundContainer(object):
         else:
             return False
 
+    def dump(self):
+        for o in (self.__handlers, self.__sounds, self.__users):
+            print ("%s\n%s\n" % (o.__str__, str(o)))
+        return
 
