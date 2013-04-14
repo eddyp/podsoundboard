@@ -14,24 +14,40 @@ critical = QtGui.QMessageBox.critical
 from ui_confsounddialog import Ui_confSoundDialog
 
 class confSoundDialog(QtGui.QDialog):
-    _file = None
-    _name = None
-    def __init__(self, parent=None, name=None, file=None):
+    _handler = None
+    _parent = None
+
+    _initialfile = None
+    _initialname = None
+    def __init__(self, soundcontainer, parent=None, handler=None):
         QtGui.QDialog.__init__(self, parent)
         self._parent = parent
         self.ui = Ui_confSoundDialog()
         self.ui.setupUi(self)
-        if name:
-            self.setName(name)
-        if file:
-            self.setFileName(file)
+
+        self._soundcontainer = soundcontainer
+
+        if handler == None:
+            handler = self._soundcontainer.addSound()
+        self._handler = handler
+        self._initialname = self._soundcontainer.soundName(handler)
+        self._initialname = self._soundcontainer.fileOfSound(handler)
+
+        self.setName(self._soundcontainer.soundName(self._handler))
+        self.setFileName(self._soundcontainer.fileOfSound(self._handler))
+
         # connect the Choose button to the QFile Dialog
         self.ui.chooseFileButton.clicked.connect(self.getFileName)
         self.ui.buttonBox.accepted.connect(self.sendInfo2Parent)
         self.ui.soundNameEdit.textChanged.connect(self.uiNameChanged)
 
     def uiNameChanged(self, editString):
-        self._name = editString
+        self.ui.buttonBox.setEnabled(True)
+        if editString == self._initialname:
+            return
+        if self._soundcontainer.hasSound(editString):
+            self.ui.buttonBox.setEnabled(False)
+        return
 
     def sendInfo2Parent(self):
         if self._parent:
