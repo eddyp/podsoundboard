@@ -104,13 +104,16 @@ class soundContainer(object):
         if self.hasSound(newname):
             return None
 
-        for k, v in self.__handlers:
+        for k, v in self.__handlers.items():
             if v == oname:
                 self.__handlers[k] = newname
+        self.__sounds[newname] = self.__sounds[oname]
+        del self.__sounds[oname]
         self.__users[newname] = self.__users[oname]
         del self.__users[oname]
         for u in self.__users[newname]:
             u.renamedCB()
+        return handler
 
     def updateSound(self, oldname, oldfile, newname, newfile):
         """
