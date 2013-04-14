@@ -50,31 +50,38 @@ class confSoundDialog(QtGui.QDialog):
         return
 
     def sendInfo2Parent(self):
-        if self._parent:
-            psn = self._parent.getSoundNameOfFile(self._file)
-            if psn == None or self._parent._name == psn:
-                if not self._parent.setNameAndFile(self._name, self._file):
-                    warning(self, u'Eroare',
-                            textwrap.dedent(
-                            u"""
-                            Proprietățile sunetului nu au putut fi schimbate.
-                            Probabil că numele există deja.
-                            """
-                            )
-                            )
-                    return
-                if self._file:
-                    self._parent.active = True
-                self.accept()
-            else:
-                warning(self, u"Sunetul există deja",
-                    textwrap.dedent(
-                    u"""
-                    Fișierul există deja sub numele '%s'.
-                    Alegeți alt fișier.
-                    """ % (psn))
-                    )
-                self.setName(psn)
+        psn = self._soundcontainer.getSoundNameOfFile(self.file)
+        if psn == None or self._initialname == psn:
+            if not self._soundcontainer.updateNameAndFile(self._handler, self.name, self.file):
+                warning(self, u'Eroare',
+                        textwrap.dedent(
+                        u"""
+                        Proprietățile sunetului nu au putut fi schimbate.
+                        Probabil că numele sau sunetul există deja.
+                        """
+                        )
+                        )
+                return
+            if self.file:
+                self._parent.active = True
+            self.accept()
+        else:
+            warning(self, u"Sunetul există deja",
+                textwrap.dedent(
+                u"""
+                Fișierul există deja sub numele '%s'.
+                Alegeți alt fișier.
+                """ % (psn))
+                )
+            self.setName(psn)
+
+    @property
+    def name(self):
+        return self.ui.soundNameEdit.text()
+
+    @property
+    def file(self):
+        return self.ui.fileNameEdit.text()
 
     def getFileName(self, soundName=None, fileName=None):
         if soundName:
@@ -93,11 +100,11 @@ class confSoundDialog(QtGui.QDialog):
         return fn
 
     def setFileName(self, fileName):
-        self._file = fileName
-        self.ui.fileNameEdit.setText(self._file)
+        if fileName == None:
+            fileName = u''
+        self.ui.fileNameEdit.setText(fileName)
 
     def setName(self, soundName):
-        self._name = soundName
         self.ui.soundNameEdit.setText(soundName)
 
 if __name__ == "__main__":

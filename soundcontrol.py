@@ -53,7 +53,7 @@ class soundControl(QtGui.QWidget):
             self.close()
 
     def openConfDialog(self):
-        confdialog = confSoundDialog(self, self._soundcontainer, self._handler)
+        confdialog = confSoundDialog(self._soundcontainer, self, self._handler)
         confdialog.show()
 
     @property
@@ -70,7 +70,7 @@ class soundControl(QtGui.QWidget):
     #TODO: use a library for playing the media file
     def playSound(self):
         sfile = self.file
-        if sfile:
+        if sfile != None:
             import os
             if os.path.isfile(sfile):
                 import subprocess
