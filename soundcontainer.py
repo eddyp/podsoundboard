@@ -17,7 +17,7 @@ class soundContainer(object):
     Entry format:
         u'soundname': [ list, of, ui, objs, that, use, it ]
     """
-    __idcnt = 0
+    __idcnt = 1
     __handlers = {}
 
     def init(dictsound = {}):
@@ -26,7 +26,8 @@ class soundContainer(object):
     def wipeOutSounds(self):
         self.__sounds = {}
         self.__handlers = {}
-        self.__idcnt = 0
+        self.__users = {}
+        self.__idcnt = 1
 
     def loadSounds(self, cfgsounds):
         files = {}
