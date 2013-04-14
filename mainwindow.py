@@ -167,29 +167,6 @@ class myMainWindow(QtGui.QMainWindow):
                                self.uiAddSound2profile
                               )
 
-    def register(self, qsndctl, name, profile=None):
-        raise NotImplementedError,  "Missing implementation of %s" % __name__
-        # TODO: implement profile based
-        return
-
-        #if not self.hasSound(name):
-            #self._sounds.append(name)
-            #self.qsndctls.append( {'name': name, 'ctl': qsndctl} )
-        #else:
-            #raise AttributeError("Name %s already exists" % name)
-
-    def unregister(self, soundctl, name):
-        raise NotImplementedError,  "Missing implementation of %s" % __name__
-        # TODO: implement profile-based
-        return
-
-        if self.hasSound(name):
-            del self._dictsounds[name]
-            #self.qsndctls.remove( {'name': name, 'ctl': soundctl} )
-        #else:
-            ##TODO: warning about inconsistency
-            #pass
-
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

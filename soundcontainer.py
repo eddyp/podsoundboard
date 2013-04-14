@@ -133,3 +133,22 @@ class soundContainer(object):
         if sound in self.__handlers:
             sound = self.__handlers[sound]
         return self.__sounds.get(sound, None)
+
+    def register(self, handler, ui):
+        if not self.validHandler(handler):
+            return
+        sname = self.__handlers[handler]
+        if not ui in self.__users[sname]:
+            self.__users[sname].append(ui)
+
+    def unregister(self, handler, ui):
+        if not self.validHandler(handler):
+            return False
+        sname = self.__handlers[handler]
+        if ui in self.__users[sname]:
+            self.__users[sname].remove(ui)
+            return True
+        else:
+            return False
+
+
