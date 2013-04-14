@@ -49,10 +49,10 @@ class myMainWindow(QtGui.QMainWindow):
 
         self.ui.setupUi(self)
 
-        #appconf = appconfig(appname, appver)
-        #config = appconf.config
-        #self.dict_loadConfig(config)
-        ##self.dict_updateActiveProfileUi()
+        appconf = appconfig(appname, appver)
+        config = appconf.config
+        self.dict_loadConfig(config)
+        #self.dict_updateActiveProfileUi()
 
         self.dict_initSlots()
 
@@ -156,7 +156,7 @@ class myMainWindow(QtGui.QMainWindow):
 
         uiProfileScrollArea = self.ui.soundsScrollArea
         uiProfileVerticalLayout = self.ui.verticalLayout_profile
-        ctl = soundControl(uiProfileScrollArea, self, sname, self._dictsounds[sname], active)
+        ctl = soundControl(uiProfileScrollArea, self, self._soundcontainer, active)
         self._dictprofiles[profile][sname]['ctl'] = ctl
         # TODO: delete spacer add again later
         uiProfileVerticalLayout.addWidget(ctl)
