@@ -116,22 +116,49 @@ class soundContainer(object):
             u.renamedCB()
         return handler
 
-    def updateSound(self, oldname, oldfile, newname, newfile):
+    def changeFile(self, handler, file):
+        if not self.validHandler(handler):
+            return False
+        cname = self.getSoundNameOfFile(file)
+        if (cname != None) and (cname != self.__handlers[handler]):
+            # file already exists
+            return False
+        self.__sounds[self.__handlers[handler]] = file
+        return True
+
+    def validHandler(self, handler):
+        if not handler in self.__handlers:
+            return False
+        if not self.hasSound(self.__handlers[handler]):
+            return False
+        return True
+
+    def updateNameAndFile(self, handler, name, file):
         """
-        Updates sound oldname:oldfile to be newname:newfile.
+        Updates sound with given handler to be newname:newfile.
         If successfull, returns True; False otherwise.
         """
-        if not self.hasSound(oldname):
+        if not self.validHandler(handler):
             return False
-        if self.__sounds[oldname] != oldfile:
+        oname = self.__handlers[handler]
+        if (oname == name) and (self.fileOfSound(oname)==file):
+            return True
+
+        # validate new data
+        if self.hasSound(name):
+            # new name is already used
             return False
-        if (oldname == newname) and (oldfile == newfile):
+        if self.getSoundNameOfFile(file) != None:
+            # file already exists
+            return False
+
+        # everything checks out
+        if self.changeFile(handler, file) and \
+                    self.renameSound(handler, name) !=None:
             return True
-        self.__sounds[newname] = newfile
-        if oldname != newname:
-            self.updateSoundInProfiles(oldname, newname)
-            del self.__sounds[oldname]
-            return True
+        else:
+            #raise Exception, "Unexpected file update fail"
+            return False
 
     def fileOfSound(self, sound):
         if sound in self.__handlers:
