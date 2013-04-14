@@ -19,6 +19,7 @@ class soundControl(QtGui.QWidget):
         if handler == None:
             handler = self._soundcontainer.addSound()
         self._handler = handler
+        self._soundcontainer.register(handler, self)
         self.parentform = parentform
 
         QtGui.QWidget.__init__(self, parentform)
@@ -33,12 +34,7 @@ class soundControl(QtGui.QWidget):
         self.active = active
 
     def __del__(self):
-        if self.parentform:
-            try:
-                self.parentform.unregister(self, self._handler)
-            except AttributeError:
-                #TODO: warn about the inconsistency
-                pass
+        self._soundcontainer.unregister(self._handler, self)
 
     @property
     def file(self):
