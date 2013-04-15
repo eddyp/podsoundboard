@@ -84,7 +84,7 @@ class myMainWindow(QtGui.QMainWindow):
 
     def dict_loadProfiles(self, cfgprofiles):
         for p in cfgprofiles.keys():
-            dict_loadCfgProfile(p, cfgprofiles[p])
+            self.dict_loadCfgProfile(p, cfgprofiles[p])
 
     def dict_loadActiveProfile(self, activeprofile):
         #print "Active profile: >%s< type: %s\n" % (activeprofile, type(activeprofile))
