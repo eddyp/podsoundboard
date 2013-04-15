@@ -88,9 +88,11 @@ class confSoundDialog(QtGui.QDialog):
             self.setName(soundName)
         if fileName:
             self.setFileName(fileName)
+        defaultpath = QtCore.QDir.homePath() if self.file == u'' \
+                        else path.dirname(self.file)
         #for some reason the filter is retuned, too
-        fn, dummy = QtGui.QFileDialog.getOpenFileName(self, u'Alege fișierul', \
-                QtCore.QDir().homePath(), \
+        fn, dummy = QtGui.QFileDialog.getOpenFileName(self, u'Alege fișierul',
+                defaultpath,
                 'Audio files (*.mp3 *.flac *.wav)')
         if fn:
             # TODO: check fn is a known sound for the parent
