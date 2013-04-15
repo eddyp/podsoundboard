@@ -55,7 +55,7 @@ class soundContainer(object):
 
     def addSound(self, name=None, file=None):
         """
-        Adds a sound to the application and returns the a handler for the sound.
+        Adds a sound to the application and returns a handler for the sound.
         If 'file' is already in the application under a different name, a
         handler to the existent sound is returned.
         If 'name' is not given, then a unique name is chosen.
