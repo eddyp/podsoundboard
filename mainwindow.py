@@ -152,12 +152,12 @@ class myMainWindow(QtGui.QMainWindow):
     def uiAddSound2profile(self, soundName=None, soundFile=None, active=False, profile=None):
         if profile == None:
             profile = self._currentprofilename
-        sname = self.addSound2Profile(soundName, soundFile, active, profile)
+        handler = self.addSound2Profile(soundName, soundFile, active, profile)
 
         uiProfileScrollArea = self.ui.soundsScrollArea
         uiProfileVerticalLayout = self.ui.verticalLayout_profile
-        ctl = soundControl(uiProfileScrollArea, self, self._soundcontainer, active)
-        self._dictprofiles[profile][sname]['ctl'] = ctl
+        ctl = soundControl(self._soundcontainer, handler, uiProfileScrollArea, active)
+        self._dictprofiles[profile][handler]['ctl'] = ctl
         # TODO: delete spacer add again later
         uiProfileVerticalLayout.addWidget(ctl)
 
