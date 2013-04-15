@@ -124,10 +124,12 @@ class soundContainer(object):
     def changeFile(self, handler, file):
         if not self.validHandler(handler):
             return False
+        if self.__sounds[self.__handlers[handler]] == file:
+            return True
         cname = self.getSoundNameOfFile(file)
-        if (cname is not None) and (cname != self.__handlers[handler]):
-            # file already exists
-            return False
+        if cname is not None:
+                # file already exists
+                return False
         self.__sounds[self.__handlers[handler]] = file
         return True
 
@@ -153,7 +155,8 @@ class soundContainer(object):
         if self.hasSound(name):
             # new name is already used
             return False
-        if self.getSoundNameOfFile(file) is not None:
+        sname = self.getSoundNameOfFile(file)
+        if sname is not None and sname != self.__handlers[handler]:
             # file already exists
             return False
 
