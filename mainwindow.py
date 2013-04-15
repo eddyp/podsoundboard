@@ -75,7 +75,7 @@ class myMainWindow(QtGui.QMainWindow):
             # TODO: warn
             return
         self._dictprofiles[up] = {}
-        for enabled in [ False, True ]:
+        for enabled in [False, True]:
             for s in cfgprofile[enabled]:
                 us = s.decode(osencoding)
                 if self._soundcontainer.hasSound(us):
@@ -95,7 +95,7 @@ class myMainWindow(QtGui.QMainWindow):
             else:
                 # TODO: warn about inconsistency
                 pass
-        if len(self._dictprofiles)>0:
+        if len(self._dictprofiles) > 0:
             self._currentprofilename = self._dictprofiles.keys()[0]
         else:
             self._currentprofilename = None
@@ -134,8 +134,9 @@ class myMainWindow(QtGui.QMainWindow):
         sname = self._soundcontainer.addSound(name, file)
         if sname in self._dictprofiles[pn]:
             # TODO: warn about overwrite
-            raise Exception,  "Trying to add the same sound (%s) twice in profile" % sname
-        self._dictprofiles[pn][sname] = { 'state': active, 'ctl': None }
+            raise Exception(
+                "Trying to add the same sound (%s) twice in profile" % sname)
+        self._dictprofiles[pn][sname] = {'state': active, 'ctl': None}
         return sname
 
     def dict_updateActiveProfileUi(self):
@@ -161,8 +162,8 @@ class myMainWindow(QtGui.QMainWindow):
         uiProfileVerticalLayout.addWidget(ctl)
 
     def dict_initSlots(self):
-        QtCore.QObject.connect(self.ui.soundAddButton, \
-                               QtCore.SIGNAL("clicked()"), \
+        QtCore.QObject.connect(self.ui.soundAddButton,
+                               QtCore.SIGNAL("clicked()"),
                                self.uiAddSound2profile
                               )
 

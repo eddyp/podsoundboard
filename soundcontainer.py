@@ -94,7 +94,7 @@ class soundContainer(object):
         fn = file
         if type(file) != unicode:
             fn = file.decode(osencoding)
-        fndict = dict([ [v, k] for k, v in self.__sounds.items()])
+        fndict = dict([[v, k] for k, v in self.__sounds.items()])
         # we don't delete fndict[None] since we'd never get here if file==None
         return fndict.get(fn, None)
 
@@ -191,4 +191,3 @@ class soundContainer(object):
         for o in (self.__handlers, self.__sounds, self.__users):
             print ("%s\n%s\n" % (o.__str__, str(o)))
         return
-
