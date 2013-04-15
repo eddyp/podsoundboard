@@ -16,7 +16,6 @@ from soundcontrol import soundControl
 from appconfig import appconfig
 from soundcontainer import soundContainer
 
-from os import path
 
 class myMainWindow(QtGui.QMainWindow):
 

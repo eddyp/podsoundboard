@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+osencoding = 'utf8'
+
+from os import path
+
+
 class soundContainer(object):
     """
     Stores and handles all sound-related lookup and updates.
