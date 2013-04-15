@@ -87,7 +87,7 @@ class myMainWindow(QtGui.QMainWindow):
 
     def dict_loadActiveProfile(self, activeprofile):
         #print "Active profile: >%s< type: %s\n" % (activeprofile, type(activeprofile))
-        if activeprofile != None:
+        if activeprofile is not None:
             uap = activeprofile.decode(osencoding)
             if uap in self._dictprofiles:
                 self._currentprofilename = uap
@@ -126,9 +126,9 @@ class myMainWindow(QtGui.QMainWindow):
 
     def addSound2Profile(self, name=None, file=None, active=False, profile=None):
         pn = profile
-        if profile == None:
+        if profile is None:
             pn = self._currentprofilename
-            if pn == None:
+            if pn is None:
                 raise Exception, "No active profile exists to add sound to."
         # get the real name of the sound
         sname = self._soundcontainer.addSound(name, file)
@@ -143,13 +143,13 @@ class myMainWindow(QtGui.QMainWindow):
 
     def addProfile(self, profilename=None):
         pn = profilename
-        if pn == None:
+        if pn is None:
             pn = self.dict_getNewProfileName()
         if self.dict_hasProfile(pn):
             raise Exception, u"Profile %s is already in the application" % pn
 
     def uiAddSound2profile(self, soundName=None, soundFile=None, active=False, profile=None):
-        if profile == None:
+        if profile is None:
             profile = self._currentprofilename
         handler = self.addSound2Profile(soundName, soundFile, active, profile)
 

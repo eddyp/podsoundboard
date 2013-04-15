@@ -70,7 +70,7 @@ class soundContainer(object):
                 self.__handlers[self.__idcnt] = cname
                 self.__idcnt += 1
                 return self.__idcnt - 1
-        if name==None or self.hasSound(name):
+        if name is None or self.hasSound(name):
             name = self.getNewSoundName()
         self.__sounds[name] = file
         self.__users[name] = []
@@ -89,7 +89,7 @@ class soundContainer(object):
         return name
 
     def getSoundNameOfFile(self, file):
-        if file == None:
+        if file is None:
             return None
         fn = file
         if type(file) != unicode:
@@ -125,7 +125,7 @@ class soundContainer(object):
         if not self.validHandler(handler):
             return False
         cname = self.getSoundNameOfFile(file)
-        if (cname != None) and (cname != self.__handlers[handler]):
+        if (cname is not None) and (cname != self.__handlers[handler]):
             # file already exists
             return False
         self.__sounds[self.__handlers[handler]] = file
@@ -146,20 +146,20 @@ class soundContainer(object):
         if not self.validHandler(handler):
             return False
         oname = self.__handlers[handler]
-        if (oname == name) and (self.fileOfSound(oname)==file):
+        if (oname == name) and (self.fileOfSound(oname) == file):
             return True
 
         # validate new data
         if self.hasSound(name):
             # new name is already used
             return False
-        if self.getSoundNameOfFile(file) != None:
+        if self.getSoundNameOfFile(file) is not None:
             # file already exists
             return False
 
         # everything checks out
         if self.changeFile(handler, file) and \
-                    self.renameSound(handler, name) !=None:
+                    self.renameSound(handler, name) is not None:
             return True
         else:
             #raise Exception, "Unexpected file update fail"
