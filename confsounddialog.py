@@ -102,12 +102,23 @@ class confSoundDialog(QtGui.QDialog):
         return fn
 
     def setFileName(self, fileName):
-        if fileName == None:
+
+        self.setValidLineEdit(self.ui.fileNameEdit, True)
+        if fileName is None:
             fileName = u''
+        asn = self._soundcontainer.getSoundNameOfFile(fileName)
+        if asn is not None and asn != self._initialname:
+            self.setValidLineEdit(self.ui.fileNameEdit, False)
         self.ui.fileNameEdit.setText(fileName)
 
     def setName(self, soundName):
         self.ui.soundNameEdit.setText(soundName)
+
+    def setValidLineEdit(self, lineedit, valid=True):
+        font = lineedit.font()
+        font.setStrikeOut(not valid)
+        lineedit.setFont(font)
+
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
