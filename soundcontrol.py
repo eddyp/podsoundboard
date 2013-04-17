@@ -18,7 +18,7 @@ class soundControl(QtGui.QWidget):
     def __init__(self, soundcontainer, handler=None, parentform=None, active=False):
 
         self._soundcontainer = soundcontainer
-        if handler == None:
+        if handler is None:
             handler = self._soundcontainer.addSound()
         self._handler = handler
         self._soundcontainer.register(handler, self)
@@ -73,7 +73,7 @@ class soundControl(QtGui.QWidget):
     #TODO: use a library for playing the media file
     def playSound(self):
         sfile = self.file
-        if sfile != None:
+        if sfile is not None:
             import os
             if os.path.isfile(sfile):
                 import subprocess
