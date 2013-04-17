@@ -13,8 +13,10 @@ from soundcontainer import soundContainer
 
 class soundControl(QtGui.QWidget):
 
-    parentform=None
+    parentform = None
+
     def __init__(self, soundcontainer, handler=None, parentform=None, active=False):
+
         self._soundcontainer = soundcontainer
         if handler == None:
             handler = self._soundcontainer.addSound()
@@ -24,10 +26,10 @@ class soundControl(QtGui.QWidget):
 
         QtGui.QWidget.__init__(self, parentform)
 
-
         self.ui = Ui_soundControl()
         self.ui.setupUi(self)
-        self.ui.soundButton.setText(self._soundcontainer.soundName(self._handler))
+        self.ui.soundButton.setText(
+                    self._soundcontainer.soundName(self._handler))
         self.ui.configButton.clicked.connect(self.openConfDialog)
         self.ui.delButton.clicked.connect(self.confirmClose)
         self.ui.soundButton.clicked.connect(self.playSound)
@@ -45,9 +47,9 @@ class soundControl(QtGui.QWidget):
         return self._soundcontainer.updateFile(self._handler, file)
 
     def confirmClose(self):
-        confirm = warning(self, "Confirmare", \
-                            u"Sigur vrei să închizi " + self._soundcontainer.soundName(self._handler) + "?", \
-                            QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel, \
+        confirm = warning(self, "Confirmare",
+                            u"Sigur vrei să închizi " + self._soundcontainer.soundName(self._handler) + "?",
+                            QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel,
                             QtGui.QMessageBox.Cancel)
         if confirm is QtGui.QMessageBox.StandardButton.FirstButton:
             self.close()
@@ -65,7 +67,8 @@ class soundControl(QtGui.QWidget):
         self.ui.checkBox.setChecked(state)
 
     def renamedCB(self):
-        self.ui.soundButton.setText(self._soundcontainer.soundName(self._handler))
+        self.ui.soundButton.setText(
+                self._soundcontainer.soundName(self._handler))
 
     #TODO: use a library for playing the media file
     def playSound(self):

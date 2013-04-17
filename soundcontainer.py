@@ -25,7 +25,7 @@ class soundContainer(object):
     __idcnt = 1
     __handlers = {}
 
-    def init(dictsound = {}):
+    def init(dictsound={}):
         self.loadSounds(dictsound)
 
     def wipeOutSounds(self):
