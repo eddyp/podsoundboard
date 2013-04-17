@@ -15,7 +15,8 @@ class soundControl(QtGui.QWidget):
 
     parentform = None
 
-    def __init__(self, soundcontainer, handler=None, parentform=None, active=False):
+    def __init__(self, soundcontainer,
+                            handler=None, parentform=None, active=False):
 
         self._soundcontainer = soundcontainer
         if handler is None:
@@ -48,9 +49,10 @@ class soundControl(QtGui.QWidget):
 
     def confirmClose(self):
         confirm = warning(self, "Confirmare",
-                            u"Sigur vrei să închizi " + self._soundcontainer.soundName(self._handler) + "?",
-                            QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel,
-                            QtGui.QMessageBox.Cancel)
+                    u"Sigur vrei să închizi " +
+                        self._soundcontainer.soundName(self._handler) + "?",
+                    QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel,
+                    QtGui.QMessageBox.Cancel)
         if confirm is QtGui.QMessageBox.StandardButton.FirstButton:
             self.close()
 
