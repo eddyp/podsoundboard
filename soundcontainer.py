@@ -14,7 +14,7 @@ class soundContainer(object):
     __sounds = {}
     """
     __sounds: a dictionary of all the sounds in the application.
-    Entry format: u'soundname': u'/path/to/sound/file'.
+    Entry format: u'soundname': u'/path/to/sound/filename'.
     """
     __users = {}
     """
@@ -53,26 +53,26 @@ class soundContainer(object):
     def hasSound(self, name):
         return (name in self.__sounds)
 
-    def addSound(self, name=None, file=None):
+    def addSound(self, name=None, filename=None):
         """
         Adds a sound to the application and returns a handler for the sound.
-        If 'file' is already in the application under a different name, a
+        If 'filename' is already in the application under a different name, a
         handler to the existent sound is returned.
         If 'name' is not given, then a unique name is chosen.
         If the 'name' already exists, a new unique name is chosen instead.
 
         Returns: a handler of the sound
         """
-        if file:
+        if filename:
             # avoid duplicates
-            cname = self.getSoundNameOfFile(file)
+            cname = self.getSoundNameOfFile(filename)
             if cname:
                 self.__handlers[self.__idcnt] = cname
                 self.__idcnt += 1
                 return self.__idcnt - 1
         if name is None or self.hasSound(name):
             name = self.getNewSoundName()
-        self.__sounds[name] = file
+        self.__sounds[name] = filename
         self.__users[name] = []
         self.__handlers[self.__idcnt] = name
         self.__idcnt += 1
@@ -88,14 +88,16 @@ class soundContainer(object):
                 break
         return name
 
-    def getSoundNameOfFile(self, file):
-        if file is None:
+    def getSoundNameOfFile(self, filename):
+        if filename is None:
             return None
-        fn = file
-        if type(file) != unicode:
-            fn = file.decode(osencoding)
+        fn = filename
+        if type(filename) != unicode:
+            print ("%s" % type(filename))
+            fn = filename.decode(osencoding)
         fndict = dict([[v, k] for k, v in self.__sounds.items()])
-        # we don't delete fndict[None] since we'd never get here if file==None
+        # we don't delete fndict[None] since
+        # we'd never get here if filename is None
         return fndict.get(fn, None)
 
     def soundName(self, handler):
@@ -128,17 +130,17 @@ class soundContainer(object):
             u.renamedCB()
         return handler
 
-    def changeFile(self, handler, file):
+    def changeFile(self, handler, filename):
         if not self.validHandler(handler):
             return False
         #OPTIMIZE: remove after testing
-        if self.__sounds[self.__handlers[handler]] == file:
+        if self.__sounds[self.__handlers[handler]] == filename:
             return True
 
-        if not self.__file_change_allowed(handler, file):
+        if not self.__file_change_allowed(handler, filename):
             return False
 
-        self.__sounds[self.__handlers[handler]] = file
+        self.__sounds[self.__handlers[handler]] = filename
         return True
 
     def validHandler(self, handler):
@@ -149,9 +151,9 @@ class soundContainer(object):
         return True
 
     def __file_change_allowed(self, handler, filename):
-        sname = self.getSoundNameOfFile(file)
+        sname = self.getSoundNameOfFile(filename)
         if sname is not None and sname != self.__handlers[handler]:
-            # file already exists
+            # filename already exists
             return False
         else:
             return True
@@ -168,8 +170,7 @@ class soundContainer(object):
         else:
             return True
 
-
-    def updateNameAndFile(self, handler, name, file):
+    def updateNameAndFile(self, handler, name, filename):
         """
         Updates sound with given handler to be newname:newfile.
         If successfull, returns True; False otherwise.
@@ -179,16 +180,16 @@ class soundContainer(object):
 
         # validate new data
         if not self.__name_change_allowed(handler, name) \
-                        or not self.__file_change_allowed(handler, file):
+                        or not self.__file_change_allowed(handler, filename):
             # new data is invalid
             return False
 
         # everything checks out
-        if self.changeFile(handler, file) and \
+        if self.changeFile(handler, filename) and \
                     self.renameSound(handler, name) is not None:
             return True
         else:
-            #raise Exception, "Unexpected file update fail"
+            #raise Exception, "Unexpected filename update fail"
             return False
 
     def fileOfSound(self, sound):
