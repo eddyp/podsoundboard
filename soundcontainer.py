@@ -102,6 +102,10 @@ class soundContainer(object):
         return self.__handlers.get(handler, None)
 
     def renameSound(self, handler, newname):
+        if not self.validHandler(handler):
+            return None
+
+        #OPTIMIZE: remove after testing
         oname = self.__handlers[handler]
         if type(newname) != unicode:
             newname = newname.decode(osencoding)
