@@ -42,11 +42,11 @@ class confSoundDialog(QtGui.QDialog):
         self.ui.soundNameEdit.textChanged.connect(self.uiNameChanged)
 
     def uiNameChanged(self, editString):
-        self.ui.buttonBox.setEnabled(True)
+        self.setValidLineEdit(self.ui.soundNameEdit)
         if editString == self._initialname:
             return
         if self._soundcontainer.hasSound(editString):
-            self.ui.buttonBox.setEnabled(False)
+            self.setValidLineEdit(self.ui.soundNameEdit, False)
         return
 
     def sendInfo2Parent(self):
@@ -57,7 +57,7 @@ class confSoundDialog(QtGui.QDialog):
                         textwrap.dedent(
                         u"""
                         Proprietățile sunetului nu au putut fi schimbate.
-                        Probabil că numele sau sunetul există deja.
+                        Numele și sunetul trebuie să fie unice.
                         """
                         )
                         )
