@@ -19,6 +19,7 @@ class confSoundDialog(QtGui.QDialog):
 
     _initialfile = None
     _initialname = None
+
     def __init__(self, soundcontainer, parent=None, handler=None):
         QtGui.QDialog.__init__(self, parent)
         self._parent = parent
@@ -27,7 +28,7 @@ class confSoundDialog(QtGui.QDialog):
 
         self._soundcontainer = soundcontainer
 
-        if handler == None:
+        if handler is None:
             handler = self._soundcontainer.addSound()
         self._handler = handler
         self._initialname = self._soundcontainer.soundName(handler)
@@ -51,8 +52,9 @@ class confSoundDialog(QtGui.QDialog):
 
     def sendInfo2Parent(self):
         psn = self._soundcontainer.getSoundNameOfFile(self.file)
-        if psn == None or self._initialname == psn:
-            if not self._soundcontainer.updateNameAndFile(self._handler, self.name, self.file):
+        if psn is None or self._initialname == psn:
+            if not self._soundcontainer.updateNameAndFile(self._handler,
+                                                        self.name, self.file):
                 warning(self, u'Eroare',
                         textwrap.dedent(
                         u"""
