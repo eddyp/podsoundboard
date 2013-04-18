@@ -79,7 +79,15 @@ class soundControl(QtGui.QWidget):
             import os
             if os.path.isfile(sfile):
                 import subprocess
-                subprocess.call(["mplayer", sfile])
+                import sys
+                opts = ""
+                if sys.platform == "win32":
+                    player = "vlc"
+                    opts = "--play-and-exit"
+                    sfile = u"file:///" + sfile
+                else:
+                    player = "mplayer"
+                subprocess.call([player, opts, sfile])
             else:
                 self.active = False
 
