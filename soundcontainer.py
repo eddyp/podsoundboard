@@ -107,7 +107,10 @@ class soundContainer(object):
             newname = newname.decode(osencoding)
         if oname == newname:
             return handler
-        if self.hasSound(newname):
+
+        # validate rename
+        if not self.__name_change_allowed(handler, newname):
+            # new name is already used
             return None
 
         for k, v in self.__handlers.items():
@@ -124,12 +127,13 @@ class soundContainer(object):
     def changeFile(self, handler, file):
         if not self.validHandler(handler):
             return False
+        #OPTIMIZE: remove after testing
         if self.__sounds[self.__handlers[handler]] == file:
             return True
-        cname = self.getSoundNameOfFile(file)
-        if cname is not None:
-                # file already exists
-                return False
+
+        if not self.__file_change_allowed(handler, file):
+            return False
+
         self.__sounds[self.__handlers[handler]] = file
         return True
 
@@ -140,6 +144,27 @@ class soundContainer(object):
             return False
         return True
 
+    def __file_change_allowed(self, handler, filename):
+        sname = self.getSoundNameOfFile(file)
+        if sname is not None and sname != self.__handlers[handler]:
+            # file already exists
+            return False
+        else:
+            return True
+
+    def __name_change_allowed(self, handler, newname):
+        oname = self.__handlers[handler]
+        if type(newname) != unicode:
+            newname = newname.decode(osencoding)
+        if oname == newname:
+            return True
+
+        if self.hasSound(newname):
+            return False
+        else:
+            return True
+
+
     def updateNameAndFile(self, handler, name, file):
         """
         Updates sound with given handler to be newname:newfile.
@@ -147,17 +172,11 @@ class soundContainer(object):
         """
         if not self.validHandler(handler):
             return False
-        oname = self.__handlers[handler]
-        if (oname == name) and (self.fileOfSound(oname) == file):
-            return True
 
         # validate new data
-        if self.hasSound(name):
-            # new name is already used
-            return False
-        sname = self.getSoundNameOfFile(file)
-        if sname is not None and sname != self.__handlers[handler]:
-            # file already exists
+        if not self.__name_change_allowed(handler, name) \
+                        or not self.__file_change_allowed(handler, file):
+            # new data is invalid
             return False
 
         # everything checks out
