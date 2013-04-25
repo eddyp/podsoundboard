@@ -41,6 +41,13 @@ def user_data_dir(appname=None):
 
 import logging
 
+
+__generalsection = 'General'
+__soundssection = 'Sounds'
+__profilessection = 'Profiles'
+__profileprefix = 'Profile.'
+
+
 class appconfig(object):
     _conf = {
              'sounds': {},
@@ -97,7 +104,7 @@ class appconfig(object):
             self._configfile = cfgfile
 
     def readconfig(self):
-        cfgversion = self._configparser.get('General', 'cfgversion')
+        cfgversion = self._configparser.get(__generalsection, 'cfgversion')
         # XXX: when more versions appear, the correct handling is to
         #      import the old version and ask the user if the migration is done
         if cfgversion <> self._getdefaultcfgver():
@@ -122,12 +129,12 @@ class appconfig(object):
     def _getsounds(self):
 
         sounds = {}
-        if self._configparser.has_section('Sounds'):
-            soundnames = self._configparser.options('Sounds')
+        if self._configparser.has_section(__soundssection):
+            soundnames = self._configparser.options(__soundssection)
             datadir = user_data_dir(self._appname)
             for s in soundnames:
                 if not s in sounds.keys():
-                    v = os.path.normpath(self._configparser.get('Sounds', s))
+                    v = os.path.normpath(self._configparser.get(__soundssection, s))
                     if os.path.isabs():
                         fn = v
                     else:
@@ -147,29 +154,33 @@ class appconfig(object):
 
     def _getprofiles(self):
 
-        if self._configparser.has_section('Profiles'):
+        if self._configparser.has_section(__profilessection):
             # note that options in Profiles section are meaningless
             # only the values contain the actual profile names
 
             # TODO: make the options be the names, and values be boolean
             #       representing their visibility (which are open)
 
-            profiles_list = self._configparser.options('Profiles')
+            profiles_list = self._configparser.options(__profilessection)
             if len(profiles_list) == 0:
-                logging.warning("'Profiles' section is empty")
+                logging.warning("'%s' section is empty" % (__profilessection))
                 return {}, None
             profiles = {}
-            profilenames = [ self._configparser.get('Profiles', x) for x in profiles_list ]
+            profilenames = [ self._configparser.get(__profilessection, x)
+                                            for x in profiles_list ]
 
             if len(profilenames) == 0:
-                logging.warning("The list of values in the 'Profiles' section is empty")
+                logging.warning(
+                    "The list of values in the '%s' section is empty",
+                    __profilessection
+                    )
                 return {},  None
 
             # get active profile
             active_profile = self._readActiveProfile(profilenames)
 
             for p in profilenames:
-                cfgp = 'Profile.' + p
+                cfgp = __profileprefix + p
                 if self._configparser.has_section(cfgp):
                     p_sounds = self._configparser.options(cfgp)
                     pd_sounds = { True: [],  False: [] }
@@ -192,13 +203,15 @@ class appconfig(object):
             return profiles, active_profile
 
         else:
-            logging.error("Mandatory configuration section 'Profiles' not found")
+            logging.error("Mandatory configuration section '%s' not found"
+                                % __profilessection)
             return {}, None
 
     def _readActiveProfile(self, profilenames):
         active_profile = None
         try:
-            active_profile = self._configparser.get('General', 'active_profile')
+            active_profile = self._configparser.get(__generalsection,
+                                                     'active_profile')
         except NoOptionError:
             logging.warning("No active profile specified in config, using first")
             active_profile = profilenames[0]
