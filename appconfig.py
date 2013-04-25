@@ -67,6 +67,26 @@ class appconfig(object):
 
     @property
     def config(self):
+        u"""
+        Config data structure has the following format:
+            {
+            'sounds' :
+                        {
+                        u'SName0' : u'/path/to/sname0/file',
+                        u'SName1' : u'/path/to/sname1/file'
+                        ...
+                        },
+            'profiles':
+                        {
+                        u'Profile0' :{
+                            True  : [ u'EnabledSound0' , u'EnabledSound1' , ... ],
+                            False : [ u'DisabledSoundA', u'DisabledSoundB', ... ]
+                            },
+                        ...
+                        },
+            'active_profile' : u'ProfileName'
+            }
+        """
         return self._conf
 
     def setCfgFilename(self, cfgfile=None):
