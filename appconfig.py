@@ -90,7 +90,7 @@ class appconfig(object):
         return self._conf
 
     def setCfgFilename(self, cfgfile=None):
-        if not cfgfile:
+        if cfgfile is None:
             dir = user_config_dir(self._appname)
             self._configfile = os.path.join(dir + 'config.ini')
         else:
@@ -112,7 +112,7 @@ class appconfig(object):
 
     def _getdefaultcfgver(self, appver=None):
         expectver = {'0.1': 1}
-        if not appver:
+        if appver is None:
             appver = self._appver
         # XXX: there should be an association between all
         #      appver-s and a cfgversion, without a huge dictionary
