@@ -114,7 +114,10 @@ class appconfig(object):
         self._conf['profiles'] = profiles
         self._conf['active_profile'] = cprofile
 
-    def writeconfig(self, conf, appver='0.1', cfgver=None, cfgfilename=None):
+    def setconfig(self, conf):
+        self._conf = conf
+
+    def writeconfig(self, cfgfilename=None, appver='0.1', cfgver=None):
         if cfgver is None:
             cfgver = self._getdefaultcfgver(appver)
         self.setCfgFilename(cfgfilename)
@@ -124,16 +127,16 @@ class appconfig(object):
         self._configparser.set(__generalsection, 'cfgversion', cfgver)
 
         self._check_and_add_section(__soundssection)
-        for k, v in conf['sounds']:
+        for k, v in self._conf['sounds']:
             self._configparser.set(__soundssection, k, v)
 
-        self._set_profiles(conf['profiles'])
+        self._set_profiles(self._conf['profiles'])
 
-        if 'active_profile' in conf:
-            if conf['active_profile'] in conf['profiles']:
+        if 'active_profile' in self._conf:
+            if self._conf['active_profile'] in self._conf['profiles']:
                 self._configparser.set(__generalsection,
                                         'active_profile',
-                                        conf['active_profile']
+                                        self._conf['active_profile']
                                         )
 
         # Writing our configuration file to 'example.cfg'
