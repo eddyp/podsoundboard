@@ -68,6 +68,7 @@ class appconfig(object):
         self.setCfgFilename(cfgfile)
 
         self._configparser = scp()
+        self._configparser.optionxform = str
         if len(self._configparser.read([self._configfile])):
             self.readconfig()
 
