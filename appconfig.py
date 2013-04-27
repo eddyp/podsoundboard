@@ -133,11 +133,12 @@ class appconfig(object):
         self._set_profiles(self._conf['profiles'])
 
         if 'active_profile' in self._conf:
-            if self._conf['active_profile'] in self._conf['profiles']:
-                self._configparser.set(__generalsection,
-                                        'active_profile',
-                                        self._conf['active_profile']
-                                        )
+            if self._conf['active_profile'] is not None:
+                if self._conf['active_profile'] in self._conf['profiles']:
+                    self._configparser.set(__generalsection,
+                                            'active_profile',
+                                            self._conf['active_profile']
+                                            )
 
         # Writing our configuration file to 'example.cfg'
         with open(self._configfile, 'wb') as configfile:
