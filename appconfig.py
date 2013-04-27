@@ -79,7 +79,7 @@ class appconfig(object):
         self.setCfgFilename(cfgfile)
 
         self._configparser = scp()
-        if len(self._configparser.read(self._configfile)):
+        if len(self._configparser.read([self._configfile])):
             self.readconfig()
 
     @property
