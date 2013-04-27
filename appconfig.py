@@ -61,8 +61,6 @@ class appconfig(object):
 
 
     def __init__(self, appname, appver, cfgfile=None):
-        if self._conf and cfgfile and cfgfile<>self._configfile:
-            return self._conf
 
         self._appname = appname
         self._appver = appver
