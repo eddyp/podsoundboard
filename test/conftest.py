@@ -8,6 +8,7 @@ def equaldicts(d1, d2):
         if type(v) == type({}):
             assert equaldicts(v, d2[k])
         else:
+            assert k in d2
             assert v == d2[k]
 
     return True

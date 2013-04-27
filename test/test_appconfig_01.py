@@ -33,7 +33,9 @@ def test_saveload(tmpdir, monkeypatch, sound):
 
     appconf.writeconfig()
     assert os.path.isfile(tcfg)
-    appconf.readconfig()
-    newconf = appconf.config
+
+    appconf2 = appconfig.appconfig('TestApp', '0.1', tcfg)
+    appconf2.readconfig()
+    newconf = appconf2.config
 
     assert equaldicts(newconf, refconf)
