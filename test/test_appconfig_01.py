@@ -17,23 +17,19 @@ def test_saveload(tmpdir, monkeypatch, sound):
     import copy, os
     monkeypatch.syspath_prepend('.')
     import appconfig
-    tdir = str(tmpdir) + os.sep
-    tcfg = tdir +'new.cfg'
+    tcfg = xindir(tmpdir, 'new.cfg')
     appconf = appconfig.appconfig('TestApp', '0.1', tcfg)
     conf = appconf.config
     assert equaldicts(conf,
                       {'sounds': {}, 'profiles':{}, 'active_profile':None})
 
-    sfile = tdir + sound['file']
+    sfile = xindir(tmpdir, sound['file'])
     conf['sounds'][sound['name']] = sfile
     # every sound file has to exist for the load to happen
-    f = open(sfile, 'w')
-    f.close()
-
+    touch(sfile)
     assert os.path.isfile(sfile)
 
     refconf = copy.deepcopy(conf)
-    assert equaldicts(refconf, conf)
 
     appconf.writeconfig()
     assert os.path.isfile(tcfg)

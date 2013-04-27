@@ -11,3 +11,19 @@ def equaldicts(d1, d2):
             assert v == d2[k]
 
     return True
+
+def xindir(dir, x):
+    from os import sep
+    return str(dir) + sep + str(x)
+
+def touch(fn):
+    f = open(fn, 'w+')
+    f.close()
+
+def makesoundsindir(dir, sdict):
+    nd = {}
+    for k, v in sdict.items():
+        sfile = xindir(dir, v)
+        nd[k] = sfile
+        touch(sfile)
+    return nd
