@@ -41,11 +41,23 @@ def user_data_dir(appname=None):
 
 import logging
 
+class appsections(object):
 
-__generalsection = 'General'
-__soundssection = 'Sounds'
-__profilessection = 'Profiles'
-__profileprefix = 'Profile.'
+    @property
+    def general(self):
+        return 'General'
+
+    @property
+    def sounds(self):
+        return 'Sounds'
+
+    @property
+    def profiles():
+        return 'Profiles'
+
+    @property
+    def profprefix():
+        return 'Profile.'
 
 
 class appconfig(object):
@@ -102,7 +114,7 @@ class appconfig(object):
             self._configfile = cfgfile
 
     def readconfig(self):
-        cfgversion = self._configparser.get(__generalsection, 'cfgversion')
+        cfgversion = self._configparser.get(appsections.general, 'cfgversion')
         # XXX: when more versions appear, the correct handling is to
         #      import the old version and ask the user if the migration is done
         if cfgversion <> self._getdefaultcfgver():
@@ -120,22 +132,23 @@ class appconfig(object):
     def writeconfig(self, cfgfilename=None, appver='0.1', cfgver=None):
         if cfgver is None:
             cfgver = self._getdefaultcfgver(appver)
-        self.setCfgFilename(cfgfilename)
+        if cfgfilename is not None:
+            self.setCfgFilename(cfgfilename)
 
         self._wipeOutSections()
-        self._check_and_add_section(__generalsection)
-        self._configparser.set(__generalsection, 'cfgversion', cfgver)
+        self._check_and_add_section(appsections.general)
+        self._configparser.set(appsections.general, 'cfgversion', cfgver)
 
-        self._check_and_add_section(__soundssection)
+        self._check_and_add_section(appsections.sounds)
         for k, v in self._conf['sounds']:
-            self._configparser.set(__soundssection, k, v)
+            self._configparser.set(appsections.sounds, k, v)
 
         self._set_profiles(self._conf['profiles'])
 
         if 'active_profile' in self._conf:
             if self._conf['active_profile'] is not None:
                 if self._conf['active_profile'] in self._conf['profiles']:
-                    self._configparser.set(__generalsection,
+                    self._configparser.set(appsections.general,
                                             'active_profile',
                                             self._conf['active_profile']
                                             )
@@ -149,13 +162,13 @@ class appconfig(object):
             self._configparser.remove_section(s)
 
     def _set_profiles(self, profiles):
-        self._check_and_add_section(__profilessection)
+        self._check_and_add_section(appsections.profiles)
 
         for p in profiles:
             self._set_profile(p, profiles[p])
 
     def _set_profile(self, profname, profcfg):
-        secname = __profileprefix + profname
+        secname = appsections.profprefix + profname
         self._check_and_add_section(secname)
 
         statestr = { True: 'on',  False: 'off'}
@@ -181,12 +194,12 @@ class appconfig(object):
     def _getsounds(self):
 
         sounds = {}
-        if self._configparser.has_section(__soundssection):
-            soundnames = self._configparser.options(__soundssection)
+        if self._configparser.has_section(appsections.sounds):
+            soundnames = self._configparser.options(appsections.sounds)
             datadir = user_data_dir(self._appname)
             for s in soundnames:
                 if not s in sounds.keys():
-                    v = os.path.normpath(self._configparser.get(__soundssection, s))
+                    v = os.path.normpath(self._configparser.get(appsections.sounds, s))
                     if os.path.isabs():
                         fn = v
                     else:
@@ -206,25 +219,25 @@ class appconfig(object):
 
     def _getprofiles(self):
 
-        if self._configparser.has_section(__profilessection):
+        if self._configparser.has_section(appsections.profiles):
             # note that options in Profiles section are meaningless
             # only the values contain the actual profile names
 
             # TODO: make the options be the names, and values be boolean
             #       representing their visibility (which are open)
 
-            profiles_list = self._configparser.options(__profilessection)
+            profiles_list = self._configparser.options(appsections.profiles)
             if len(profiles_list) == 0:
-                logging.warning("'%s' section is empty" % (__profilessection))
+                logging.warning("'%s' section is empty" % (appsections.profiles))
                 return {}, None
             profiles = {}
-            profilenames = [ self._configparser.get(__profilessection, x)
+            profilenames = [ self._configparser.get(appsections.profiles, x)
                                             for x in profiles_list ]
 
             if len(profilenames) == 0:
                 logging.warning(
                     "The list of values in the '%s' section is empty",
-                    __profilessection
+                    appsections.profiles
                     )
                 return {},  None
 
@@ -232,7 +245,7 @@ class appconfig(object):
             active_profile = self._readActiveProfile(profilenames)
 
             for p in profilenames:
-                cfgp = __profileprefix + p
+                cfgp = appsections.profprefix + p
                 if self._configparser.has_section(cfgp):
                     p_sounds = self._configparser.options(cfgp)
                     pd_sounds = { True: [],  False: [] }
@@ -256,13 +269,13 @@ class appconfig(object):
 
         else:
             logging.error("Mandatory configuration section '%s' not found"
-                                % __profilessection)
+                                % appsections.profiles)
             return {}, None
 
     def _readActiveProfile(self, profilenames):
         active_profile = None
         try:
-            active_profile = self._configparser.get(__generalsection,
+            active_profile = self._configparser.get(appsections.general,
                                                      'active_profile')
         except NoOptionError:
             logging.warning("No active profile specified in config, using first")
