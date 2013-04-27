@@ -116,6 +116,56 @@ class appconfig(object):
         self._conf['profiles'] = profiles
         self._conf['active_profile'] = cprofile
 
+    def writeconfig(self, conf, appver='0.1', cfgver=None, cfgfilename=None):
+        if cfgver is None:
+            cfgver = self._getdefaultcfgver(appver)
+        self.setCfgFilename(cfgfilename)
+
+        self._wipeOutSections()
+        self._check_and_add_section(__generalsection)
+        self._configparser.set(__generalsection, 'cfgversion', cfgver)
+
+        self._check_and_add_section(__soundssection)
+        for k, v in conf['sounds']:
+            self._configparser.set(__soundssection, k, v)
+
+        self._set_profiles(conf['profiles'])
+
+        if 'active_profile' in conf:
+            if conf['active_profile'] in conf['profiles']:
+                self._configparser.set(__generalsection,
+                                        'active_profile',
+                                        conf['active_profile']
+                                        )
+
+        # Writing our configuration file to 'example.cfg'
+        with open(self._configfile, 'wb') as configfile:
+            self._configparser.write(configfile)
+
+    def _wipeOutSections(self):
+        for s in self._configparser.sections():
+            self._configparser.remove_section(s)
+
+    def _set_profiles(self, profiles):
+        self._check_and_add_section(__profilessection)
+
+        for p in profiles:
+            self._set_profile(p, profiles[p])
+
+    def _set_profile(self, profname, profcfg):
+        secname = __profileprefix + profname
+        self._check_and_add_section(secname)
+
+        statestr = { True: 'on',  False: 'off'}
+
+        for state in (True, False):
+            sstate = statestr[state]
+            for s in profcfg[state]:
+                self._configparser.set(secname, s, sstate)
+
+    def _check_and_add_section(self, section):
+        if not self._configparser.has_section(section):
+            self._configparser.add_section(section)
 
     def _getdefaultcfgver(self, appver=None):
         expectver = {'0.1': 1}
