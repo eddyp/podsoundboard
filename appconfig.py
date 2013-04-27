@@ -129,7 +129,8 @@ class appconfig(object):
         self._configparser.set(self.__GEN, 'cfgversion', str(cfgver))
 
         self._check_and_add_section(self.__SNDS)
-        for k, v in self._conf['sounds']:
+        for k, v in self._conf['sounds'].items():
+            logging.info("Writing sound >%s< = >%s<" % (k, v))
             self._configparser.set(self.__SNDS, k, v)
 
         self._set_profiles(self._conf['profiles'])
