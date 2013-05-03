@@ -15,11 +15,15 @@ def test_loadinexistent(tmpdir, monkeypatch):
                         ])
 def test_saveload(tmpdir, monkeypatch, sound):
     import copy, os
-    monkeypatch.syspath_prepend('.')
-    import appconfig
     tcfg = xindir(tmpdir, 'new.cfg')
+
+
+    monkeypatch.syspath_prepend('.')
+
+    import appconfig
     appconf = appconfig.appconfig('TestApp', '0.1', tcfg)
     conf = appconf.config
+
     assert equaldicts(conf,
                       {'sounds': {}, 'profiles':{}, 'active_profile':None})
 
@@ -39,3 +43,7 @@ def test_saveload(tmpdir, monkeypatch, sound):
     newconf = appconf2.config
 
     assert equaldicts(newconf, refconf)
+    assert newconf['sounds'][sound['name']] == sfile
+
+    del newconf, refconf, appconf, appconf2, conf, tcfg
+
