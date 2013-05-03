@@ -67,8 +67,6 @@ class appconfig(object):
 
         self._configparser = scp()
         self._configparser.optionxform = str
-        if len(self._configparser.read([self._configfile])):
-            self.readconfig()
 
     @property
     def config(self):
@@ -102,6 +100,7 @@ class appconfig(object):
             self._configfile = cfgfile
 
     def readconfig(self):
+        self._configparser.read([self._configfile])
         cfgversion = self._configparser.getint(self.__GEN, 'cfgversion')
         # XXX: when more versions appear, the correct handling is to
         #      import the old version and ask the user if the migration is done
