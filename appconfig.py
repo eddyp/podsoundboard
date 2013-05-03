@@ -43,16 +43,6 @@ import logging
 
 
 class appconfig(object):
-    _conf = {
-             'sounds': {},
-             'active_profile':None,
-             'profiles':{}
-             }
-    _configfile = None
-    _configparser = None
-    _appname = None
-    _appver = None
-
 
     __GEN = 'General'
     __SNDS = 'Sounds'
@@ -62,6 +52,14 @@ class appconfig(object):
 
 
     def __init__(self, appname, appver, cfgfile=None):
+
+        self._conf = {
+                 'sounds': {},
+                 'active_profile':None,
+                 'profiles':{}
+                 }
+        self._configfile = None
+        self._configparser = None
 
         self._appname = appname
         self._appver = appver
