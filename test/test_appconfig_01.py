@@ -47,3 +47,72 @@ def test_saveload(tmpdir, monkeypatch, sound):
 
     del newconf, refconf, appconf, appconf2, conf, tcfg
 
+@pytest.mark.skipif("True")
+def test_saveconfig(tmpdir):
+
+    import appconfig as apc
+    appconfig = apc.appconfig
+
+    tcfg = xindir(tmpdir, 'save.cfg')
+
+    s0f = xindir(tmpdir, 'S0.mp3')
+    s1f = xindir(tmpdir, 'S1.flac')
+    touch(s0f)
+    touch(s1f)
+    cfg = { 'sounds': {
+                    u's0': s0f,
+                    u's1': s1f},
+            'profiles': {},
+            'active_profile': None
+        }
+
+    ac = appconfig('TestApp', '0.1', tcfg)
+
+    print cfg
+
+    ac.setconfig(cfg)
+    assert equaldicts(ac.config, cfg)
+    ac.writeconfig()
+
+    f = open(tcfg)
+    # TODO: read until finds '[Sounds]'
+    #       check lines correct
+
+
+def soundlines(sdict):
+    sl = {}
+
+    for k, v in sdict.items():
+        line = u'%s = %s' % (k, v)
+        sl[line] = None
+
+    return sl
+
+@pytest.mark.parametrize(("cfg"), [
+        {
+        'sounds': {u's0':'S0.mp3', u's1':'S1.flac'},
+        'profiles': {},
+        'active_profile': None
+        }
+        ])
+def test_saveconfig2(tmpdir, cfg):
+    import appconfig as apc
+    appconfig = apc.appconfig
+    import copy
+
+    tcfg = xindir(tmpdir, 'save.cfg')
+
+    print cfg
+    ncfg = copy.deepcopy(cfg)
+    ncfg['sounds'] = makesoundsindir(tmpdir, cfg['sounds'])
+    print ncfg
+
+    ac = appconfig('TestApp', '0.1', tcfg)
+    ac.setconfig(ncfg)
+    assert equaldicts(ac.config, ncfg)
+
+    ac.writeconfig()
+
+    f = open(tcfg)
+    # TODO: read until finds '[Sounds]'
+    #       check lines correct
