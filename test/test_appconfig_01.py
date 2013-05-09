@@ -47,38 +47,6 @@ def test_saveload(tmpdir, monkeypatch, sound):
 
     del newconf, refconf, appconf, appconf2, conf, tcfg
 
-@pytest.mark.skipif("True")
-def test_saveconfig(tmpdir):
-
-    import appconfig as apc
-    appconfig = apc.appconfig
-
-    tcfg = xindir(tmpdir, 'save.cfg')
-
-    s0f = xindir(tmpdir, 'S0.mp3')
-    s1f = xindir(tmpdir, 'S1.flac')
-    touch(s0f)
-    touch(s1f)
-    cfg = { 'sounds': {
-                    u's0': s0f,
-                    u's1': s1f},
-            'profiles': {},
-            'active_profile': None
-        }
-
-    ac = appconfig('TestApp', '0.1', tcfg)
-
-    print cfg
-
-    ac.setconfig(cfg)
-    assert equaldicts(ac.config, cfg)
-    ac.writeconfig()
-
-    f = open(tcfg)
-    # TODO: read until finds '[Sounds]'
-    #       check lines correct
-
-
 def soundlines(sdict):
     sl = {}
 
