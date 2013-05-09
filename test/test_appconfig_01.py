@@ -48,22 +48,34 @@ def test_saveload(tmpdir, monkeypatch, sound):
     del newconf, refconf, appconf, appconf2, conf, tcfg
 
 def soundlines(sdict):
-    sl = {}
+    sl = []
 
     for k, v in sdict.items():
-        line = u'%s = %s' % (k, v)
-        sl[line] = None
+        line = u'%s = %s\n' % (k, v)
+        sl.append(line)
 
     return sl
+
+def profilelines(pdict):
+    pl = []
+    strs = { True: 'on',  False: 'off' }
+
+    for pn, dp in pdict.items():
+        pl.append('[Profile.%s]\n' % pn)
+        for state in [ False, True ]:
+            if state in dp.keys():
+                for sound in dp[state]:
+                    pl.append('%s = %s\n' % (sound, strs[state]))
+    return pl
 
 @pytest.mark.parametrize(("cfg"), [
         {
         'sounds': {u's0':'S0.mp3', u's1':'S1.flac'},
-        'profiles': {},
+        'profiles': { u'p0':{ True: [u's0'], False: [u's1']} },
         'active_profile': None
         }
         ])
-def test_saveconfig2(tmpdir, cfg):
+def test_saveconfig(tmpdir, cfg):
     import appconfig as apc
     appconfig = apc.appconfig
     import copy
@@ -81,6 +93,14 @@ def test_saveconfig2(tmpdir, cfg):
 
     ac.writeconfig()
 
+    # test expected lines are present
+    expect = ['[Sounds]\n', '[Profiles]\n', '[General]\n']
+    expect.extend(soundlines(ncfg['sounds']))
+    expect.extend(profilelines(ncfg['profiles']))
+
     f = open(tcfg)
-    # TODO: read until finds '[Sounds]'
-    #       check lines correct
+    for line in f:
+        if line in expect:
+            expect.remove(line)
+    f.close()
+    assert expect == []
