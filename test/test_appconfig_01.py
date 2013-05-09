@@ -74,6 +74,12 @@ def profilelines(pdict):
         'profiles': { u'p0':{ True: [u's0'], False: [u's1']} },
         'active_profile': None
         }
+        #,
+        #{
+        #'sounds': {u'sună0':'S0.mp3', u'șuier1':'S1.flac'},
+        #'profiles': { u'p0':{ True: [u'sună0']}, u'p1': {True:[u'șuier1']} },
+        #'active_profile': None
+        #}
         ])
 def test_saveconfig(tmpdir, cfg):
     import appconfig as apc
