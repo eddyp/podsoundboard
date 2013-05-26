@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from ConfigParser import SafeConfigParser as scp
+# using configparser because ConfigParser has broken unicode support
+from configparser import SafeConfigParser as scp
 import os
+import codecs
+
+cfgenc = 'utf8'
 
 # configuration file format:
 #===========================
@@ -66,7 +70,7 @@ class appconfig(object):
         self.setCfgFilename(cfgfile)
 
         self._configparser = scp()
-        self._configparser.optionxform = str
+        self._configparser.optionxform = unicode
 
     @property
     def config(self):
@@ -100,7 +104,7 @@ class appconfig(object):
             self._configfile = cfgfile
 
     def readconfig(self):
-        self._configparser.read([self._configfile])
+        self._configparser.readfp(codecs.open(self._configfile, "r", cfgenc))
         cfgversion = self._configparser.getint(self.__GEN, 'cfgversion')
         # XXX: when more versions appear, the correct handling is to
         #      import the old version and ask the user if the migration is done
@@ -141,9 +145,9 @@ class appconfig(object):
                                             self._conf['active_profile']
                                             )
 
-        # Writing our configuration file to 'example.cfg'
-        with open(self._configfile, 'wb') as configfile:
-            self._configparser.write(configfile)
+        with codecs.open(self._configfile, 'wb', encoding=cfgenc) as cfgfile:
+            self._configparser.write(cfgfile)
+            cfgfile.close()
 
     def _wipeOutSections(self):
         for s in self._configparser.sections():

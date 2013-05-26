@@ -1,3 +1,5 @@
+cfgenc = 'utf8'
+
 def equaldicts(d1, d2):
     assert type(d1) == type(d2)
     assert type(d1) == type({})
