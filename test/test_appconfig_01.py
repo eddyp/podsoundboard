@@ -116,3 +116,46 @@ def test_saveconfig(tmpdir, cfg):
             expect.remove(dline)
     f.close()
     assert expect == []
+
+
+# def test_cfgfromXDG():
+#     # TODO: test config is correctly loaded if XDG_CONFIG_HOME is set
+#     assert 0
+#
+#
+# def test_setdefaultcfg():
+#     # TODO: test default setCfgFilename
+#     assert 0
+#
+#
+# def test_badcfgversion():
+#     assert 0
+#
+#
+# def test_writeconfigincustomfile():
+#     # TODO: proper save when calling writeconfig("some.file.cfg")
+#     assert 0
+#
+#
+# def test_validactiveprofile():
+#     assert 0
+#
+#
+# def test_wipeoutsections():
+#     assert 0
+#
+#
+# def test_relativefilnames():
+#     assert 0
+#
+#
+# def test_inexistentandsdupsounds():
+#     assert 0
+#
+#
+# def test_profilescfg():
+#     assert 0
+#
+#
+# def test_readActiveProfile():
+#     assert 0
