@@ -1,3 +1,5 @@
 *~
 *.pyc
 *.pro.user*
+ui_*.py
+*.e4*
