@@ -2,6 +2,7 @@
 import pytest
 from conftest import *
 
+
 def test_loadinexistent(tmpdir, monkeypatch):
     tcfg = str(tmpdir) + 'inexistent'
     monkeypatch.syspath_prepend('.')
@@ -9,6 +10,7 @@ def test_loadinexistent(tmpdir, monkeypatch):
     appconf = appconfig.appconfig('TestApp', '0.1', tcfg)
     from ConfigParser import NoSectionError
     pytest.raises(IOError, "appconf.readconfig()")
+
 
 @pytest.mark.parametrize(("sound"), [
                         {'name':u'S0', 'file':'s0.mp3'},
@@ -18,7 +20,6 @@ def test_saveload(tmpdir, monkeypatch, sound):
     import copy, os
     tcfg = xindir(tmpdir, 'new.cfg')
 
-
     monkeypatch.syspath_prepend('.')
 
     import appconfig
@@ -26,7 +27,7 @@ def test_saveload(tmpdir, monkeypatch, sound):
     conf = appconf.config
 
     assert equaldicts(conf,
-                      {'sounds': {}, 'profiles':{}, 'active_profile':None})
+                      {'sounds': {}, 'profiles': {}, 'active_profile': None})
 
     sfile = xindir(tmpdir, sound['file'])
     conf['sounds'][sound['name']] = sfile
@@ -48,6 +49,7 @@ def test_saveload(tmpdir, monkeypatch, sound):
 
     del newconf, refconf, appconf, appconf2, conf, tcfg
 
+
 def soundlines(sdict):
     sl = []
 
@@ -57,22 +59,24 @@ def soundlines(sdict):
 
     return sl
 
+
 def profilelines(pdict):
     pl = []
-    strs = { True: 'on',  False: 'off' }
+    strs = {True: 'on', False: 'off'}
 
     for pn, dp in pdict.items():
         pl.append('[Profile.%s]\n' % pn)
-        for state in [ False, True ]:
+        for state in [False, True]:
             if state in dp.keys():
                 for sound in dp[state]:
                     pl.append('%s = %s\n' % (sound, strs[state]))
     return pl
 
+
 @pytest.mark.parametrize(("cfg"), [
         {
         'sounds': {u's0':'S0.mp3', u's1':'S1.flac'},
-        'profiles': { u'p0':{ True: [u's0'], False: [u's1']} },
+        'profiles': {u'p0':{True: [u's0'], False: [u's1']}},
         'active_profile': None
         }
         ,

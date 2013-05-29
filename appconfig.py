@@ -30,12 +30,14 @@ cfgenc = 'utf8'
 # ...
 #===========================
 
+
 # TODO: use appdirs from Pypi
 def user_config_dir(appname=None):
     path = os.getenv('XDG_CONFIG_HOME', os.path.expanduser('~/.config'))
     if appname:
         path = os.path.join(path, appname)
     return path
+
 
 def user_data_dir(appname=None):
     path = os.getenv('XDG_DATA_HOME', os.path.expanduser('~/.local/share'))
@@ -53,16 +55,13 @@ class appconfig(object):
     __PROFS = 'Profiles'
     __PRPREF = 'Profile.'
 
-
-
     def __init__(self, appname, appver, cfgfile=None):
-
         self._conf = {
                  'sounds': {},
-                 'active_profile':None,
-                 'profiles':{}
+                 'active_profile': None,
+                 'profiles': {}
                  }
-        self._configfile = None
+        self._cfgfile = None
         self._configparser = None
 
         self._appname = appname
@@ -86,8 +85,8 @@ class appconfig(object):
             'profiles':
                         {
                         u'Profile0' :{
-                            True  : [ u'EnabledSound0' , u'EnabledSound1' , ... ],
-                            False : [ u'DisabledSoundA', u'DisabledSoundB', ... ]
+                            True : [u'EnabledSound0' , u'EnabledSound1', ... ],
+                            False: [u'DisabledSoundA', u'DisabledSoundB', ... ]
                             },
                         ...
                         },
@@ -99,7 +98,7 @@ class appconfig(object):
     def setCfgFilename(self, cfgfile=None):
         if cfgfile is None:
             dir = user_config_dir(self._appname)
-            self._configfile = os.path.join(dir + 'config.ini')
+            self._cfgfile = os.path.join(dir + 'config.ini')
         else:
             self._configfile = cfgfile
 
@@ -108,8 +107,8 @@ class appconfig(object):
         cfgversion = self._configparser.getint(self.__GEN, 'cfgversion')
         # XXX: when more versions appear, the correct handling is to
         #      import the old version and ask the user if the migration is done
-        if cfgversion <> self._getdefaultcfgver():
-            raise ValueError, "Unknown file format configuration version %s" % (cfgversion)
+        if cfgversion != self._getdefaultcfgver():
+            raise ValueError("Unknown file format configuration version %s" % cfgversion)
 
         self._conf['sounds'] = self._getsounds()
 
@@ -163,12 +162,13 @@ class appconfig(object):
         secname = self.__PRPREF + profname
         self._check_and_add_section(secname)
 
-        statestr = { True: 'on',  False: 'off'}
+        statestr = {True: 'on', False: 'off'}
 
         for state in (True, False):
             sstate = statestr[state]
-            for s in profcfg[state]:
-                self._configparser.set(secname, s, sstate)
+            if state in profcfg:
+                for s in profcfg[state]:
+                    self._configparser.set(secname, s, sstate)
 
     def _check_and_add_section(self, section):
         if not self._configparser.has_section(section):
@@ -208,7 +208,6 @@ class appconfig(object):
                     pass
         return sounds
 
-
     def _getprofiles(self):
 
         if self._configparser.has_section(self.__PROFS):
@@ -223,15 +222,15 @@ class appconfig(object):
                 logging.warning("'%s' section is empty" % (self.__PROFS))
                 return {}, None
             profiles = {}
-            profilenames = [ self._configparser.get(self.__PROFS, x)
-                                            for x in profiles_list ]
+            profilenames = [self._configparser.get(self.__PROFS, x)
+                                            for x in profiles_list]
 
             if len(profilenames) == 0:
                 logging.warning(
                     "The list of values in the '%s' section is empty",
                     self.__PROFS
                     )
-                return {},  None
+                return {}, None
 
             # get active profile
             active_profile = self._readActiveProfile(profilenames)
@@ -240,8 +239,8 @@ class appconfig(object):
                 cfgp = self.__PRPREF + p
                 if self._configparser.has_section(cfgp):
                     p_sounds = self._configparser.options(cfgp)
-                    pd_sounds = { True: [],  False: [] }
-                    if len(p_sounds) > 0 :
+                    pd_sounds = {True: [], False: []}
+                    if len(p_sounds) > 0:
                         for s in p_sounds:
                             state = self._configparser.getboolean(cfgp, s)
                             try:

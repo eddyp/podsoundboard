@@ -147,7 +147,7 @@ class myMainWindow(QtGui.QMainWindow):
         if pn is None:
             pn = self.dict_getNewProfileName()
         if self.dict_hasProfile(pn):
-            raise Exception, u"Profile %s is already in the application" % pn
+            raise Exception(u"Profile %s is already in the application" % pn)
 
     def uiAddSound2profile(self, soundName=None, soundFile=None, active=False, profile=None):
         if profile is None:
