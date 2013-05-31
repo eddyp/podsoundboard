@@ -3,6 +3,7 @@
 
 # using configparser because ConfigParser has broken unicode support
 from configparser import SafeConfigParser as scp
+from configparser import NoOptionError
 import os
 import codecs
 
