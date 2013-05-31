@@ -98,12 +98,12 @@ class appconfig(object):
     def setCfgFilename(self, cfgfile=None):
         if cfgfile is None:
             dir = user_config_dir(self._appname)
-            self._cfgfile = os.path.join(dir + 'config.ini')
+            self._cfgfile = os.path.join(dir + os.sep + 'config.ini')
         else:
-            self._configfile = cfgfile
+            self._cfgfile = cfgfile
 
     def readconfig(self):
-        self._configparser.readfp(codecs.open(self._configfile, "r", cfgenc))
+        self._configparser.readfp(codecs.open(self._cfgfile, "r", cfgenc))
         cfgversion = self._configparser.getint(self.__GEN, 'cfgversion')
         # XXX: when more versions appear, the correct handling is to
         #      import the old version and ask the user if the migration is done
