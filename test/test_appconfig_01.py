@@ -205,6 +205,9 @@ def test_setdefaultactiveprofile(tmpdir, cfg):
     ac.readconfig()
     assert ac.config['active_profile'] == profiles[0]
 
+    # test config file override
+    newfn = cfgfile + 'brk'
+    ac.writeconfig(newfn)
     cfgcontent = """
     [General]
     cfgversion = 1
@@ -224,7 +227,7 @@ def test_setdefaultactiveprofile(tmpdir, cfg):
     [Profile.p1]
 
     """
-    f = open(cfgfile, "wt")
+    f = open(newfn, "wt")
     f.write(cfgcontent)
     f.close()
 
