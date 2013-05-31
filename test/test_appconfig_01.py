@@ -130,14 +130,13 @@ def test_cfgfromXDG(tmpdir, monkeypatch, cfg):
     appconfig = apc.appconfig
     import os
     import copy
-    cfg['sounds'] = makesoundsindir(tmpdir, cfg['sounds'])
     writtencfg = copy.deepcopy(cfg)
-
+    writtencfg['sounds'] = makesoundsindir(tmpdir, writtencfg['sounds'])
     monkeypatch.setenv("XDG_CONFIG_HOME", tmpdir)
     expectcfgdir = xindir(tmpdir, TESTAPPNAME)
 
     ac = appconfig(TESTAPPNAME, TESTAPPVER)
-    ac.setconfig(cfg)
+    ac.setconfig(writtencfg)
     ac.writeconfig()
 
     expectcfg = xindir(expectcfgdir, 'config.ini')
