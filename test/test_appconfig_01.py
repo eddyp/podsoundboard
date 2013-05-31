@@ -192,6 +192,10 @@ def test_setActiveProfileWhenMissing(tmpdir, cfg):
     import copy
     writtencfg = copy.deepcopy(cfg)
     writtencfg['sounds'] = makesoundsindir(tmpdir, writtencfg['sounds'])
+    writtencfg['profiles'][u'p1'] = copy.deepcopy(writtencfg['profiles'][u'p0'])
+    writtencfg['profiles'][u'a0'] = copy.deepcopy(writtencfg['profiles'][u'p0'])
+    profiles = writtencfg['profiles'].keys()
+    profiles.sort()
     writtencfg['active_profile'] = None
     cfgfile = xindir(tmpdir, 'cfg.ini')
 
@@ -200,4 +204,4 @@ def test_setActiveProfileWhenMissing(tmpdir, cfg):
     ac.writeconfig()
     ac.readconfig()
 
-    assert ac.config['active_profile'] == u'p0'
+    assert ac.config['active_profile'] == profiles[0]
