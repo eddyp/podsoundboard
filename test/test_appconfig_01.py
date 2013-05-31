@@ -13,12 +13,15 @@ diacr_cfg = {
             'active_profile': u'p0'
             }
 
+TESTAPPNAME = 'TestApp'
+TESTAPPVER = '0.1'
+
 
 def test_loadinexistent(tmpdir, monkeypatch):
     tcfg = str(tmpdir) + 'inexistent'
     monkeypatch.syspath_prepend('.')
     import appconfig
-    appconf = appconfig.appconfig('TestApp', '0.1', tcfg)
+    appconf = appconfig.appconfig('TestApp', TESTAPPVER, tcfg)
     from ConfigParser import NoSectionError
     pytest.raises(IOError, "appconf.readconfig()")
     monkeypatch.undo()
@@ -36,7 +39,7 @@ def test_saveload(tmpdir, monkeypatch, sound):
     monkeypatch.syspath_prepend('.')
 
     import appconfig
-    appconf = appconfig.appconfig('TestApp', '0.1', tcfg)
+    appconf = appconfig.appconfig(TESTAPPNAME, TESTAPPVER, tcfg)
     conf = appconf.config
 
     assert equaldicts(conf,
@@ -53,7 +56,7 @@ def test_saveload(tmpdir, monkeypatch, sound):
     appconf.writeconfig()
     assert os.path.isfile(tcfg)
 
-    appconf2 = appconfig.appconfig('TestApp', '0.1', tcfg)
+    appconf2 = appconfig.appconfig(TESTAPPNAME, TESTAPPVER, tcfg)
     appconf2.readconfig()
     newconf = appconf2.config
 
@@ -100,7 +103,7 @@ def test_saveconfig(tmpdir, cfg):
     ncfg['sounds'] = makesoundsindir(tmpdir, cfg['sounds'])
     print ncfg
 
-    ac = appconfig('TestApp', '0.1', tcfg)
+    ac = appconfig(TESTAPPNAME, TESTAPPVER, tcfg)
     ac.setconfig(ncfg)
     assert equaldicts(ac.config, ncfg)
 
@@ -131,17 +134,16 @@ def test_cfgfromXDG(tmpdir, monkeypatch, cfg):
     writtencfg = copy.deepcopy(cfg)
 
     monkeypatch.setenv("XDG_CONFIG_HOME", tmpdir)
-    testappname = 'TestApp'
-    expectcfgdir = xindir(tmpdir, testappname)
+    expectcfgdir = xindir(tmpdir, TESTAPPNAME)
 
-    ac = appconfig(testappname, '0.1')
+    ac = appconfig(TESTAPPNAME, TESTAPPVER)
     ac.setconfig(cfg)
     ac.writeconfig()
 
     expectcfg = xindir(expectcfgdir, 'config.ini')
     assert os.path.isfile(expectcfg) is True
 
-    readac = appconfig(testappname, '0.1')
+    readac = appconfig(TESTAPPNAME, TESTAPPVER)
     readac.readconfig()
     readconf = readac.config
     assert equaldicts(writtencfg, readconf)
