@@ -1,0 +1,5 @@
+[run]
+omit = test/*, appdirs, .git/*
+
+[report]
+precision = 2
