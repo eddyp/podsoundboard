@@ -21,6 +21,7 @@ def test_loadinexistent(tmpdir, monkeypatch):
     appconf = appconfig.appconfig('TestApp', '0.1', tcfg)
     from ConfigParser import NoSectionError
     pytest.raises(IOError, "appconf.readconfig()")
+    monkeypatch.undo()
 
 
 @pytest.mark.parametrize(("sound"), [
@@ -60,6 +61,7 @@ def test_saveload(tmpdir, monkeypatch, sound):
     assert newconf['sounds'][sound['name']] == sfile
 
     del newconf, refconf, appconf, appconf2, conf, tcfg
+    monkeypatch.undo()
 
 
 def soundlines(sdict):
