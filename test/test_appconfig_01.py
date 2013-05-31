@@ -2,6 +2,17 @@
 import pytest
 from conftest import *
 
+simple_cfg = {
+                'sounds': {u's0': 'S0.mp3', u's1': 'S1.flac'},
+                'profiles': {u'p0': {True: [u's0'], False: [u's1']}},
+                'active_profile': None
+             }
+diacr_cfg = {
+            'sounds': {u'sună0':'S0.mp3', u'șuier1':'S1.flac'},
+            'profiles': { u'p0':{ True: [u'sună0']}, u'p1': {True:[u'șuier1']} },
+            'active_profile': None
+            }
+
 
 def test_loadinexistent(tmpdir, monkeypatch):
     tcfg = str(tmpdir) + 'inexistent'
@@ -74,19 +85,7 @@ def profilelines(pdict):
     return pl
 
 
-@pytest.mark.parametrize(("cfg"), [
-        {
-        'sounds': {u's0':'S0.mp3', u's1':'S1.flac'},
-        'profiles': {u'p0':{True: [u's0'], False: [u's1']}},
-        'active_profile': None
-        }
-        ,
-        {
-        'sounds': {u'sună0':'S0.mp3', u'șuier1':'S1.flac'},
-        'profiles': { u'p0':{ True: [u'sună0']}, u'p1': {True:[u'șuier1']} },
-        'active_profile': None
-        }
-        ])
+@pytest.mark.parametrize(("cfg"), [simple_cfg, diacr_cfg])
 def test_saveconfig(tmpdir, cfg):
     import appconfig as apc
     appconfig = apc.appconfig
@@ -119,13 +118,7 @@ def test_saveconfig(tmpdir, cfg):
     assert expect == []
 
 
-@pytest.mark.parametrize(("cfg"), [
-        {
-        'sounds': {u's0':'S0.mp3', u's1':'S1.flac'},
-        'profiles': {u'p0':{True: [u's0'], False: [u's1']}},
-        'active_profile': None
-        }
-        ])
+@pytest.mark.parametrize(("cfg"), [simple_cfg])
 def test_cfgfromXDG(tmpdir, monkeypatch, cfg):
     """test config is correctly loaded if XDG_CONFIG_HOME is set"""
     import appconfig as apc
