@@ -182,7 +182,22 @@ def test_cfgfromXDG(tmpdir, monkeypatch, cfg):
 #
 # def test_profilescfg():
 #     assert 0
-#
-#
-# def test_readActiveProfile():
-#     assert 0
+
+
+@pytest.mark.parametrize(("cfg"), [simple_cfg])
+def test_setActiveProfileWhenMissing(tmpdir, cfg):
+    import appconfig as apc
+    appconfig = apc.appconfig
+    import os
+    import copy
+    writtencfg = copy.deepcopy(cfg)
+    writtencfg['sounds'] = makesoundsindir(tmpdir, writtencfg['sounds'])
+    writtencfg['active_profile'] = None
+    cfgfile = xindir(tmpdir, 'cfg.ini')
+
+    ac = appconfig(TESTAPPNAME, TESTAPPVER, cfgfile)
+    ac.setconfig(writtencfg)
+    ac.writeconfig()
+    ac.readconfig()
+
+    assert ac.config['active_profile'] == u'p0'
