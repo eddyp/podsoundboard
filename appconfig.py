@@ -119,6 +119,16 @@ class appconfig(object):
     def setconfig(self, conf):
         self._conf = conf
 
+
+    def mkdir_p(self, dir):
+        try:
+            os.makedirs(dir)
+        except OSError as exc:
+            if exc.errno == errno.EEXIST and os.path.isdir(dir):
+                pass
+            else:
+                raise exc
+
     def writeconfig(self, cfgfilename=None, appver='0.1', cfgver=None):
         if cfgver is None:
             cfgver = self._getdefaultcfgver(appver)
@@ -144,7 +154,10 @@ class appconfig(object):
                                             self._conf['active_profile']
                                             )
 
-        with codecs.open(self._configfile, 'wb', encoding=cfgenc) as cfgfile:
+        cfgdir = os.path.dirname(self._cfgfile)
+        if not os.path.exists(cfgdir):
+            self.mkdir_p(cfgdir)
+        with codecs.open(self._cfgfile, 'wb', encoding=cfgenc) as cfgfile:
             self._configparser.write(cfgfile)
             cfgfile.close()
 
