@@ -1,13 +1,15 @@
+# -*- coding: utf-8 -*-
 cfgenc = 'utf8'
 
+
 def equaldicts(d1, d2):
-    assert type(d1) == type(d2)
-    assert type(d1) == type({})
+    assert isinstance(d1, dict)
+    assert isinstance(d2, dict)
     assert d1.keys().sort() == d2.keys().sort()
     if d1 == {}:
         return True
     for k, v in d1.items():
-        if type(v) == type({}):
+        if isinstance(v, dict):
             assert equaldicts(v, d2[k])
         else:
             assert k in d2
@@ -15,13 +17,16 @@ def equaldicts(d1, d2):
 
     return True
 
+
 def xindir(dir, x):
     from os import sep
     return str(dir) + sep + str(x)
 
+
 def touch(fn):
     f = open(fn, 'w+')
     f.close()
+
 
 def makesoundsindir(dir, sdict):
     nd = {}

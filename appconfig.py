@@ -119,7 +119,6 @@ class appconfig(object):
     def setconfig(self, conf):
         self._conf = conf
 
-
     def mkdir_p(self, dir):
         try:
             os.makedirs(dir)

@@ -17,7 +17,8 @@ def test_loadinexistent(tmpdir, monkeypatch):
                         {'name':u'S1', 'file':'s1.mp3'}
                         ])
 def test_saveload(tmpdir, monkeypatch, sound):
-    import copy, os
+    import copy
+    import os
     tcfg = xindir(tmpdir, 'new.cfg')
 
     monkeypatch.syspath_prepend('.')
@@ -144,7 +145,7 @@ def test_cfgfromXDG(tmpdir, monkeypatch, cfg):
     ac.writeconfig()
 
     expectcfg = xindir(expectcfgdir, 'config.ini')
-    assert os.path.isfile(expectcfg) == True
+    assert os.path.isfile(expectcfg) is True
 
     monkeypatch.undo()
 
@@ -175,7 +176,7 @@ def test_cfgfromXDG(tmpdir, monkeypatch, cfg):
 #     assert 0
 #
 #
-# def test_inexistentandsdupsounds():
+# def test_inexistentanddupsounds():
 #     assert 0
 #
 #
