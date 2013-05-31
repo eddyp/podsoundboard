@@ -172,8 +172,10 @@ class appconfig(object):
             self._set_profile(p, profiles[p])
 
     def _set_profile(self, profname, profcfg):
+        """Set the profile profname dictionary according to the profcfg"""
         secname = self.__PRPREF + profname
         self._check_and_add_section(secname)
+        self._configparser.set(self.__PROFS, secname, profname)
 
         statestr = {True: 'on', False: 'off'}
 

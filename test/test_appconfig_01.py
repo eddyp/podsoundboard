@@ -5,12 +5,12 @@ from conftest import *
 simple_cfg = {
                 'sounds': {u's0': 'S0.mp3', u's1': 'S1.flac'},
                 'profiles': {u'p0': {True: [u's0'], False: [u's1']}},
-                'active_profile': None
+                'active_profile': u'p0'
              }
 diacr_cfg = {
             'sounds': {u'sună0':'S0.mp3', u'șuier1':'S1.flac'},
             'profiles': { u'p0':{ True: [u'sună0']}, u'p1': {True:[u'șuier1']} },
-            'active_profile': None
+            'active_profile': u'p0'
             }
 
 
@@ -127,20 +127,24 @@ def test_cfgfromXDG(tmpdir, monkeypatch, cfg):
     appconfig = apc.appconfig
     import os
     import copy
-
-    ncfg = copy.deepcopy(cfg)
-    ncfg['sounds'] = makesoundsindir(tmpdir, cfg['sounds'])
+    cfg['sounds'] = makesoundsindir(tmpdir, cfg['sounds'])
+    writtencfg = copy.deepcopy(cfg)
 
     monkeypatch.setenv("XDG_CONFIG_HOME", tmpdir)
     testappname = 'TestApp'
     expectcfgdir = xindir(tmpdir, testappname)
 
     ac = appconfig(testappname, '0.1')
-    ac.setconfig(ncfg)
+    ac.setconfig(cfg)
     ac.writeconfig()
 
     expectcfg = xindir(expectcfgdir, 'config.ini')
     assert os.path.isfile(expectcfg) is True
+
+    readac = appconfig(testappname, '0.1')
+    readac.readconfig()
+    readconf = readac.config
+    assert equaldicts(writtencfg, readconf)
 
     monkeypatch.undo()
 
