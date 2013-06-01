@@ -150,25 +150,11 @@ def test_cfgfromXDG(tmpdir, monkeypatch, cfg):
     monkeypatch.undo()
 
 
-# def test_setdefaultcfg():
-#     # TODO: test default setCfgFilename
-#     assert 0
-#
-#
 # def test_badcfgversion():
 #     assert 0
 #
 #
-# def test_writeconfigincustomfile():
-#     # TODO: proper save when calling writeconfig("some.file.cfg")
-#     assert 0
-#
-#
 # def test_validactiveprofile():
-#     assert 0
-#
-#
-# def test_wipeoutsections():
 #     assert 0
 #
 #
@@ -207,7 +193,13 @@ def test_setdefaultactiveprofile(tmpdir, cfg):
 
     # test config file override
     newfn = cfgfile + 'brk'
+    del ac.config['profiles'][u'a0']
+    expectcfg = copy.deepcopy(ac.config)
+    expectcfg['active_profile'] = u'p0'
     ac.writeconfig(newfn)
+    ac.readconfig()
+    assert equaldicts(ac.config, expectcfg)
+
     cfgcontent = """
     [General]
     cfgversion = 1
@@ -232,4 +224,5 @@ def test_setdefaultactiveprofile(tmpdir, cfg):
     f.close()
 
     ac.readconfig()
+    # this should not fail!
     assert ac.config['active_profile'] == profiles[0]
