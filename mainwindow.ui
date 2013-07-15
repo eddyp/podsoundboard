@@ -431,16 +431,8 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
-   <property name="icon">
-    <iconset theme="document-save">
-     <normaloff/>
-    </iconset>
-   </property>
    <property name="text">
     <string>Salvează profil...</string>
-   </property>
-   <property name="iconVisibleInMenu">
-    <bool>true</bool>
    </property>
   </action>
   <action name="actionLoad_profile">
@@ -565,8 +557,14 @@
    </property>
   </action>
   <action name="actionSave">
+   <property name="icon">
+    <iconset theme="document-save"/>
+   </property>
    <property name="text">
     <string>Salvează configurația...</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionLoad">
