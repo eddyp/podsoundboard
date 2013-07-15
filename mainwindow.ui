@@ -485,7 +485,7 @@
     </iconset>
    </property>
    <property name="text">
-    <string>Nou</string>
+    <string>Profil nou</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
