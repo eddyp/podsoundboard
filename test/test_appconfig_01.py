@@ -78,7 +78,7 @@ def testLoadConfigIniByDefault(tmpdir,monkeypatch,cfgfile, soundfilesdict):
     monkeypatch.setenv("XDG_CONFIG_HOME", tmpdir)
     monkeypatch.setenv("XDG_DATA_HOME", tmpdir)
     expectcfgdir = xindir(tmpdir, TESTAPPNAME)
-    from appconfig import mkdir_p
+    from miscutil import mkdir_p
     mkdir_p(expectcfgdir)
     os.path.isdir(expectcfgdir)
     tcfg = xindir(expectcfgdir, 'config.ini')
