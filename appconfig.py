@@ -46,6 +46,17 @@ def user_data_dir(appname=None):
         path = os.path.join(path, appname)
     return path
 
+
+def mkdir_p(directory):
+    try:
+        os.makedirs(directory)
+    except OSError as exc:
+        if exc.errno == errno.EEXIST and os.path.isdir(directory):
+            pass
+        else:
+            raise exc
+
+
 import logging
 
 
@@ -132,15 +143,6 @@ class appconfig(object):
         # TODO: check the parameter is a valid configuration structure
         self._conf = conf
 
-    def mkdir_p(self, dir):
-        try:
-            os.makedirs(dir)
-        except OSError as exc:
-            if exc.errno == errno.EEXIST and os.path.isdir(dir):
-                pass
-            else:
-                raise exc
-
     def writeconfig(self, cfgfilename=None, appver='0.1', cfgver=None):
         """
         Store the entire internal configuration into the configuration file
@@ -175,7 +177,7 @@ class appconfig(object):
 
         cfgdir = os.path.dirname(self._cfgfile)
         if not os.path.exists(cfgdir):
-            self.mkdir_p(cfgdir)
+            mkdir_p(cfgdir)
         with codecs.open(self._cfgfile, 'wb', encoding=cfgenc) as cfgfile:
             self._configparser.write(cfgfile)
             cfgfile.close()
