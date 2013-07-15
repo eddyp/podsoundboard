@@ -36,7 +36,7 @@ class soundContainer(object):
 
     def loadSounds(self, cfgsounds):
         files = {}
-        for k, v in cfgsounds:
+        for k, v in cfgsounds.items():
             uv = v.decode(osencoding)
             uk = k.decode(osencoding)
             if uv in files:
