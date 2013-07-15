@@ -70,7 +70,7 @@ def test_saveload(tmpdir, monkeypatch, sound):
 @pytest.mark.parametrize(("cfgfile", 'soundfilesdict'), [
                         ("test/files/simple.ini", {'s1':'S1.flac', 's0': 'S0.mp3'})
                         ])
-def testLoadConfigIniByDefault(tmpdir,monkeypatch,cfgfile, soundfilesdict):
+def test_defaultconfigload(tmpdir,monkeypatch,cfgfile, soundfilesdict):
     import shutil
     import os
     os.path.isfile(cfgfile)
