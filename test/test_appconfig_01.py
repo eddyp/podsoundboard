@@ -67,6 +67,36 @@ def test_saveload(tmpdir, monkeypatch, sound):
     monkeypatch.undo()
 
 
+@pytest.mark.parametrize(("cfgfile", 'soundfilesdict'), [
+                        ("test/files/simple.ini", {'s1':'S1.flac', 's0': 'S0.mp3'})
+                        ])
+def testLoadConfigIniByDefault(tmpdir,monkeypatch,cfgfile, soundfilesdict):
+    import shutil
+    import os
+    os.path.isfile(cfgfile)
+    monkeypatch.syspath_prepend('.')
+    monkeypatch.setenv("XDG_CONFIG_HOME", tmpdir)
+    monkeypatch.setenv("XDG_DATA_HOME", tmpdir)
+    expectcfgdir = xindir(tmpdir, TESTAPPNAME)
+    from appconfig import mkdir_p
+    mkdir_p(expectcfgdir)
+    os.path.isdir(expectcfgdir)
+    tcfg = xindir(expectcfgdir, 'config.ini')
+    shutil.copyfile(cfgfile,tcfg)
+    makesoundsindir(expectcfgdir, soundfilesdict)
+
+    import appconfig
+    appconf = appconfig.appconfig(TESTAPPNAME, TESTAPPVER)
+    appconf.readconfig()
+    conf = appconf.config
+    assert len(conf) == 3
+    assert len(conf['sounds']) == 2
+    assert len(conf['profiles']) == 1
+
+    monkeypatch.undo()
+
+
+
 def soundlines(sdict):
     sl = []
 
