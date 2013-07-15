@@ -97,6 +97,7 @@ class appconfig(object):
         return self._conf
 
     def setCfgFilename(self, cfgfile=None):
+        """Sets the filename where the application configuration is stored"""
         if cfgfile is None:
             dir = user_config_dir(self._appname)
             self._cfgfile = os.path.join(dir + os.sep + 'config.ini')
@@ -104,6 +105,11 @@ class appconfig(object):
             self._cfgfile = cfgfile
 
     def readconfig(self):
+        """
+        Reads the configuration file and updates the internal data structures
+        accordingly. The configuration filename must have been set already via
+        a call to the setCfgFilename function
+        """
         self._configparser.readfp(codecs.open(self._cfgfile, "r", cfgenc))
         cfgversion = self._configparser.getint(self.__GEN, 'cfgversion')
         # XXX: when more versions appear, the correct handling is to
@@ -118,6 +124,12 @@ class appconfig(object):
         self._conf['active_profile'] = cprofile
 
     def setconfig(self, conf):
+        """
+        Overwrites the internal data structures with the configuration given as
+        parameter. The given parameter is not checked to actually be a valid
+        configuration structure
+        """
+        # TODO: check the parameter is a valid configuration structure
         self._conf = conf
 
     def mkdir_p(self, dir):
@@ -130,6 +142,13 @@ class appconfig(object):
                 raise exc
 
     def writeconfig(self, cfgfilename=None, appver='0.1', cfgver=None):
+        """
+        Store the entire internal configuration into the configuration file
+        for safe keeping and/or later retrieval via readconfig.
+
+        By default the configuration is written to config.ini in the
+        user_config_dir. The user_config_dir value respects the XDG standard.
+        """
         if cfgver is None:
             cfgver = self._getdefaultcfgver(appver)
         if cfgfilename is not None:
