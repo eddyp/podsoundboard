@@ -351,6 +351,8 @@
     <property name="title">
      <string>Profil</string>
     </property>
+    <addaction name="actionSave"/>
+    <addaction name="actionLoad"/>
     <addaction name="actionNew_profile"/>
     <addaction name="actionLoad_profile"/>
     <addaction name="actionSave_profile"/>
@@ -560,6 +562,16 @@
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Salvează configurația...</string>
+   </property>
+  </action>
+  <action name="actionLoad">
+   <property name="text">
+    <string>Încarcă configurația...</string>
    </property>
   </action>
  </widget>
