@@ -73,6 +73,9 @@
          </item>
          <item>
           <widget class="QToolButton" name="soundPrefButton">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="toolTip">
             <string>Configurează sunetele...</string>
            </property>
@@ -95,6 +98,9 @@
          </item>
          <item>
           <widget class="QToolButton" name="profilePrefButton">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="toolTip">
             <string>Configurează profilul...</string>
            </property>
@@ -110,6 +116,9 @@
          </item>
          <item>
           <widget class="QToolButton" name="profileSaveButton">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="toolTip">
             <string>Salvează profilul</string>
            </property>
@@ -357,6 +366,9 @@
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAdd">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset theme="list-add">
      <normaloff/>
@@ -385,6 +397,9 @@
    </property>
   </action>
   <action name="actionAbout">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset theme="help-about">
      <normaloff/>
@@ -411,6 +426,9 @@
    </property>
   </action>
   <action name="actionSave_profile">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset theme="document-save">
      <normaloff/>
@@ -424,6 +442,9 @@
    </property>
   </action>
   <action name="actionLoad_profile">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset theme="document-open">
      <normaloff/>
@@ -437,6 +458,9 @@
    </property>
   </action>
   <action name="actionEditeaz_lista">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset theme="preferences-desktop">
      <normaloff/>
@@ -450,6 +474,9 @@
    </property>
   </action>
   <action name="actionNew_profile">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset theme="document-new">
      <normaloff/>
@@ -490,6 +517,9 @@
    </property>
   </action>
   <action name="actionEdit_this_profile">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset theme="document-properties">
      <normaloff/>
@@ -506,6 +536,9 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Ascunde sunetele inactive</string>
    </property>
@@ -514,6 +547,9 @@
    </property>
   </action>
   <action name="actionDel_this_profile">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset theme="edit-delete">
      <normaloff/>
