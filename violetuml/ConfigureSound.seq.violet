@@ -11,7 +11,7 @@
    </object>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>116.0</double>
+     <double>52.0</double>
      <double>0.0</double>
     </void>
    </object>
@@ -26,7 +26,7 @@
    </object>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>339.0</double>
+     <double>293.0</double>
      <double>0.0</double>
     </void>
    </object>
@@ -86,7 +86,7 @@
    </object>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>148.0</double>
+     <double>84.0</double>
      <double>80.0</double>
     </void>
    </object>
@@ -95,7 +95,7 @@
    <object idref="LifelineNode2"/>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>506.0</double>
+     <double>453.0</double>
      <double>0.0</double>
     </void>
    </object>
@@ -104,7 +104,7 @@
    <object idref="ActivationBarNode2"/>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>538.0</double>
+     <double>485.0</double>
      <double>130.0</double>
     </void>
    </object>
@@ -113,7 +113,7 @@
    <object idref="ActivationBarNode1"/>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>371.0</double>
+     <double>325.0</double>
      <double>105.0</double>
     </void>
    </object>
@@ -122,7 +122,7 @@
    <object idref="LifelineNode3"/>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>672.0</double>
+     <double>615.0</double>
      <double>0.0</double>
     </void>
    </object>
@@ -131,7 +131,7 @@
    <object idref="ActivationBarNode3"/>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>379.0</double>
+     <double>333.0</double>
      <double>190.0</double>
     </void>
    </object>
@@ -140,7 +140,7 @@
    <object idref="ActivationBarNode4"/>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>379.0</double>
+     <double>333.0</double>
      <double>250.0</double>
     </void>
    </object>
@@ -149,7 +149,7 @@
    <object idref="ActivationBarNode5"/>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>704.0</double>
+     <double>647.0</double>
      <double>305.0</double>
     </void>
    </object>
