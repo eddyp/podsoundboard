@@ -49,6 +49,7 @@ class myMainWindow(QtGui.QMainWindow):
         self.ui.setupUi(self)
 
         appconf = appconfig(appname, appver)
+        appconf.readconfig()
         config = appconf.config
         self.dict_loadConfig(config)
         #self.dict_updateActiveProfileUi()
@@ -113,9 +114,13 @@ class myMainWindow(QtGui.QMainWindow):
         self.dict_loadActiveProfile(config['active_profile'])
 
     def dict_hasProfile(self, name):
+        """Checks if the profile 'name' exists already"""
         return (name in self._dictprofiles)
 
     def dict_getNewProfileName(self):
+        """
+        Return a new unique profile name.
+        """
         name = None
         while True:
             name = u'Profile' + str(self._autoprofcount)
@@ -125,6 +130,18 @@ class myMainWindow(QtGui.QMainWindow):
         return name
 
     def addSound2Profile(self, name=None, file=None, active=False, profile=None):
+        """
+        Updates the internal data structures for the profile 'profile'
+        (current, if None selected) with the sound 'name' which has the sound
+        file with the filename 'file' and is in the state 'active'.
+
+        If the sound 'name' exists already in the profile,
+        an exception is raised.
+
+        The sound control is NOT populated by this method.
+        """
+
+        # TODO: move this in a profile class
         pn = profile
         if profile is None:
             pn = self._currentprofilename
@@ -150,6 +167,10 @@ class myMainWindow(QtGui.QMainWindow):
             raise Exception(u"Profile %s is already in the application" % pn)
 
     def uiAddSound2profile(self, soundName=None, soundFile=None, active=False, profile=None):
+        """
+        Adds soundName with soundFile to profile via UI interaction.
+        The sound control is also created through this operation.
+        """
         if profile is None:
             profile = self._currentprofilename
         handler = self.addSound2Profile(soundName, soundFile, active, profile)
