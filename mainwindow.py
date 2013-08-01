@@ -15,28 +15,13 @@ from soundcontrol import soundControl
 
 from appconfig import appconfig
 from soundcontainer import soundContainer
+from profilecontainer import profileContainer
 
 
 class myMainWindow(QtGui.QMainWindow):
 
     _soundcontainer = None
-
-    _currentprofilename = u'Profil'
-    _dictprofiles = {
-                    u'Profil': {}
-                    }
-    """
-    _dictprofiles: a dictionary of profiles.
-    Entry format:
-        u'profilename': {
-                        u'soundname1': { 'state':<st>, 'ctl': <ctl> }
-                        u'soundname2': { 'state':<st>, 'ctl': <ctl> }
-                        }
-        <st>  - True/False - determines if the sound is enabled in the profile;
-        <ctl> - None/soundControl - sound control of the sound
-                                    value is None when profile has no UI
-    """
-    _autoprofcount = 0
+    _profilecontainer = None
 
     def __init__(self, parent=None):
         QtGui.QMainWindow.__init__(self, parent)
@@ -45,6 +30,7 @@ class myMainWindow(QtGui.QMainWindow):
         self.ui = Ui_MainWindow()
 
         self._soundcontainer = soundContainer()
+        self._profilecontainer = profileContainer(self._soundcontainer)
 
         self.ui.setupUi(self)
 
@@ -59,47 +45,9 @@ class myMainWindow(QtGui.QMainWindow):
     def dict_wipeOutConfig(self):
         """Cleanly destroys all existent sounds, profiles and sound controls"""
         self._soundcontainer.wipeOutSounds()
-        self._currentprofilename = None
-        self.dict_wipeOutProfiles()
+        self._profilecontainer._currentprofilename = None
+        self._profilecontainer.dict_wipeOutProfiles()
 
-    def dict_wipeOutProfiles(self):
-        for up in self._dictprofiles.keys():
-            for us in self._dictprofiles[up].keys():
-                soundctl = self._dictprofiles[up][us]['ctl']
-                if soundctl:
-                    del soundctl
-                del self._dictprofiles[up][us]
-
-    def dict_loadCfgProfile(self, profile, cfgprofile):
-        up = profile.decode(osencoding)
-        if up in self._dictprofiles:
-            # TODO: warn
-            return
-        self._dictprofiles[up] = {}
-        for enabled in [False, True]:
-            for s in cfgprofile[enabled]:
-                us = s.decode(osencoding)
-                if self._soundcontainer.hasSound(us):
-                    self._dictprofiles[up][us] = {'state': enabled, 'ctl': None}
-
-    def dict_loadProfiles(self, cfgprofiles):
-        for p in cfgprofiles.keys():
-            self.dict_loadCfgProfile(p, cfgprofiles[p])
-
-    def dict_loadActiveProfile(self, activeprofile):
-        #print "Active profile: >%s< type: %s\n" % (activeprofile, type(activeprofile))
-        if activeprofile is not None:
-            uap = activeprofile.decode(osencoding)
-            if uap in self._dictprofiles:
-                self._currentprofilename = uap
-                return
-            else:
-                # TODO: warn about inconsistency
-                pass
-        if len(self._dictprofiles) > 0:
-            self._currentprofilename = self._dictprofiles.keys()[0]
-        else:
-            self._currentprofilename = None
 
     def dict_loadConfig(self, config):
         """
@@ -110,61 +58,11 @@ class myMainWindow(QtGui.QMainWindow):
         self.dict_wipeOutConfig()
 
         self._soundcontainer.loadSounds(config['sounds'])
-        self.dict_loadProfiles(config['profiles'])
-        self.dict_loadActiveProfile(config['active_profile'])
-
-    def dict_hasProfile(self, name):
-        """Checks if the profile 'name' exists already"""
-        return (name in self._dictprofiles)
-
-    def dict_getNewProfileName(self):
-        """
-        Return a new unique profile name.
-        """
-        name = None
-        while True:
-            name = u'Profile' + str(self._autoprofcount)
-            self._autoprofcount += 1
-            if not self.dict_hasProfile(name):
-                break
-        return name
-
-    def addSound2Profile(self, name=None, file=None, active=False, profile=None):
-        """
-        Updates the internal data structures for the profile 'profile'
-        (current, if None selected) with the sound 'name' which has the sound
-        file with the filename 'file' and is in the state 'active'.
-
-        If the sound 'name' exists already in the profile,
-        an exception is raised.
-
-        The sound control is NOT populated by this method.
-        """
-
-        # TODO: move this in a profile class
-        pn = profile
-        if profile is None:
-            pn = self._currentprofilename
-            if pn is None:
-                raise Exception, "No active profile exists to add sound to."
-        # get the real name of the sound
-        sname = self._soundcontainer.addSound(name, file)
-        if sname in self._dictprofiles[pn]:
-            # TODO: warn about overwrite
-            raise Exception(
-                "Trying to add the same sound (%s) twice in profile" % sname)
-        self._dictprofiles[pn][sname] = {'state': active, 'ctl': None}
-        return sname
+        self._profilecontainer.dict_loadProfiles(config['profiles'])
+        self._profilecontainer.activeprofile = config['active_profile']
 
     def dict_updateActiveProfileUi(self):
         raise NotImplementedError("updating the profile UI is not implemented")
-
-    def addProfile(self, profilename=None):
-        pn = profilename
-        if pn is None:
-            pn = self.dict_getNewProfileName()
-        if self.dict_hasProfile(pn):
-            raise Exception(u"Profile %s is already in the application" % pn)
 
     def uiAddSound2profile(self, soundName=None, soundFile=None, active=False, profile=None):
         """
@@ -172,13 +70,13 @@ class myMainWindow(QtGui.QMainWindow):
         The sound control is also created through this operation.
         """
         if profile is None:
-            profile = self._currentprofilename
-        handler = self.addSound2Profile(soundName, soundFile, active, profile)
+            profile = self._profilecontainer.activeprofile
+        handler = self._profilecontainer.addSound2Profile(soundName, soundFile, active, profile)
 
         uiProfileScrollArea = self.ui.soundsScrollArea
         uiProfileVerticalLayout = self.ui.verticalLayout_profile
         ctl = soundControl(self._soundcontainer, handler, uiProfileScrollArea, active)
-        self._dictprofiles[profile][handler]['ctl'] = ctl
+        self._profilecontainer.linkSoundCtlInProfile(profile, handler, ctl)
         # TODO: delete spacer add again later
         uiProfileVerticalLayout.addWidget(ctl)
 
