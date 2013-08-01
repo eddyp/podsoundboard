@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.6.0_27" class="java.beans.XMLDecoder">
+ <object class="com.horstmann.violet.SequenceDiagramGraph">
+  <void method="addNode">
+   <object id="LifelineNode0" class="com.horstmann.violet.ImplicitParameterNode">
+    <void property="name">
+     <void property="text">
+      <string>myMainWindow</string>
+     </void>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>359.2178474652476</double>
+     <double>0.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object id="LifelineNode1" class="com.horstmann.violet.ImplicitParameterNode">
+    <void property="name">
+     <void property="text">
+      <string>myMainWindow.ui</string>
+     </void>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>31.0</double>
+     <double>0.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object id="ActivationBarNode0" class="com.horstmann.violet.CallNode">
+    <void method="addChild">
+     <object id="ActivationBarNode1" class="com.horstmann.violet.CallNode">
+      <void method="addChild">
+       <object id="ActivationBarNode2" class="com.horstmann.violet.CallNode">
+        <void method="addChild">
+         <object id="ActivationBarNode3" class="com.horstmann.violet.CallNode">
+          <void method="addChild">
+           <object id="ActivationBarNode4" class="com.horstmann.violet.CallNode">
+            <void property="implicitParameter">
+             <object id="LifelineNode2" class="com.horstmann.violet.ImplicitParameterNode">
+              <void property="name">
+               <void property="text">
+                <string>soundContainer</string>
+               </void>
+              </void>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="addChild">
+           <object id="ActivationBarNode5" class="com.horstmann.violet.CallNode">
+            <void property="implicitParameter">
+             <object idref="LifelineNode0"/>
+            </void>
+           </object>
+          </void>
+          <void property="implicitParameter">
+           <object idref="LifelineNode0"/>
+          </void>
+         </object>
+        </void>
+        <void method="addChild">
+         <object id="ActivationBarNode6" class="com.horstmann.violet.CallNode">
+          <void property="implicitParameter">
+           <object id="LifelineNode3" class="com.horstmann.violet.ImplicitParameterNode">
+            <void property="name">
+             <void property="text">
+              <string>soundControl</string>
+             </void>
+            </void>
+           </object>
+          </void>
+         </object>
+        </void>
+        <void method="addChild">
+         <object id="ActivationBarNode7" class="com.horstmann.violet.CallNode">
+          <void property="implicitParameter">
+           <object idref="LifelineNode0"/>
+          </void>
+         </object>
+        </void>
+        <void method="addChild">
+         <object id="ActivationBarNode8" class="com.horstmann.violet.CallNode">
+          <void property="implicitParameter">
+           <object idref="LifelineNode1"/>
+          </void>
+         </object>
+        </void>
+        <void property="implicitParameter">
+         <object idref="LifelineNode0"/>
+        </void>
+       </object>
+      </void>
+      <void property="implicitParameter">
+       <object idref="LifelineNode1"/>
+      </void>
+     </object>
+    </void>
+    <void property="implicitParameter">
+     <object idref="LifelineNode1"/>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>63.0</double>
+     <double>80.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="ActivationBarNode1"/>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>71.0</double>
+     <double>110.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="ActivationBarNode2"/>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>391.2178474652476</double>
+     <double>135.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="ActivationBarNode3"/>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>399.2178474652476</double>
+     <double>165.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="LifelineNode2"/>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>585.8747061364938</double>
+     <double>0.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="ActivationBarNode4"/>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>617.8747061364938</double>
+     <double>190.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object class="com.horstmann.violet.CallNode">
+    <void property="implicitParameter">
+     <object idref="LifelineNode0"/>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>391.2178474652476</double>
+     <double>150.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="LifelineNode3"/>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>826.2185107203483</double>
+     <double>0.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="ActivationBarNode5"/>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>407.2178474652476</double>
+     <double>250.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="ActivationBarNode6"/>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>858.2185107203483</double>
+     <double>326.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object class="com.horstmann.violet.CallNode">
+    <void property="implicitParameter">
+     <object idref="LifelineNode0"/>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>391.2178474652476</double>
+     <double>200.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object class="com.horstmann.violet.CallNode">
+    <void property="implicitParameter">
+     <object idref="LifelineNode0"/>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>391.2178474652476</double>
+     <double>250.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object class="com.horstmann.violet.NoteNode">
+    <void property="text">
+     <void property="text">
+      <string>returns sound handler</string>
+     </void>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>435.5903493511735</double>
+     <double>267.52458138715645</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="ActivationBarNode7"/>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>399.2178474652476</double>
+     <double>386.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="ActivationBarNode8"/>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>79.0</double>
+     <double>441.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.CallEdge">
+    <void property="middleLabel">
+     <string>ui.soundAddButton.clicked()</string>
+    </void>
+    <void property="signal">
+     <boolean>true</boolean>
+    </void>
+   </object>
+   <object idref="ActivationBarNode0"/>
+   <object idref="ActivationBarNode1"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.CallEdge">
+    <void property="middleLabel">
+     <string>uiAddSound2profile()</string>
+    </void>
+   </object>
+   <object idref="ActivationBarNode1"/>
+   <object idref="ActivationBarNode2"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.CallEdge">
+    <void property="middleLabel">
+     <string>addSound2Profile(soundName,soundFile,active,profile)</string>
+    </void>
+   </object>
+   <object idref="ActivationBarNode2"/>
+   <object idref="ActivationBarNode3"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.CallEdge">
+    <void property="middleLabel">
+     <string>addSound(name,file)</string>
+    </void>
+   </object>
+   <object idref="ActivationBarNode3"/>
+   <object idref="ActivationBarNode4"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ReturnEdge">
+    <void property="middleLabel">
+     <string>sname</string>
+    </void>
+   </object>
+   <object idref="ActivationBarNode4"/>
+   <object idref="ActivationBarNode3"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.CallEdge">
+    <void property="middleLabel">
+     <string>(add sname to profile if new, else Exception)</string>
+    </void>
+   </object>
+   <object idref="ActivationBarNode3"/>
+   <object idref="ActivationBarNode5"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.CallEdge">
+    <void property="middleLabel">
+     <string>soundControl(soundcontainer, handler, uiProfileScrollArea, active)</string>
+    </void>
+   </object>
+   <object idref="ActivationBarNode2"/>
+   <object idref="ActivationBarNode6"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ReturnEdge">
+    <void property="middleLabel">
+     <string>soundctl</string>
+    </void>
+   </object>
+   <object idref="ActivationBarNode6"/>
+   <object idref="ActivationBarNode2"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.CallEdge">
+    <void property="middleLabel">
+     <string>(set soundctl as control for sound in the profile)</string>
+    </void>
+   </object>
+   <object idref="ActivationBarNode2"/>
+   <object idref="ActivationBarNode7"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.CallEdge">
+    <void property="middleLabel">
+     <string>ui.verticalLayout_profile,addWidget(soundctl)</string>
+    </void>
+   </object>
+   <object idref="ActivationBarNode2"/>
+   <object idref="ActivationBarNode8"/>
+  </void>
+ </object>
+</java>
