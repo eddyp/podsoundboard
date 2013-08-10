@@ -5,6 +5,7 @@ osencoding = 'utf8'
 
 from os import path
 
+import logging
 
 class soundContainer(object):
     """
@@ -26,6 +27,7 @@ class soundContainer(object):
     __handlers = {}
 
     def init(dictsound={}):
+        logging.getLogger("soundContainer")
         self.loadSounds(dictsound)
 
     def wipeOutSounds(self):
@@ -35,6 +37,7 @@ class soundContainer(object):
         self.__idcnt = 1
 
     def loadSounds(self, cfgsounds):
+        logging.debug("loadSounds called; cfgsounds: %s" % cfgsounds)
         files = {}
         for k, v in cfgsounds.items():
             uv = v.decode(osencoding)
