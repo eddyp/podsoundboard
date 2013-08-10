@@ -27,8 +27,8 @@ class profileContainer(object):
     __dictprofiles: a dictionary of profiles.
     Entry format:
         u'profilename': {
-                        u'soundname1': { 'state':<st>, 'ctl': <ctl> }
-                        u'soundname2': { 'state':<st>, 'ctl': <ctl> }
+                        handler1: { 'state':<st>, 'ctl': <ctl> }
+                        handler2: { 'state':<st>, 'ctl': <ctl> }
                         }
         <st>  - True/False - determines if the sound is enabled in the profile;
         <ctl> - None/soundControl - sound control of the sound
@@ -55,11 +55,12 @@ class profileContainer(object):
 
     def wipeOutProfiles(self):
         for up in self.__dictprofiles.keys():
-            for us in self.__dictprofiles[up].keys():
-                soundctl = self.__dictprofiles[up][us]['ctl']
+            for handler in self.__dictprofiles[up].keys():
+                soundctl = self.__dictprofiles[up][handler]['ctl']
                 if soundctl:
                     del soundctl
-                del self.__dictprofiles[up][us]
+                del self.__dictprofiles[up][handler]
+            del self.__dictprofiles[up]
         self.activeprofile = None
 
     def loadCfgProfile(self, profile, cfgprofile):
@@ -70,9 +71,13 @@ class profileContainer(object):
         self.__dictprofiles[up] = {}
         for enabled in [False, True]:
             for s in cfgprofile[enabled]:
-                us = s.decode(osencoding)
-                if self.__soundcontainer.hasSound(us):
-                    self.__dictprofiles[up][us] = {'state': enabled, 'ctl': None}
+                usname = s.decode(osencoding)
+                handler = self.__soundcontainer.getNewHandlerOfSound(usname)
+                if self.__soundcontainer.hasSound(usname):
+                    fn = self.__soundcontainer.fileOfSoundHandler(handler)
+                    self.__dictprofiles[up][handler] = \
+                            {'state': enabled, 'ctl': None}
+
 
     def loadProfiles(self, cfgprofiles, activeprofile=None):
         self.wipeOutProfiles()
@@ -137,13 +142,14 @@ class profileContainer(object):
             if pn is None:
                 raise Exception, "No active profile exists to add sound to."
         # get the real name of the sound
-        sname = self.__soundcontainer.addSound(name, file)
-        if sname in self.__dictprofiles[pn]:
+        handler = self.__soundcontainer.addSound(name, file)
+        sname = self.__soundcontainer.soundName(handler)
+        if handler in self.__dictprofiles[pn]:
             # TODO: warn about overwrite
             raise Exception(
-                "Trying to add the same sound (%s) twice in profile" % sname)
-        self.__dictprofiles[pn][sname] = {'state': active, 'ctl': None}
-        return sname
+                "Trying to add the same sound (%s) twice in profile" % handler)
+        self.__dictprofiles[pn][handler] = {'state': active, 'ctl': None}
+        return handler
 
     def getProfile(self, pn):
         if pn is None:
@@ -161,11 +167,11 @@ class profileContainer(object):
         This is useful on profile destruction or reloading.
         """
         prof = self.getProfile(pn)
-        for s in self.__dictprofiles[prof].keys():
-            octl = self.__dictprofiles[prof][s]['ctl']
+        for handler in self.__dictprofiles[prof].keys():
+            octl = self.__dictprofiles[prof][handler]['ctl']
             if octl is not None:
                 del octl
-            self.__dictprofiles[prof][s] = {'state': False, 'ctl': None}
+            self.__dictprofiles[prof][handler] = {'state': False, 'ctl': None}
 
     def linkSoundCtlInProfile(self, handler, ctl,  pn=None):
         """
@@ -181,3 +187,8 @@ class profileContainer(object):
     def getSoundState(self, handler, pn=None):
         prof = self.getProfile(pn)
         return self.__dictprofiles[prof][handler]['state']
+
+    def getHandlers(self, pn=None):
+        prof = self.getProfile(pn)
+        return self.__dictprofiles[prof].keys()
+

@@ -109,11 +109,14 @@ class myMainWindow(QtGui.QMainWindow):
         logging.debug("Config is: %s" % self._config)
 
         # TODO: do this for all profiles
-        sounds = self._profilecontainer.getSoundsInProfile()
+
+        handlers = self._profilecontainer.getHandlers()
         scroll = self._uiprofiles.getProfileUiScrollArea()
-        for s in sounds:
-            state = self._profilecontainer.getSoundState(s)
-            sctl = soundControl(self._soundcontainer, s, scroll, state)
+        for h in handlers:
+            state = self._profilecontainer.getSoundState(h)
+            s = self._soundcontainer.soundName(h)
+            logging.debug("refreshing UI for sound %s (active = %s)" % (s, state))
+            sctl = soundControl(self._soundcontainer, h, scroll, state)
             self._uiprofiles.getProfileUILayout().addWidget(sctl)
 
     def uiLoadConfig(self):

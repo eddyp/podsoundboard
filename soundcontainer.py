@@ -40,16 +40,17 @@ class soundContainer(object):
         logging.debug("loadSounds called; cfgsounds: %s" % cfgsounds)
         self.wipeOutSounds()
         files = {}
-        for k, v in cfgsounds.items():
-            uv = v.decode(osencoding)
-            uk = k.decode(osencoding)
-            if uv in files:
-                # TODO: warn about dup; files[uv] returns the name of the sound
+        for sname, sfile in cfgsounds.items():
+            usfile = sfile.decode(osencoding)
+            usname = sname.decode(osencoding)
+            if usfile in files:
+                # TODO: warn about dup; files[usfile] returns the name of the sound
                 continue
-            if path.isfile(uv):
-                files[uv] = uk
-                self.__sounds[uk] = uv
-                self.__users[uk] = []
+            if path.isfile(usfile):
+                files[usfile] = usname
+                self.__sounds[usname] = usfile
+                self.__users[usname] = []
+                self.addSound(usname, usfile)
             else:
                 # TODO: warn about non-existent file
                 pass
@@ -81,6 +82,13 @@ class soundContainer(object):
         self.__handlers[self.__idcnt] = name
         self.__idcnt += 1
         return self.__idcnt - 1
+
+    def getNewHandlerOfSound(self, sound):
+        if sound in self.__sounds.keys():
+            fn = self.__sounds[sound]
+        else:
+            raise Exception("Requested new handler for inexistent sound: %s", sound)
+        return self.addSound(sound, fn)
 
     def getNewSoundName(self):
         name = None
