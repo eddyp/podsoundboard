@@ -10,6 +10,9 @@ osencoding = 'utf8'
 import sys
 from PySide import QtCore, QtGui
 
+import logging
+logging.basicConfig(filename=appname + '.log',level=logging.DEBUG)
+
 from ui_mainwindow import Ui_MainWindow
 from soundcontrol import soundControl
 
@@ -18,12 +21,15 @@ from soundcontainer import soundContainer
 from profilecontainer import profileContainer
 
 
+
 class myMainWindow(QtGui.QMainWindow):
 
     _soundcontainer = None
     _profilecontainer = None
 
     def __init__(self, parent=None):
+        logging.getLogger("mainwindow")
+
         QtGui.QMainWindow.__init__(self, parent)
 
         # TODO: add profiles
@@ -81,13 +87,17 @@ class myMainWindow(QtGui.QMainWindow):
         uiProfileVerticalLayout.addWidget(ctl)
 
     def uiSaveConfig(self):
+        logging.debug("Save config called, cfg = %s" % self._appconf.config)
         self._appconf.writeconfig()
 
     def refreshFromConfig(self, cfg):
+        logging.debug("Refreshing UI from given config")
+        logging.debug("Config is: %s" % cfg)
         #TODO: remove all UI objects and repopulate based on config
         pass
 
     def uiLoadConfig(self):
+        logging.debug("Load config called")
         self._appconf.readconfig()
         self._config = self._appconf.config
         self.dict_loadConfig(self._config)
