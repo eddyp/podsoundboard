@@ -11,7 +11,7 @@
    </object>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>360.2178474652476</double>
+     <double>257.2178474652476</double>
      <double>0.0</double>
     </void>
    </object>
@@ -93,7 +93,13 @@
         <void method="addChild">
          <object id="ActivationBarNode8" class="com.horstmann.violet.CallNode">
           <void property="implicitParameter">
-           <object idref="LifelineNode1"/>
+           <object id="LifelineNode5" class="com.horstmann.violet.ImplicitParameterNode">
+            <void property="name">
+             <void property="text">
+              <string>uiProfile</string>
+             </void>
+            </void>
+           </object>
           </void>
          </object>
         </void>
@@ -131,7 +137,7 @@
    <object idref="ActivationBarNode2"/>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>392.2178474652476</double>
+     <double>289.2178474652476</double>
      <double>135.0</double>
     </void>
    </object>
@@ -140,7 +146,7 @@
    <object idref="ActivationBarNode3"/>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>400.2178474652476</double>
+     <double>297.2178474652476</double>
      <double>165.0</double>
     </void>
    </object>
@@ -149,7 +155,7 @@
    <object idref="LifelineNode2"/>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>585.8747061364938</double>
+     <double>430.87470613649384</double>
      <double>0.0</double>
     </void>
    </object>
@@ -158,7 +164,7 @@
    <object idref="ActivationBarNode4"/>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>617.8747061364938</double>
+     <double>462.87470613649384</double>
      <double>190.0</double>
     </void>
    </object>
@@ -171,7 +177,7 @@
    </object>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>392.2178474652476</double>
+     <double>289.2178474652476</double>
      <double>150.0</double>
     </void>
    </object>
@@ -180,7 +186,7 @@
    <object idref="LifelineNode3"/>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>826.2185107203483</double>
+     <double>745.2185107203483</double>
      <double>0.0</double>
     </void>
    </object>
@@ -189,7 +195,7 @@
    <object idref="ActivationBarNode5"/>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>408.2178474652476</double>
+     <double>305.2178474652476</double>
      <double>250.0</double>
     </void>
    </object>
@@ -198,7 +204,7 @@
    <object idref="ActivationBarNode6"/>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>858.2185107203483</double>
+     <double>777.2185107203483</double>
      <double>325.0</double>
     </void>
    </object>
@@ -211,7 +217,7 @@
    </object>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>392.2178474652476</double>
+     <double>289.2178474652476</double>
      <double>200.0</double>
     </void>
    </object>
@@ -224,7 +230,7 @@
    </object>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>392.2178474652476</double>
+     <double>289.2178474652476</double>
      <double>250.0</double>
     </void>
    </object>
@@ -239,8 +245,8 @@
    </object>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>435.5903493511735</double>
-     <double>267.52458138715645</double>
+     <double>339.5903493511735</double>
+     <double>260.52458138715645</double>
     </void>
    </object>
   </void>
@@ -252,17 +258,8 @@
    </object>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>392.2178474652476</double>
+     <double>289.2178474652476</double>
      <double>300.0</double>
-    </void>
-   </object>
-  </void>
-  <void method="addNode">
-   <object idref="ActivationBarNode8"/>
-   <object class="java.awt.geom.Point2D$Double">
-    <void method="setLocation">
-     <double>79.0</double>
-     <double>435.0</double>
     </void>
    </object>
   </void>
@@ -270,7 +267,7 @@
    <object idref="LifelineNode4"/>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>956.0</double>
+     <double>634.0</double>
      <double>0.0</double>
     </void>
    </object>
@@ -279,8 +276,26 @@
    <object idref="ActivationBarNode7"/>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>988.0</double>
+     <double>666.0</double>
      <double>380.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="LifelineNode5"/>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>875.0</double>
+     <double>0.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="ActivationBarNode8"/>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>907.0</double>
+     <double>435.0</double>
     </void>
    </object>
   </void>
@@ -362,20 +377,20 @@
   <void method="connect">
    <object class="com.horstmann.violet.CallEdge">
     <void property="middleLabel">
-     <string>ui.verticalLayout_profile,addWidget(soundctl)</string>
-    </void>
-   </object>
-   <object idref="ActivationBarNode2"/>
-   <object idref="ActivationBarNode8"/>
-  </void>
-  <void method="connect">
-   <object class="com.horstmann.violet.CallEdge">
-    <void property="middleLabel">
-     <string>self._profilecontainer.linkSoundCtlInProfile(handler, soundctl, profile)</string>
+     <string>linkSoundCtlInProfile(handler, soundctl, profile)</string>
     </void>
    </object>
    <object idref="ActivationBarNode2"/>
    <object idref="ActivationBarNode7"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.CallEdge">
+    <void property="middleLabel">
+     <string>getProfileUiLayout(profile).addWidget(soundctl)</string>
+    </void>
+   </object>
+   <object idref="ActivationBarNode2"/>
+   <object idref="ActivationBarNode8"/>
   </void>
  </object>
 </java>
