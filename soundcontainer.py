@@ -196,10 +196,10 @@ class soundContainer(object):
             #raise Exception, "Unexpected filename update fail"
             return False
 
-    def fileOfSound(self, sound):
-        if sound in self.__handlers:
-            sound = self.__handlers[sound]
-        return self.__sounds.get(sound, None)
+    def fileOfSoundHandler(self, handler):
+        if handler in self.__handlers:
+            handler = self.__handlers[handler]
+        return self.__sounds.get(handler, None)
 
     def register(self, handler, ui):
         if not self.validHandler(handler):

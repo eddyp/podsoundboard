@@ -32,10 +32,10 @@ class confSoundDialog(QtGui.QDialog):
             handler = self._soundcontainer.addSound()
         self._handler = handler
         self._initialname = self._soundcontainer.soundName(handler)
-        self._initialfile = self._soundcontainer.fileOfSound(handler)
+        self._initialfile = self._soundcontainer.fileOfSoundHandler(handler)
 
         self.setName(self._soundcontainer.soundName(self._handler))
-        self.setFileName(self._soundcontainer.fileOfSound(self._handler))
+        self.setFileName(self._soundcontainer.fileOfSoundHandler(self._handler))
 
         # connect the Choose button to the QFile Dialog
         self.ui.chooseFileButton.clicked.connect(self.getFileName)

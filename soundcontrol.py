@@ -41,7 +41,7 @@ class soundControl(QtGui.QWidget):
 
     @property
     def file(self):
-        return self._soundcontainer.fileOfSound(self._handler)
+        return self._soundcontainer.fileOfSoundHandler(self._handler)
 
     @file.setter
     def file(self, file):
