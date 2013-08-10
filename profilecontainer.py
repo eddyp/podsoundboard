@@ -43,7 +43,7 @@ class profileContainer(object):
             raise NotImplementedError("dictprofiles based initalization")
         else:
             self.__dictprofiles = copy.deepcopy(self._dictprofiles)
-        self.__loadActiveProfile(activeprofile)
+        self.__setActiveProfile(activeprofile)
 
     @property
     def activeprofile(self):
@@ -51,7 +51,7 @@ class profileContainer(object):
 
     @activeprofile.setter
     def activeprofile(self, prof):
-        self.__loadActiveProfile(prof)
+        self.__setActiveProfile(prof)
 
     def dict_wipeOutProfiles(self):
         for up in self.__dictprofiles.keys():
@@ -77,7 +77,7 @@ class profileContainer(object):
         for p in cfgprofiles.keys():
             self.dict_loadCfgProfile(p, cfgprofiles[p])
 
-    def __loadActiveProfile(self, activeprofile):
+    def __setActiveProfile(self, activeprofile):
         #print "Active profile: >%s< type: %s\n" % (activeprofile, type(activeprofile))
         if activeprofile is not None:
             uap = activeprofile.decode(osencoding)
@@ -152,9 +152,29 @@ class profileContainer(object):
             prof = pn
         return prof
 
+    def delAllSoundCtrlsInProfile(self, pn = None):
+        """
+        Unlinks all sound controls in the given profile or the active one.
+        This is useful on profile destruction or reloading.
+        """
+        prof = self.getProfile(pn)
+        for s in self.__dictprofiles[prof].keys():
+            octl = self.__dictprofiles[prof][s]['ctl']
+            if octl is not None:
+                del octl
+            self.__dictprofiles[prof][s] = {'state': False, 'ctl': None}
+
     def linkSoundCtlInProfile(self, handler, ctl,  pn=None):
         """
         Links the soundContrl 'ctl' to the sound 'handler' in profile 'pn'
         """
         prof = self.getProfile(pn)
         self.__dictprofiles[prof][handler]['ctl'] = ctl
+
+    def getSoundsInProfile(self, pn=None):
+        prof = self.getProfile(pn)
+        return self.__dictprofiles[prof].keys()
+
+    def getSoundState(self, handler, pn=None):
+        prof = self.getProfile(pn)
+        return self.__dictprofiles[prof][handler]['state']
