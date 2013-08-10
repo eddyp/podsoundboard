@@ -142,15 +142,19 @@ class profileContainer(object):
         self.__dictprofiles[pn][sname] = {'state': active, 'ctl': None}
         return sname
 
-    def linkSoundCtlInProfile(self, pn, handler, ctl):
-        """
-        Links the soundContrl 'ctl' to the sound 'handler' in profile 'pn'
-        """
+    def getProfile(self, pn):
         if pn is None:
             if self.activeprofile is not None:
                 prof = self.activeprofile
             else:
-                return
+                raise Exception("No profile exists to operate on")
         else:
             prof = pn
+        return prof
+
+    def linkSoundCtlInProfile(self, handler, ctl,  pn=None):
+        """
+        Links the soundContrl 'ctl' to the sound 'handler' in profile 'pn'
+        """
+        prof = self.getProfile(pn)
         self.__dictprofiles[prof][handler]['ctl'] = ctl

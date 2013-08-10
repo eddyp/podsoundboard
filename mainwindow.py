@@ -92,7 +92,7 @@ class myMainWindow(QtGui.QMainWindow):
 
         uiProfileScrollArea = self._uiprofiles.getProfileUiScrollArea()
         ctl = soundControl(self._soundcontainer, handler, uiProfileScrollArea, active)
-        self._profilecontainer.linkSoundCtlInProfile(profile, handler, ctl)
+        self._profilecontainer.linkSoundCtlInProfile(handler, ctl, profile)
         # TODO: delete spacer add again later
         self._uiprofiles.getProfileUILayout().addWidget(ctl)
 
