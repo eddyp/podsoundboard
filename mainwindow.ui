@@ -566,12 +566,12 @@
   </action>
   <action name="actionSave">
    <property name="text">
-    <string>Salvează configurația...</string>
+    <string>Salvează configurația</string>
    </property>
   </action>
   <action name="actionLoad">
    <property name="text">
-    <string>Încarcă configurația...</string>
+    <string>Încarcă configurația</string>
    </property>
   </action>
  </widget>

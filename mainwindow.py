@@ -34,10 +34,10 @@ class myMainWindow(QtGui.QMainWindow):
 
         self.ui.setupUi(self)
 
-        appconf = appconfig(appname, appver)
-        appconf.readconfig()
-        config = appconf.config
-        self.dict_loadConfig(config)
+        self._appconf = appconfig(appname, appver)
+        self._appconf.readconfig()
+        self._config = self._appconf.config
+        self.dict_loadConfig(self._config)
         #self.dict_updateActiveProfileUi()
 
         self.dict_initSlots()
@@ -80,10 +80,31 @@ class myMainWindow(QtGui.QMainWindow):
         # TODO: delete spacer add again later
         uiProfileVerticalLayout.addWidget(ctl)
 
+    def uiSaveConfig(self):
+        self._appconf.writeconfig()
+
+    def refreshFromConfig(self, cfg):
+        #TODO: remove all UI objects and repopulate based on config
+        pass
+
+    def uiLoadConfig(self):
+        self._appconf.readconfig()
+        self._config = self._appconf.config
+        self.dict_loadConfig(self._config)
+        self.refreshFromConfig(self._config)
+
     def dict_initSlots(self):
         QtCore.QObject.connect(self.ui.soundAddButton,
                                QtCore.SIGNAL("clicked()"),
                                self.uiAddSound2profile
+                              )
+        QtCore.QObject.connect(self.ui.actionSave,
+                               QtCore.SIGNAL("activated()"),
+                               self.uiSaveConfig
+                              )
+        QtCore.QObject.connect(self.ui.actionLoad,
+                               QtCore.SIGNAL("activated()"),
+                               self.uiLoadConfig
                               )
 
 
