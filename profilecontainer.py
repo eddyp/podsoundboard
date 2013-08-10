@@ -60,6 +60,7 @@ class profileContainer(object):
                 if soundctl:
                     del soundctl
                 del self.__dictprofiles[up][us]
+        self.activeprofile = None
 
     def dict_loadCfgProfile(self, profile, cfgprofile):
         up = profile.decode(osencoding)
@@ -73,9 +74,11 @@ class profileContainer(object):
                 if self.__soundcontainer.hasSound(us):
                     self.__dictprofiles[up][us] = {'state': enabled, 'ctl': None}
 
-    def dict_loadProfiles(self, cfgprofiles):
+    def dict_loadProfiles(self, cfgprofiles, activeprofile=None):
+        self.dict_wipeOutProfiles()
         for p in cfgprofiles.keys():
             self.dict_loadCfgProfile(p, cfgprofiles[p])
+        self.activeprofile = activeprofile
 
     def __setActiveProfile(self, activeprofile):
         #print "Active profile: >%s< type: %s\n" % (activeprofile, type(activeprofile))

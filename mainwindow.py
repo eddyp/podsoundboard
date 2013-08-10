@@ -67,8 +67,7 @@ class myMainWindow(QtGui.QMainWindow):
         self.dict_wipeOutConfig()
 
         self._soundcontainer.loadSounds(config['sounds'])
-        self._profilecontainer.dict_loadProfiles(config['profiles'])
-        self._profilecontainer.activeprofile = config['active_profile']
+        self._profilecontainer.dict_loadProfiles(config['profiles'], config['active_profile'])
 
         self._refreshUIFromConfig()
 
