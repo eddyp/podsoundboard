@@ -15,4 +15,7 @@ run: $(GENBINS)
 clean:
 	rm -f $(GENBINS) *.pyc
 
-.PHONY: all clean run
+test:
+	py.test
+
+.PHONY: all clean run test
