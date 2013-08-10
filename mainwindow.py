@@ -70,6 +70,8 @@ class myMainWindow(QtGui.QMainWindow):
         self._profilecontainer.dict_loadProfiles(config['profiles'])
         self._profilecontainer.activeprofile = config['active_profile']
 
+        self._refreshUIFromConfig()
+
     def dict_updateActiveProfileUi(self):
         raise NotImplementedError("updating the profile UI is not implemented")
 
@@ -100,18 +102,24 @@ class myMainWindow(QtGui.QMainWindow):
         logging.debug("Save config called, cfg = %s" % self._appconf.config)
         self._appconf.writeconfig()
 
-    def refreshFromConfig(self, cfg):
+    def _refreshUIFromConfig(self):
         logging.debug("Refreshing UI from given config")
-        logging.debug("Config is: %s" % cfg)
-        #TODO: remove all UI objects and repopulate based on config
-        pass
+        logging.debug("Config is: %s" % self._config)
+
+        # TODO: do this for all profiles
+        sounds = self._profilecontainer.getSoundsInProfile()
+        scroll = self._uiprofiles.getProfileUiScrollArea()
+        for s in sounds:
+            state = self._profilecontainer.getSoundState(s)
+            sctl = soundControl(self._soundcontainer, s, scroll, state)
+            self._uiprofiles.getProfileUILayout().addWidget(sctl)
 
     def uiLoadConfig(self):
         logging.debug("Load config called")
         self._appconf.readconfig()
         self._config = self._appconf.config
         self.dict_loadConfig(self._config)
-        self.refreshFromConfig(self._config)
+        self._refreshUIFromConfig()
 
     def dict_initSlots(self):
         QtCore.QObject.connect(self.ui.soundAddButton,
