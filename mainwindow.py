@@ -34,6 +34,9 @@ class myMainWindow(QtGui.QMainWindow):
 
         # TODO: add profiles
         self.ui = Ui_MainWindow()
+        # TODO: split uiProfiles methods into another class
+        # hack to make it seem the uiProfiles is in another class
+        self._uiprofiles = self
 
         self._soundcontainer = soundContainer()
         self._profilecontainer = profileContainer(self._soundcontainer)
@@ -70,6 +73,14 @@ class myMainWindow(QtGui.QMainWindow):
     def dict_updateActiveProfileUi(self):
         raise NotImplementedError("updating the profile UI is not implemented")
 
+    def getProfileUiScrollArea(self, profile=None):
+        if profile is not None:
+            raise Exception("Internal error: profile parameter was used")
+        return self.ui.soundsScrollArea
+
+    def getProfileUILayout(self):
+        return self.ui.verticalLayout_profile
+
     def uiAddSound2profile(self, soundName=None, soundFile=None, active=False, profile=None):
         """
         Adds soundName with soundFile to profile via UI interaction.
@@ -79,12 +90,11 @@ class myMainWindow(QtGui.QMainWindow):
             profile = self._profilecontainer.activeprofile
         handler = self._profilecontainer.addSound2Profile(soundName, soundFile, active, profile)
 
-        uiProfileScrollArea = self.ui.soundsScrollArea
-        uiProfileVerticalLayout = self.ui.verticalLayout_profile
+        uiProfileScrollArea = self._uiprofiles.getProfileUiScrollArea()
         ctl = soundControl(self._soundcontainer, handler, uiProfileScrollArea, active)
         self._profilecontainer.linkSoundCtlInProfile(profile, handler, ctl)
         # TODO: delete spacer add again later
-        uiProfileVerticalLayout.addWidget(ctl)
+        self._uiprofiles.getProfileUILayout().addWidget(ctl)
 
     def uiSaveConfig(self):
         logging.debug("Save config called, cfg = %s" % self._appconf.config)
