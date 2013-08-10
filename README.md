@@ -80,6 +80,7 @@ Application was developed on Debian GNU/Linux using:
 * Python 2.7
 * Pyside 1.1.1
 * Qt 4.8.2
+* Enhanced Python configparser from Python 3 (backported version is OK)
 
 
 
