@@ -53,9 +53,8 @@ class myMainWindow(QtGui.QMainWindow):
 
     def dict_wipeOutConfig(self):
         """Cleanly destroys all existent sounds, profiles and sound controls"""
-        self._soundcontainer.wipeOutSounds()
-        self._profilecontainer._currentprofilename = None
         self._profilecontainer.dict_wipeOutProfiles()
+        self._soundcontainer.wipeOutSounds()
 
 
     def dict_loadConfig(self, config):

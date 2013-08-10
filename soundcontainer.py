@@ -38,6 +38,7 @@ class soundContainer(object):
 
     def loadSounds(self, cfgsounds):
         logging.debug("loadSounds called; cfgsounds: %s" % cfgsounds)
+        self.wipeOutSounds()
         files = {}
         for k, v in cfgsounds.items():
             uv = v.decode(osencoding)
