@@ -53,7 +53,7 @@ class profileContainer(object):
     def activeprofile(self, prof):
         self.__setActiveProfile(prof)
 
-    def dict_wipeOutProfiles(self):
+    def wipeOutProfiles(self):
         for up in self.__dictprofiles.keys():
             for us in self.__dictprofiles[up].keys():
                 soundctl = self.__dictprofiles[up][us]['ctl']
@@ -62,7 +62,7 @@ class profileContainer(object):
                 del self.__dictprofiles[up][us]
         self.activeprofile = None
 
-    def dict_loadCfgProfile(self, profile, cfgprofile):
+    def loadCfgProfile(self, profile, cfgprofile):
         up = profile.decode(osencoding)
         if up in self.__dictprofiles:
             # TODO: warn
@@ -74,10 +74,10 @@ class profileContainer(object):
                 if self.__soundcontainer.hasSound(us):
                     self.__dictprofiles[up][us] = {'state': enabled, 'ctl': None}
 
-    def dict_loadProfiles(self, cfgprofiles, activeprofile=None):
-        self.dict_wipeOutProfiles()
+    def loadProfiles(self, cfgprofiles, activeprofile=None):
+        self.wipeOutProfiles()
         for p in cfgprofiles.keys():
-            self.dict_loadCfgProfile(p, cfgprofiles[p])
+            self.loadCfgProfile(p, cfgprofiles[p])
         self.activeprofile = activeprofile
 
     def __setActiveProfile(self, activeprofile):
@@ -95,11 +95,11 @@ class profileContainer(object):
         else:
             self.__currentprofilename = None
 
-    def dict_hasProfile(self, name):
+    def hasProfile(self, name):
         """Checks if the profile 'name' exists already"""
         return (name in self.__dictprofiles)
 
-    def dict_getNewProfileName(self):
+    def getNewProfileName(self):
         """
         Return a new unique profile name.
         """
@@ -107,15 +107,15 @@ class profileContainer(object):
         while True:
             name = u'Profile' + str(self._autoprofcount)
             self._autoprofcount += 1
-            if not self.dict_hasProfile(name):
+            if not self.hasProfile(name):
                 break
         return name
 
     def addProfile(self, profilename=None):
         pn = profilename
         if pn is None:
-            pn = self.dict_getNewProfileName()
-        if self.dict_hasProfile(pn):
+            pn = self.getNewProfileName()
+        if self.hasProfile(pn):
             raise Exception(u"Profile %s is already in the application" % pn)
 
     def addSound2Profile(self, name=None, file=None, active=False, profile=None):

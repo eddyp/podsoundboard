@@ -46,31 +46,31 @@ class myMainWindow(QtGui.QMainWindow):
         self._appconf = appconfig(appname, appver)
         self._appconf.readconfig()
         self._config = self._appconf.config
-        self.dict_loadConfig(self._config)
-        #self.dict_updateActiveProfileUi()
+        self.loadConfig(self._config)
+        #self.updateActiveProfileUi()
 
-        self.dict_initSlots()
+        self._initSlots()
 
-    def dict_wipeOutConfig(self):
+    def wipeOutConfig(self):
         """Cleanly destroys all existent sounds, profiles and sound controls"""
-        self._profilecontainer.dict_wipeOutProfiles()
+        self._profilecontainer.wipeOutProfiles()
         self._soundcontainer.wipeOutSounds()
 
 
-    def dict_loadConfig(self, config):
+    def loadConfig(self, config):
         """
         Loads into the interface the configuration defined by 'config'.
         'config' must be a dictionary in the format provided by appconfig.
         """
 
-        self.dict_wipeOutConfig()
+        self.wipeOutConfig()
 
         self._soundcontainer.loadSounds(config['sounds'])
-        self._profilecontainer.dict_loadProfiles(config['profiles'], config['active_profile'])
+        self._profilecontainer.loadProfiles(config['profiles'], config['active_profile'])
 
         self._refreshUIFromConfig()
 
-    def dict_updateActiveProfileUi(self):
+    def updateActiveProfileUi(self):
         raise NotImplementedError("updating the profile UI is not implemented")
 
     def getProfileUiScrollArea(self, profile=None):
@@ -120,10 +120,10 @@ class myMainWindow(QtGui.QMainWindow):
         logging.debug("Load config called")
         self._appconf.readconfig()
         self._config = self._appconf.config
-        self.dict_loadConfig(self._config)
+        self.loadConfig(self._config)
         self._refreshUIFromConfig()
 
-    def dict_initSlots(self):
+    def _initSlots(self):
         QtCore.QObject.connect(self.ui.soundAddButton,
                                QtCore.SIGNAL("clicked()"),
                                self.uiAddSound2profile
